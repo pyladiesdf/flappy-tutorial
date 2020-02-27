@@ -49,5 +49,65 @@ A esta altura, você já deve ter advinhado que a função ``pyxel.circ(...)`` �
 
 #### Arquivo de script
 
+Você deve estar se questionando que para mostrar qualquer imagem minimamente interessante, temos que rodar vários comandos e depois executar a função `pyxel.flip()` para atualizar a tela de jogo. É muito pouco prático fazer isto no terminal interativo porque temos que digitar (ou copiar e colar) os comandos manualmente. Lembre-se que num jogo real, o computador realiza este processo várias vezes por segundo (lembra de frames por segundo?), o que torna a interação manual completamente impraticável. 
+
+Vamos melhorar um pouco esta situação colocando todos os comandos em um script. Um script Python é simplesmente um arquivo de texto com a extensão `.py` que contem uma lista de comandos Python. Basta escrever o que você digitaria no terminal interativo, linha por linha. Você pode editar seus scripts no Notepad, Word, ou qualquer editor de texto comum. No entanto, editores especializados em código são muito mais eficientes e fáceis de usar. Nós recomendamos usar o [Visual Studio Code](https://code.visualstudio.com/), um editor simples e de código aberto desenvolvido pela Microsoft. O Visual Studio Code possui versões para Windows, Linux, MacOS e até algumas versões adaptadas para rodar diretamente no navegador (@CITAR).
+
+@TODO instalando VSCode
+
+Agora que instalamos e abrimos o VSCode, vamos escrever nosso primeiro arquivo de código Python. Começamos importando o Pyxel, depois pedimos para desenhar algumas figuras na tela e aplicamos a função `pyxel.flip()`. O conteúdo do seu arquivo vai ser algo como abaixo:
+
+```python
+import pyxel
+
+pyxel.init(200, 150)
+pyxel.cls(12)
+pyxel.circ(50, 25, 15, 10)
+pyxel.flip()
+```
+
+Executamos esse código chamando o comando `python <nome-do-arquivo.py>`, onde `<nome-do-arquivo.py>` corresponde ao arquivo que você salvou o código acima. 
+
+@TODO explicar o terminal do VSCode, apontar atalhos e atalho para executar script pelo VSCode.  
+
+Uma coisa que você vai notar imediatamente do código acima é que o programa mostra rapidamente uma janela com a imagem desejada e depois termina. Pode parecer que tem uma coisa errada, mas não! A função `pyxel.flip()` dura apenas um frame de execução e não mantêm a tela aberta. Depois que nosso script executa todas as instruções na tela, ele encerra a execução. Deste modo, o computador está fazendo exatamente o que mandamos ele fazer: inicializa o Pyxel, desenha o fundo azul e um sol amarelo, mostra a cena na tela e depois encerra. Podemos previnir o encerramento da tela chamando `pyxel.show()`, no lugar do `pyxel.flip()`. As duas mostram a imagem atual na tela, mas a função `pyxel.show()` mantêm a tela visível até que o usuário clique no botão de fechar a janela. 
+
+```python
+import pyxel
+
+pyxel.init(200, 150)
+pyxel.cls(12)
+pyxel.circ(50, 25, 15, 10)
+pyxel.show()
+```
+
+Se você ainda está confusa sobre a diferença entre `show()` e `flip()`, não se preocupe que vamos voltar neste assunto em breve. Antes, vamos melhorar um pouco a nossa cena colocando alguns elementos geométricos novos e imagens em pixel art. 
+
+O Pyxel possui várias funções para desenhar figuras geométricas como círculos, retângulos, linhas e triângulos. Além disto, podemos criar um arquivo com figuras, sons e músicas para carregar no jogo.  
 
 
+```python
+import pyxel
+
+pyxel.init(200, 150)
+
+# Céu: pinta a tela de azul
+pyxel.cls(12)
+
+# Sol: desenha um círculo de raio 15px em (50px, 25px)
+pyxel.circ(50, 25, 15, 10)
+
+# Chão: retângulo na parte de baixo do sistema de coordenadas
+pyxel.rect(0, 170, 150, 30, 4)
+
+pyxel.show()
+```
+
+@TODO: descrever loops for
+
+
+@TODO: descrever animação
+
+
+
+@TODO: descrever animação

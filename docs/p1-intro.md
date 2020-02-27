@@ -1,6 +1,6 @@
 # Introdução
 
-Este tutorial te ensinará o básico de Python usando um projeto de jogos. 
+Este tutorial te ensinará o básico de Python usando um projeto de jogo. 
 
 @TODO: ligação entre jogos e programação, o que é Python, etc.
 
