@@ -61,6 +61,11 @@ class _Names:
             setattr(self._main, name, value)
 
 
+noop = lambda *args, **kwargs: None
+id = lambda x, *args, **kwargs: x
+do = lambda fn, *args, **kwargs: (noop if fn is None else fn)(*args, **kwargs)
+
+
 def atualizar():
     """
     Atualiza o jogo. Roda a cada frame.
@@ -71,11 +76,11 @@ def atualizar():
 
     # Reinicia com R
     elif _.ativo and pyxel.btnp(pyxel.KEY_R):
-        _.reiniciar()
+        do(_.reiniciar)
 
     # Roda o jogo
     elif _.ativo:
-        _.atualizar_jogo()
+        do(_.atualizar_jogo)
 
     # Ativa com espaço ou seta para cima
     elif pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP):
@@ -103,10 +108,10 @@ def atualizar_jogo():
     Atualiza as variáveis em cada frame de jogo.
     """
 
-    _.atualizar_flappy()
-    _.atualizar_canos()
-    _.atualizar_colisoes()
-    _.atualizar_score()
+    do(_.atualizar_flappy)
+    do(_.atualizar_canos)
+    do(_.atualizar_colisoes)
+    do(_.atualizar_score)
 
 
 # Atualiza o Flappy calculando a gravidade e a existência de pulos
@@ -161,13 +166,12 @@ def desenhar():
     """
     Desenha elementos na tela.
     """
-    
-    _.desenhar_fundo()
-    _.desenhar_nuvens()
-    _.desenhar_canos()
-    _.desenhar_chao()
-    _.desenhar_flappy()
-    _.desenhar_instrucoes()
+    do(_.desenhar_fundo)
+    do(_.desenhar_nuvens)
+    do(_.desenhar_canos)
+    do(_.desenhar_chao)
+    do(_.desenhar_flappy)
+    do(_.desenhar_instrucoes)
 
 
 # Fundo azul
@@ -223,8 +227,8 @@ def desenhar_instrucoes():
 #
 def comecar():
     _.reiniciar()
-    desenhar = _.desenhar
-    atualizar = _.atualizar
+    desenhar = _.desenhar or noop
+    atualizar = _.atualizar or noop
 
     pyxel.init(width=_.largura_tela, height=_.altura_tela, caption="Flappy Bird", fps=35)
     pyxel.load('data.pyxres')

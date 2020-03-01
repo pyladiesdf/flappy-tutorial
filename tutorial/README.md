@@ -139,7 +139,7 @@ Em Python, podemos criar uma variável simplesmente usando a notação `<nome-da
 podemos escrever algumas variáveis entre as linhas `import flappy` e `flappy.comecar()` e, caso seja uma variável
 reconhecida, ela irá alterar a execução do jogo.
 
-Modifique seu arquivo `jogo.py` para ficar mais ou menos do seguinte modo:
+Modifique o arquivo `jogo.py` para ficar mais ou menos como abaixo:
 
 ```python
 import flappy
@@ -152,10 +152,11 @@ pulo = 8.0
 flappy.comecar()
 ```
 
-Estes são os valores padrão destas variáveis. Modifique estes números para ver o que acontece!
+Os números mostrados são os valores padrão de cada uma destas variáveis. Modifique estes números para 
+ver o que acontece! As variáveis que terminam com `.0` aceitam valores quebrados como, por exemplo, `gravidade = 0.75`.
 
-Você pode criar qualquer variável no programa, (ex.: `numero_preferido = 42`), mas a não ser que
-a variável tenha um nome reconhecido pelo módulo Flappy, não terá efeito algum.
+Você também pode criar qualquer variável que quiser no programa, (ex.: `numero_preferido = 42`), mas a 
+não ser que a variável tenha um nome reconhecido pelo módulo flappy, ela não terá efeito algum.
 
 **Dica:** o lado direito de uma definição de variável pode ser uma expressão matemática como, por exemplo,
 `pulo = 16 / 2`. O Python reconhece as 4 operações fundamentais e outras operações um pouco mais avançadas como
@@ -164,7 +165,26 @@ exponenciação, resto da divisão, entre outras.
 
 # Tutorial, Parte 2: Desenhando na tela
 
-- Definindo funções com o def
+Ao calibrar os valores das variáveis, podemos controlar apenas alguns aspectos básicos do nosso jogo.
+Agora é hora de abrir o brinquedo, ver o que tem dentro e mexer nas engrenagens. Vamos começar com a
+primeira funcionalidade importante, que é desenhar os elementos do jogo na tela: o céu, nuvens, o flappy, 
+os canos, etc. 
+
+Para fazermos isto, é necessário aprender como se definem as nossas próprias funções. Com isso, vamos trocar
+a função responsável por pintar a tela pela nossa própria versão personalizada. Vimos que para chamar uma 
+função, basta escrever o nome da mesma e abrir e fechar um parênteses no final (como em `flappy.comecar()`).
+
+O módulo flappy entende que se você criar uma função chamada `desenhar`, ele irá utilizá-la ao invés de usar o
+método padrão. Podemos testar essa idéia definindo a variável `desenhar = None` no nosso código. O valor
+especial `None` (que "nulo/nada" em português) representa situações onde queremos anunciar que uma determinada variável
+ainda não possui um valor bem definido, ou que está em um estado inválido ou inconsistente. No nosso caso, 
+se falarmos que a função desenhar é nula, estamos pedindo para o módulo flappy não fazer nada quando esta função
+for chamada. Coloque a linha `desenhar = None` antes de iniciar o jogo e você verá que a tela permanece sempre 
+preta! 
+ 
+Talvez este último experimento não tenha sido muito útil, mas o espírito agora é quebrar o brinquedo e depois
+colocar as peças de volta no lugar. Vamos ver, portanto, como a função `desenhar` é definida no módulo
+flappy:
 
 ```python
 def desenhar():
@@ -176,11 +196,130 @@ def desenhar():
     desenhar_instrucoes()
 ```
 
-- Comentando funções
-- pyxel.cls() - cor do fundo + descrição das cores no pyxel
-- Operador de mod (%) e pyxel.frame_count
-- def desenhar_flappy(): retângulo -> blit
-- apresentar o pyxeledit no caminho
+Muita coisa para explicar aqui! Primeiro, observe que a função desenhar chama várias outras funções aparentemente
+responsáveis por desenhar partes diferentes do nosso jogo. `desenhar_fundo`, nuvens, canos, chao, flappy, etc, 
+parecem ser responsáveis por lidar com cada um destes pequenos elementos do jogo. Nosso objetivo é abrir e recriar
+todas estas funções, mas vamos com calma: existem alguns detalhes importantes dessa notação que precisamos
+entender primeiro.
+
+Note como a definição da função desenhar começa com um `def <nome-da-função>`, depois colocamos os parênteses e
+um sinal de dois-pontos (`:`). Esta é a estrutura básica que usaremos para definir qualquer função em Python. 
+Em seguida aparece uma série de instruções alinhadas um pouco mais à direita. Estas instruções são o que chamamos
+de **corpo da função** e representam a parte principal da definição. Uma função nada mais é que um jeito de
+dar nome e reaproveitar e dar um nome para um conjunto de instruções específico. No nosso caso, estamos mostrando
+para o Pyxel quais instruções devem ser executadas a cada frame para desenhar as imagens na tela enquanto o jogo
+estiver rodando.
+
+Um outro detalhe importante que devemos levar em conta é o alinhamento destas instruções. Alinhamento (ou 
+"indentação", no jargão de programadores) é como o Python entende quais intruções estão associadas a uma função
+ou bloco de código e quais instruções seriam executadas diretamente no módulo. Portanto, tome **muito** cuidado
+para deixar o alinhamento perfeito, caso contrário o programa pode executar instruções diferentes daquelas que 
+você está imaginando.
+
+
+## Comentários
+
+Comece copiando o código da função desenhar para o seu próprio código. Lembre-se que ele deve ficar **antes**
+da instrução final `flappy.comecar()`, senão a nossa versão da função não terá sido definida quando o jogo 
+começar e ele utilizará a implementação padrão.
+
+Podemos conferir que a nossa função está sendo utilizada apagando algumas linhas. Por exemplo, se você apagar 
+a linha `desenha_flappy()`, o jogo não mostrará o passarinho! Vai ficar estranho porque todo o resto funcionará
+normalmente: o jogo continua calculando colisões, contando pontos, simulando a gravidade, etc. Só não mostra o 
+passarinho na tela, o que deixa muito mais difícil de jogar!
+
+Você já deve ter visto que apagar as linhas não é muito prático se queremos depois escrevê-las de volta. Um método
+muito mais eficiente é utilizar comentários de código. Um comentário é simplesmente uma linha que é ignorada pelo
+Python e é muito útil para desligar um pedaço de código ou escrever qualquer observação em Português puro, ao 
+invés de Python. Trata-se, portanto, de uma parte do código que só deve ser lida por humanos.
+
+Em Python, os comentários são as linhas que começam com um `#`, como no exemplo
+
+```python
+def desenhar():
+    desenhar_fundo()
+    desenhar_nuvens()
+    desenhar_canos()
+    # Vamos apagar o próximo comando para ver o que acontece!
+    # desenhar_chao()
+    desenhar_flappy()
+    desenhar_instrucoes()
+```
+
+
+## Desenhando o fundo
+
+Habilite todas as instruções da função desenhar e vamos começar a abrir cada pedacinho para ver o que tem
+dentro. A função mais simples de todas, e a que escolhemos para começar, é a `desenhar_fundo()`. Vamos criar
+a nossa própria versão, mas antes dê uma olhada na implementação padrão:
+
+```python
+import pyxel
+
+def desenhar_fundo():
+    pyxel.cls(12)
+```
+
+O comando `import pyxel` carrega o módulo Pyxel e na verdade deve ficar logo junto ao comando `import flappy`
+no seu código principal (não tem diferença aparecer antes ou depois). Isto não faz parte da função, mas é só
+uma preparação!
+
+Olhando o corpo da função, vemos que ela tem uma única instrução: que é chamar a função `pyxel.cls` passando o
+número 12 como único parâmetro entre parênteses. Este código misterioso na verdade executa uma instrução muito 
+simples: `pyxel.cls` limpa a tela aplicando uma única cor em toda área do jogo. O valor 12 é simplesmente o número 
+que identifica esta cor e, por um acaso, corresponde a um azul celeste. 
+
+A parte mais importante aqui é entender como o Pyxel representa as cores no jogo. Um computador moderno é capaz de 
+desenhar milhões de cores distintas o que, para o olho humano, correspondem a praticamente qualquer cor que 
+conseguimos visualizar. O Pyxel simula um computador antigo daqueles que só conseguem representar uma quantidade 
+limitada de cores, de pixels, de sons, etc. No caso das cores, estamos limitados a apenas 16 possibilidades, que 
+são identificadas pelos números de 0 a 15. A correspondência entre números e cores é dada pela imagem abaixo:
+
+![Paleta de cores](../imgs/color-palette.png)
+
+Agora que você sabe o que está acontecendo, mude o número para trocar a cor para outro valor. Quem sabe ficar com
+um céu vermelho ou roxo!
+
+### Opcional: efeito estroboscópico
+
+Podemos usar a correspondência entre números e cores para fazer um efeito estroboscópico no fundo do jogo. A idéia
+básica é alternar a cor a cada frame avançando o número de 1 em 1. Para fazermos isto, é necessário juntar duas
+idéias simples: a variável `pyxel.frame_count` conta quantos frames de jogo já foram mostrados na tela e aumenta
+em 1 a cada novo frame. Se fizermos algo como,
+
+```python
+def desenhar_fundo():
+    pyxel.cls(pyxel.frame_count)
+```
+
+teremos o jogo na tela por uma fração de segundo e depois aparecerá uma mensagem de erro falando que não existe
+uma cor com o valor 16. Isto porque `pyxel.frame_count` irá atingir valores grandes com o tempo já que a taxa de
+atualização é próxima de 30 frames a cada segundo.
+
+Podemos consertar este problema usando alguma operação matemática que limita o número para um valor no intervalo
+de 0 a 15. Uma maneira eficiente e simples de fazer isto é usar o resto da divisão por 16. O resto será sempre 
+um número de 0 a 15 (já que o resto 16 seria equivalente a aumentar 1 no resultado da divisão e não obter resto 
+algum). O resto da divisão de um número `n` pelo divisor `d` é representado em Python por `n % d`. A escolha do
+sinal de porcentagem é um pouco curiosa neste contexto, mas é algo comum em programação. Nosso código final 
+ficaria 
+
+```python
+def desenhar_fundo():
+    pyxel.cls(pyxel.frame_count % 16)
+```
+
+Muito bom! Agora a não ser que você queira que os jogadores tenham dor de cabeça ou um ataque epiléptico, é 
+melhor escolher um valor fixo para a cor do fundo ;-)
+
+
+## Desenhando imagens
+
+Pintar o fundo inteiro de uma única cor é simples. Como fazemos para desenhar uma figura complexa feita de vários
+pixels escolhidos a dedo por um artista de pixel art? Vamos explorar estas questões abrindo a função 
+`desenhar_flappy`.
+
+Começamos com um objetivo mais modesto: ao invés de se aventurar numa pixel art, vamos desenhar o passarinho
+como um retângulo. Veja o código abaixo:
 
 ```python
 def desenhar_flappy():
@@ -188,8 +327,28 @@ def desenhar_flappy():
     altura = 13
     cor = 10
     pyxel.rect(flappy_x, flappy_y, largura, altura, cor)
+```
+
+A parte importante aqui é a função `pyxel.rect(x, y, largura, altura, cor)`. Esta função desenha um retângulo
+na tela que começa no ponto de coordenadas x e y, com determinada largura e altura (também medida em pixels) e
+que possui a cor sólida especificada no último argumento (um número de 0 a 15, lembra?). Observe que numa função
+que possui vários parâmetros, passamos todos valores separando-os por vírgulas. O significado de cada valor
+depende da sua posição na chamada de função. Por exemplo, em `pyxel.rect` o primeiro argumento sempre diz respeito
+à posição x onde o retângulo começa e o último especifica a sua cor (onde cada posição define uma propriedade 
+específica).
+
+Você também pode ter percebido que as variáveis `flappy_x` e `flappy_y` não foram definidas no código. Na verdade
+podemos fazer isto porque estas variáveis foram definidas pelo módulo flappy e estamos simplesmente utilizando os 
+seus valores padrão. Usar variáveis não definidas normalmente seria um erro e quando você estiver criando um 
+código Python do zero é importante tomar cuidado com isto.
 
 
+## Pyxeledit
+
+@TODO
+- apresentar o pyxeledit no caminho
+
+```python
 def desenhar_flappy():
     img = 0
     u = 0
@@ -210,6 +369,12 @@ def desenhar_flappy():
     mascara = 0
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
 ```
+
+
+- def desenhar_flappy(): retângulo -> blit
+- apresentar o pyxeledit no caminho
+
+
 
 - desenhar_chao() e a função pyxel.bltm()
 
