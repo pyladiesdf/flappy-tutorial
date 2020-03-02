@@ -330,7 +330,7 @@ Por exemplo, 42 dividido por 16 vai dar duas vezes 16 sobrando 10. Daí dizemos 
 divisão inteira (no caso, 2) e `42 % 2` calcula o resto da divisão inteira (que nesse caso é 10).
 
 
-## Desenhando imagens
+## Desenhando figuras geométricas
 
 Pintar o fundo inteiro de uma única cor é simples. Como fazemos para desenhar uma figura complexa feita de vários
 pixels escolhidos a dedo por uma artista de pixel art? Vamos explorar estas questões olhando o que tem dentro da
@@ -356,8 +356,8 @@ depende da sua posição na lista de argumentos. Por exemplo, em `pyxel.rect` o 
 
 Você também pode ter percebido que as variáveis `flappy_x` e `flappy_y` não foram definidas no código. Na verdade,
 podemos omití-las porque estas variáveis foram definidas pelo módulo flappy e ao omití-las estamos simplesmente utilizando 
-os seus valores padrão. Usar variáveis não definidas normalmente seria um erro e quando você estiver criando um 
-código Python do zero é importante tomar cuidado com isto.
+os seus valores padrão. Usar variáveis não definidas seria normalmente um erro e quando criar um código Python do zero 
+é importante tomar cuidado com isto.
 
 
 ## Sistema de coordenadas e cores
@@ -383,6 +383,8 @@ def desenhar_flappy():
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
 ```
 
+## Animando o Flappy Bird
+
 ```python
 def desenhar_flappy():
     frame = (pyxel.frame_count // 4) % 3
@@ -397,22 +399,91 @@ def desenhar_flappy():
 
 
 
+## Desenhando o chão
 
-- desenhar_chao() e a função pyxel.bltm()
+O chão é um ótimo candidato para usar um retângulo. Podemos implementar nossa função de `desenhar_chao` de forma
+simplificada simplesmente desenhando um retângulo:
 
 ```python
 def desenhar_chao():
     altura = 16
     cor = 11
     pyxel.rect(0, altura_tela - altura, largura_tela, altura, cor)
-
-
-def desenhar_chao():
-    offset = -pyxel.frame_count % largura_tela
-    pyxel.bltm(offset, altura_tela - 16, 0, 0, 0, 32, 3)
-    pyxel.bltm(offset - largura_tela, altura_tela - 16, 0, 0, 0, 32, 3)
-
 ```
+
+Apesar de funcional, esta versão do chão é um pouco desinteressante. O chão não possui texturas, não
+produz a ilusão de movimento e a qualidade artística deixa muito a desejar. Felizmente, existe uma
+imagem de chão pronta no arquivo de imagens que podemos usar para resolver estes problemas.
+
+O chão está definido na seção de "tilemaps" do Pyxel editor. Um tilemap é simplesmente uma imagem 
+formada pela repetição de outras imagens menores. No caso, temos uma pequena imagem de 16x16 pixels
+que desenha um chão de grama texturizado. 
+
+Os tilemaps são maneiras de fazer imagens maiores dentro das limitações do Pyxel. Cada coordenada
+em um tilemap consiste em um ladrilho de 8x8 pixels. Assim, se usarmos um tilemap com altura de 2,
+isto equivaleria a 16 pixels na tela. Vamos carregar a imagem do chão a partir do primeiro tilemap 
+na nossa biblioteca de imagens.
+
+A função `pyxel.bltm(x, y, tm, i, j, largura, altura)` desenha uma imagem de largura e altura dadas
+(estas medidas são em ladrilhos 8x8, não em pixels), na posição (x, y) da tela usando os ladrilhos
+que começam nas posições i e j no tilemap. A variável `tm` é um índice de 0 a 2 que representa um
+dos 3 tilemaps disponível no Pyxel. Juntando tudo isso, temos a versão inicial da nossa função de
+desenhar o chão
+
+```python
+def desenhar_chao():
+    # Posição na tela
+    x = 0
+    y = altura_tela - 16
+    
+    # Posição do ladrilho no tilemap
+    i = 0
+    j = 0
+    
+    # Número de ladrilhos usados na largura e altura da imagem
+    largura = 32
+    altura = 2
+    
+    # Mostra o tilemap
+    pyxel.bltm(x, y, 0, i, j, largura, altura)
+```
+
+Um problema com esta função é que o chão permanece estático na posição `x = 0`. Podemos corrigir isto
+fazendo `x` diminuir a medida que `pyxel.frame_count` aumenta. Um jeito bom de fazê-lo é usar 
+
+```python
+x = -pyxel.frame_count % largura_tela
+```
+
+Isto faz com que x fique sempre limitada num intervalo válido que está sendo mostrado na tela. Se você substituir
+a definição de x em `desenhar_chao` pela linha acima, verá que isto também não resolve totalmente o nosso 
+problema: o chão agora acompanha o movimento dos canos, mas não preenche totalmente a posição do fundo na tela.
+O truque para resolver isto é criar 2 retângulos com `pyxel.bltm` separados pela largura da tela de distância.
+Desta forma, quando um dos retângulos desaparecer, ou outro ainda estará visível preenchendo o resto da tela.   
+
+A função, no final, fica assim:
+ 
+```python
+def desenhar_chao():
+    # Posição na tela
+    x1 = -pyxel.frame_count % largura_tela
+    x2 = -pyxel.frame_count % largura_tela - largura_tela
+    y = altura_tela - 16
+    
+    # Posição do ladrilho no tilemap
+    i = 0
+    j = 0
+    
+    # Número de ladrilhos usados na largura e altura da imagem
+    largura = 32
+    altura = 2
+    
+    # Mostra os dois blocos do tilemap
+    pyxel.bltm(x1, y, 0, i, j, largura, altura)
+    pyxel.bltm(x2, y, 0, i, j, largura, altura)
+```
+
+## Instruções na tela
 
 - desenhar_instrucoes() e função pyxel.text() e depois comando "if"
 
