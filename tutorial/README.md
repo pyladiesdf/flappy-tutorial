@@ -441,24 +441,117 @@ def desenhar_instrucoes():
 ```
 
 
-- desenhar_canos() - for
+## Desenhando os canos
+
+O Flappy Bird mostra uma lista aparentemente infinita de canos andando para esquerda junto com o cenário. Esta
+lista infinita, na verdade, é uma mentira! Na realidade, são apenas 4 canos que andam para esquerda e são
+reciclados na medida que saem pelo lado esquerdo da tela. Cada cano também é representado apenas por 2 valores:
+a coordenada x com a posição horizontal e a coordenada y que determina a altura dos canos para verificar 
+as colisões.
+
+A lista de canos está salva na variável também chamada `canos`. Esta é uma variável do tipo lista, que contêm
+varios valores diferentes dentro dela. Existem várias operações que podemos fazer em listas, mas vamos aprender
+apenas algumas das mais básicas. 
+
+A primeira delas é a de ler um elemento da lista: listas são indexadas a partir do zero. Assim, o primeiro
+elemento é representado por `canos[0]`, o segundo por `canos[1]` e assim por diante. Note que usamos os
+colchetes para especificar a posição na lista. Para extrair as coordenadas x e y de um dos canos basta fazer:
+
+```python
+x, y = canos[0]
+```
+
+Aqui podemos trocar o índice de 0 para qualquer valor até 3 para escolher o cano adequado. Podemos
+desenhar um cano inicialmente como um retângulo. Vamos nos preocupar só com o primeiro deles, por enquanto.
+Um cano é bem representado por um retângulo:
+
+```python
+abertura_cano = 200
+
+def desenhar_canos():
+    cor = 11
+    largura = 25
+    altura = 135
+    x, y = canos[0]
+    
+    # Cano superior
+    pyxel.rect(x, y, largura, altura, cor)
+    
+    # Cano inferior
+    pyxel.rect(x, y + abertura_cano, largura, altura, cor)
+```
+
+Note que o código acima mostra apenas o primeiro cano da lista. Poderíamos copiar e colar as últimas linhas
+alterando o índice de `canos[0]` para os valores 1, 2 e 3, mas isto não ficaria muito elegante. Se tem
+uma coisa que o computador faz bem, é realizar tarefas repetitivas sem se cansar ou se confundir. 
+
+Vamos ver um comando que permite fazer justamente isto. O comando **for** repete uma série de instruções alterando o valor
+de uma variável em cada uma das repetições. A sintaxe do `for` é
+
+```python
+for elemento in lista:
+    comandos que dependem de elemento
+```
+
+Este comando percorre uma lista de valores (no nosso caso queremos percorrer a lista de posições dos canos) e
+executa uma ou mais instruções que dependem da variável associada a cada elemento da lista. Como cada elemento
+na lista de canos é um par de variáveis, podemos separá-las diretamente no comando for:
+
+```python
+# Percorre a posição x, y de cada cano
+for x, y in canos: 
+    # Desenha o cano na posição x, y
+    pyxel.rect(x, y, largura, altura, cor)
+    pyxel.rect(x, y + abertura_cano, largura, altura, cor)
+```
+
+Juntando todos esses pedacinhos, podemos escrever a função responsável por desenhar os canos. Você consegue
+fazer isto sozinha? Se esbarrar em alguma bug, não tem problema. Mostramos abaixo como pode ser o resultado
+final. É lógico que esta não é a única (e nem necessariamente a melhor) maneira de se fazer.
 
 ```python
 def desenhar_canos():
     cor = 11
     largura = 25
     altura = 135
-    for (x, y) in canos:
+    for x, y in canos:
         pyxel.rect(x, y, largura, altura, cor)
         pyxel.rect(x, y + abertura_cano, largura, altura, cor)
+```
 
+## Opcional: canos em pixel art
 
+Um problema da implementação anterior é que os canos estão desenhados somente como retângulos sem graça. O
+banco de imagens do tutorial possui uma versão desenhada com sombras e texturas em pixel art. A lógica é
+muito parecida com o caso anterior, mas agora usamos a função `pyxel.blt` ao invés da função `pyxel.rect`.
+
+Para usar `pyxel.blt`, precisamos indentificar a posição da imagem no banco de imagens e o tamanho em pixels
+na altura e largura. Estes valores estão explicados no código abaixo:
+
+```python
 def desenhar_canos():
-    for (x, y) in canos:
-        pyxel.blt(x, y, 1, 0, 0, 25, 150, 0)
-        pyxel.blt(x, y + abertura_cano, 1, 0, 0, -25, -150, 0)
+    id = 1        # índice da imagem (0 a 3)
+    u = 0         # posição x no banco de imagens
+    v = 0         # posição y no banco de imagens
+    largura = 25  # largura em pixels
+    altura = 150  # altura em pixels
+    cor = 0       # cor considerada transparente ao desenhar a imagem (opcional)
+    for x, y in canos:
+        pyxel.blt(x, y, id, u, v, largura, altura, cor)
+        pyxel.blt(x, y + abertura_cano, id, u, v, largura, -altura, cor)
 ``` 
 
+Uma observação importante aqui: an segunda chamada a `pyxel.blt` usamos uma altura negativa. Isto simplesmente
+diz para o Pyxel espelhar a imagem verticalmente. Se especificarmos uma largura negativa, ele espelharia no 
+sentido horizontal. 
+
+Este código pode ser reescrito de forma mais enxuta. Não é necessário definir `id = 1`, `u = 0`, `v = 0`, etc e usar 
+o nome da variável na chamada de função. Podemos substituir os valores diretamente na posição dos argumentos e 
+economizar várias linhas de código com isto. A chamada de função ficaria parecida com `pyxel.blt(x, y, 1, 0, 0, 25, 150, 0)`.
+Usando este truque, com quantas linhas você consegue criar esta função?
+
+
+## Nuvens com paralaxe (opcional)
 - desenhar nuvem com paralaxe (avançado: mostra o código e pula)
 
 ```python
