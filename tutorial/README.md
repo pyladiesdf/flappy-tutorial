@@ -398,7 +398,6 @@ def desenhar_flappy():
 ```
 
 
-
 ## Desenhando o chão
 
 O chão é um ótimo candidato para usar um retângulo. Podemos implementar nossa função de `desenhar_chao` de forma
@@ -483,31 +482,89 @@ def desenhar_chao():
     pyxel.bltm(x2, y, 0, i, j, largura, altura)
 ```
 
-## Instruções na tela
+Parabéns! Agora sabemos utilizar tilemaps. Um uso mais comum para tilemaps é criar fases de um jogo de plataforma
+como Mário ou Sonic. Neste caso, podemos definir as imagens básicas como chão, itens, entre outros e usar o
+tilemap para desenhar a fase, fazendo a disposição dos blocos que formam o chão, dos blocos que possuem itens, etc.
 
-- desenhar_instrucoes() e função pyxel.text() e depois comando "if"
+
+## Escrevendo instruções na tela
+
+A última parte do nosso código de desenhar o jogo na tela consiste em mostrar mensagens de texto na tela de jogo.
+A função que faz isto no Pyxel chama-se `pyxel.text` e recebe com argumentos as coordenadas x e y da posição 
+do texto, a mensagem de texto propriamente dita e a cor do mesmo.
+
+A função `desenhar_instrucoes` determina que mensagem será mostrada para o jogador. Inicialmente, devemos
+mostrar algum tipo de instrução orientando a apertar espaço ou seta para cima para começar. Enquanto o
+jogo estiver ativo, esta mensagem deve ser substituída pelo placar e, finalmente, quando o jogador perder,
+devemos mostrar uma mensagem pedindo para pressionar "R" para reiniciar.
+
+Tudo isso é um bocado complicado, então vamos começar mostrando uma mensagem fixa na tela.
+
+```python
+def desenhar_instrucoes():
+    msg = "OLA! BEM VINDA AO FLAPPY BIRD!"
+    x = 0
+    y = altura_tela / 3
+    cor = 7
+    pyxel.text(x, y, msg, cor)
+```
+
+Observe que o texto fica alinhado à esquerda e não acompanha o estado do jogo. A primeira coisa que
+vamos fazer é alinhá-lo ao centro. Isto melhora a legibilidade, principalmente quando as mensagens 
+de texto variam muito de tamanho.
+
+Controlamos o alinhamento modificando o valor da coordenada x. A fórmula correta para fazer isto é
+igualar x à metade da largura da tela menos metade da largura do texto. A questão é: como calculamos
+a largura do texto?
+
+O primeiro passo é contar o número de caracteres na mensagem. Poderíamos fazer isto manualmente, mas o
+computador é muito melhor em contar coisas que seres humanos. Em Python, obtemos o tamanho de uma
+sequência usando a função `len`. Como um texto pode ser entendido como uma sequência de caracteres, 
+obtemos o seu tamanho a partir de `len(msg)`.
+
+Agora que sabemos o número de caracteres, é necessário multiplicar por quantos pixels cada caractere utiliza e
+dividir este resultado por dois. O Pyxel possui uma variável `pyxel.FONT_WIDTH` que especifica (em pixels)
+a largura de cada caractere. O resultado de tudo isto, é que a variável x deve seguir a seguinte fórmula
+para centralizar o texto guardado na variável `msg`:
+
+```python
+largura_texto = pyxel.FONT_WIDTH * len(msg)
+x = largura_tela / 2 - largura_texto / 2
+```
+
+Juntando tudo isso, ficamos com a seguinte função:
 
 ```python
 def desenhar_instrucoes():
     cor = 7
     msg = "OLA! BEM VINDA AO FLAPPY BIRD!"
-    x = largura_tela // 2 - len(msg) * 2
-    y = altura_tela // 3
+    largura_texto = pyxel.FONT_WIDTH * len(msg)
+    x = largura_tela / 2 - largura_texto / 2
+    y = altura_tela / 3
     pyxel.text(x, y, msg, cor)
+```
+
+Troque por uma mensagem que signifique algo mais importante para você e vamos para a próxima etapa!
 
 
+## Se, então, senão
+
+@TODO
+
+```python
 def desenhar_instrucoes():
     cor = 7
 
     if not ativo:
         msg = "APERTE ESPACO OU SETA PARA CIMA PARA COMECAR"
+    elif morto:
+        msg = "Aperte R para reiniciar"
     else:
         msg = str(score)
-    if morto:
-        msg = "Aperte R para reiniciar"
     
-    x = largura_tela // 2 - len(msg) * 2
-    y = altura_tela // 3
+    largura_texto = pyxel.FONT_WIDTH * len(msg)
+    x = largura_tela / 2 - largura_texto / 2
+    y = altura_tela / 3
     pyxel.text(x, y, msg, cor)
 ```
 
