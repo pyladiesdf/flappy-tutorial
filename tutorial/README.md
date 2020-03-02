@@ -344,18 +344,24 @@ def desenhar_flappy():
 A parte importante aqui é a função `pyxel.rect(x, y, largura, altura, cor)`. Esta função desenha um retângulo
 na tela que começa no ponto de coordenadas x e y, com determinada largura e altura (também medida em pixels) e
 que possui a cor sólida especificada no último argumento (um número de 0 a 15, lembra?). Observe que numa função
-que possui vários parâmetros, passamos todos valores separando-os por vírgulas. O significado de cada valor
-depende da sua posição na chamada de função. Por exemplo, em `pyxel.rect` o primeiro argumento sempre diz respeito
-à posição x onde o retângulo começa e o último especifica a sua cor (onde cada posição define uma propriedade 
-específica).
+que possui vários parâmetros, especificamos cada valor separando-os por vírgulas. O significado para a função 
+depende da sua posição na lista de argumentos. Por exemplo, em `pyxel.rect` o primeiro argumento sempre diz respeito
+à posição x onde o retângulo começa, o segundo define a posição do retângulo e assim por diante.
 
 Você também pode ter percebido que as variáveis `flappy_x` e `flappy_y` não foram definidas no código. Na verdade
-podemos fazer isto porque estas variáveis foram definidas pelo módulo flappy e estamos simplesmente utilizando os 
-seus valores padrão. Usar variáveis não definidas normalmente seria um erro e quando você estiver criando um 
+omití-las porque estas variáveis foram definidas pelo módulo flappy e ao omití-las estamos simplesmente utilizando 
+os seus valores padrão. Usar variáveis não definidas normalmente seria um erro e quando você estiver criando um 
 código Python do zero é importante tomar cuidado com isto.
 
 
+## Sistema de coordenadas e cores
+
+@TODO
+
+
 ## Pyxeledit
+
+Vimos como desenhar retângulos e 
 
 @TODO
 - apresentar o pyxeledit no caminho
@@ -369,8 +375,9 @@ def desenhar_flappy():
     altura = 13
     mascara = 0
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
+```
 
-
+```python
 def desenhar_flappy():
     frame = (pyxel.frame_count // 4) % 3
     img = 0
@@ -382,9 +389,6 @@ def desenhar_flappy():
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
 ```
 
-
-- def desenhar_flappy(): retângulo -> blit
-- apresentar o pyxeledit no caminho
 
 
 
@@ -449,7 +453,6 @@ def desenhar_canos():
         pyxel.blt(x, y + abertura_cano, 1, 0, 0, -25, -150, 0)
 ``` 
 
-
 - desenhar nuvem com paralaxe (avançado: mostra o código e pula)
 
 ```python
@@ -461,10 +464,13 @@ def desenhar_nuvens():
 ```
 
 
-
 # Lógica do jogo
 
-- Começamos com a função básica de atualizar o jogo
+Lembra da nossa função `desenhar` que chamava várias outras funções para desenhar partes específicas do jogo?
+Vamos fazer algo parecido com a função `atualizar_jogo`, que atualiza partes específicas do nosso jogo e modifica
+o valor de algumas variáveis dependendo de como o usuário interage com o jogo.
+
+A implementação padrão desta função segue abaixo.
 
 ```python
 def atualizar_jogo():
@@ -474,56 +480,245 @@ def atualizar_jogo():
     atualizar_score()
 ```
 
-- def atualiza_score() e variáveis globais (começa pela mais fácil!)
+Nesse ponto você já deve entender como isto funciona. Esta função é executada no início de cada frame e realiza 
+algumas tarefas em sequência: atualiza a posição e velocidade do passarinho, em seguida move os canos para a 
+posição correta, testa se houve alguma colisão do passarinho com um cano ou com o chão e, finalmente, atualiza o
+a pontuação do jogo se o jogador conseguir passar por mais um cano.
 
-```python
-score = 0
+Você perceberá que estas funções tendem a ser um pouco mais complicadas que as funções de desenho. Isto não é 
+necessariamente inesperado já que elas precisam fazer mais coisas e controlar a lógica do jogo. Elas também são
+responsáveis por controlar as variáveis que controlam o estado do jogo como, por exemplo, a posição do passarinho,
+sua velocidade, o número de pontos, etc. Todas estas tarefas exigem pequenos passos adicionais que vamos 
+apresentar aos poucos nas próximas seções.
 
-def atualizar_score():
-    global score
 
-    for (x, y) in canos:
-        if flappy_x == x:
-            score += 1
-```
+## Simulando gravidade
 
-- atualizar_flappy(): gravidade / pyxel.btnp() / controle do estado de morto
+Vamos implementar as funções dentro de `atualizar_jogo` na ordem em que aparecem. A primeira delas, e talvez a
+mais interessante, é a função de `atualizar_flappy`, que controla a posição do passarinho na tela. Esta função
+controla basicamente 4 variáveis, que devemos declarar explicitamente agora antes de utilizá-las:
 
 ```python
 flappy_x = largura_tela / 3
 flappy_y = altura_tela / 2
 velocidade = 0
 morto = False
+```
 
+As variáveis `flappy_x` e `flappy_y` controlam as coordenadas (x, y) do passarinho na tela. `velocidade` se
+refere à velocidade vertical onde valores positivos significa que o passarinho está caindo. Finalmente, a variável
+`morto` pode assumir apenas os valores `True` (verdadeiro) ou `False` (falso) e diz se o passarinho está morto
+ou não.
 
+Lembre-se que quando fazemos `flappy_x = largura_tela / 3` é necessário que a variável `largura_tela` esteja 
+previamente definida no código. Nossa sugestão é que você arrume o código para que as primeiras linhas sejam
+todas de `import ...`, depois coloque as definições de variáveis, em seguida a definição de funções e, finalmente,
+o código `flappy.comecar()` na última linha do seu programa.
+
+Vamos começar simulando a gravidade no nosso jogo. A idéia básica é que a cada frame vamos aumentar a velocidade
+por um incremento proporcional à gravidade e em seguida aumentar a posição em x de acordo com o valor da 
+velocidade. Seria algo como fazer as transformações:
+
+```python
+velocidade = velocidade + gravidade
+flappy_y = flappy_y + velocidade
+```
+
+Neste código, temos que ler o sinal de `=` não como representando uma igualdade, mas sim como 
+*"velocidade **recebe** velocidade mais gravidade"*. Isto significa que, ao executar esta linha o Python
+calcularia o valor do lado direito (somando velocidade com a gravidade) e depois atualizaria a variável 
+do lado esquerdo com o novo valor. O fato do mesmo nome aparecer dos dois lados da equação é um pouco
+confuso, mas pense que cada lado opera em instantes diferentes de tempo: primeiro o computador avalia
+o lado direito e somente *depois* de completar o lado direito que ele salva os valores nas variáveis do 
+lado esquerdo.
+
+Infelizmente, se simplesmente colocarmos este código dentro da função `atualizar_flappy` como abaixo,
+o código não vai funcionar (o jogo trava logo no começo):
+
+```python
+def atualizar_flappy():
+    velocidade = velocidade + gravidade
+    flappy_y = flappy_y + velocidade
+```
+
+O problema aqui é bastante sutil e tem a ver com o que os programadores chamam de escopo de variáveis. Sempre que
+criamos uma variável dentro de uma função o Python entende que esta variável só fica definida durante a execução
+da função. Isto acontece mesmo quando existe outra variável com o mesmo nome definida anteriormente fora da 
+função.
+
+O primeiro tipo de variáveis (criadas dentro de uma função) são chamadas de **variáveis locais**. Recebem este nome
+porque elas ficam disponíveis de forma localizada à função. Uma função **não** pode modificar as variáveis locais 
+de outra e se duas funções usarem o mesmo nome para variáveis diferentes não acontece nada problemático na 
+execução do programa. 
+
+Por outro lado, as variáveis definidas fora de funções são as que chamamos de 
+**variáveis globais**. Elas estão disponíveis globalmente para todas as funções, que compartilham os
+mesmos valores de suas variáveis globais. Para evitar que as funções alterem sem querer o valor de variáveis
+globais, o Python exige que a gente declare explicitamente uma variável como global quando vamos modificá-la 
+de dentro de uma função. Isto é só uma proteção para evitar que um código modifique uma variável que
+todos acessam de forma não-intencional. 
+
+Dito isto, vamos modificar a nossa função de atualização para declarar flappy_x, flappy_y e velocidade
+como globais (ou seja, se nós modificarmos estas variáveis dentro de uma função, ela será modificada 
+globalmente).
+
+```python
 def atualizar_flappy():
     global velocidade, flappy_x, flappy_y
 
-    velocidade += gravidade
-    flappy_y += velocidade
+    velocidade = velocidade + gravidade
+    flappy_y = flappy_y + velocidade
+```
+
+A instrução `global <nomes-de-variáveis>` especifica quais variáveis devem ser tratadas
+como globais no corpo da função. Lembre-se que se a variável não for alterada dentro da função (ou seja, se 
+estivermos utilizando-a somente para leitura, não é necessário fazer a declaração global.
+
+**Observação para nerds:** quem lembra das aulas de física pode pensar que as fórmulas estão erradas. Isto porque tomamos alguns
+atalhos. Em física, a velocidade incrementa com a aceleração *multiplicada pelo intervalo de tempo* (e de forma análoga
+para a posição), o que faz com que a fórmula correta seja `velocidade = velocidade + gravidade * dt`  e `flappy_y = flappy_y + velocidade * dt`.
+Significa que estamos assumindo que o intervalo de tempo `dt = 1`. Isto não é correto se estivermos medindo tempo em
+segundos, mas funciona se estivermos medindo em frames. Neste caso, dt é realmente igual a um, a posição é medida em 
+pixels, a velocidade em pixels por frame e aceleração por pixels por frames ao quadrado!   
 
 
+## Pulos e interação com o teclado
+
+Estamos progredindo, mas o jogo agora tornou-se impossível: começamos uma partida e o passarinho simplesmente
+cai sem nenhuma chance do jogador fazer qualquer progresso. Temos que verificar se o jogador realizou um
+comando de pulo e, neste caso, alterar a velocidade do nosso Flappy Bird. 
+
+Para fazer isto, é necessário articular duas verificações: primeiro, descobrir se uma determinada tecla foi 
+pressionada ou não (no nosso caso o espaço ou a seta para cima). Depois, modificar a velocidade *somente se* 
+esta tecla estiver pressionada no frame atual. 
+
+A primeira parte é feita pela função `pyxel.btnp(<tecla>)`. Podemos selecionar a tecla usando uma de várias
+variáveis presentes no módulo Pyxel. Todas variáveis que representam teclas possuem nomes da forma 
+`pyxel.KEY_<nome-da-tecla>`. Por exemplo, `pyxel.KEY_A`, `pyxel.KEY_B`, etc representam letras. Já `pyxel.KEY_UP`,
+`pyxel.KEY_DOWN`, `pyxel.KEY_LEFT` e `pyxel.KEY_RIGHT` representam as setas do teclado. Os nomes estão em inglês,
+mas geralmente são o que se espera para cada uma das teclas.
+
+Podemos, assim, criar uma variável `pulando` que guarda um valor de verdadeiro ou falso dependendo se alguma tecla
+de pulo for apertada ou não:
+
+```python
+pulando = pyxel.btnp(pyxel.KEY_SPACE)
+```
+
+O código acima testa somente a tecla de espaço. Podemos verificar mais de uma tecla criando uma expressão lógica.
+Temos um pulo se o jogador *apertar o espaço **OU SE** apertar a seta para cima*. Em inglês **ou** se escreve como 
+**or** e a expressão lógica ficaria traduzida para Python como
+
+```python
+pulando = pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP)
+```
+
+Agora temos a variável `pulando` que diz se o passarinho deve pular ou simplesmente cair de acordo com a lei da
+gravidade. Caso esteja pulando, devemos mudar a direção do movimento para cima, alterando o valor da velocidade.
+Este tipo de regra *se condição A for satisfeita, então faça ação B* é conhecido como uma execução condicional
+em programação. Colocamos isto no nosso código criando blocos condicionais com o comando **if**. Algo como o código
+abaixo.
+
+```python
+if pulando:
+    velocidade = velocidade_de_pulo  # escolhemos a velocidade do pulo
+```
+
+A estrutura geral do comando **if** é `if <condição>: <bloco-de-instruções>`, onde o bloco de instruções pode conter
+várias linhas de comandos. A condição pode ser qualquer valor, variável ou expressão que represente um valor 
+verdadeiro ou falso. No nosso caso, vamos simplesmente utilizar o valor da variável `pulando`, que sabemos que 
+deve ser `True` ou `False`, dependendo se o usuário tiver ou não pressionado as teclas de pulo.
+
+Lembra que o sistema de coordenadas do Pyxel considera que a coordenada y cresce na medida que andamos para baixo na tela?
+Assim, uma velocidade positiva significa que o objeto está caindo e uma velocidade negativa representa um objeto subindo.
+A variável pulo, que representa a velocidade de cada pulo do Flappy Bird é um valor positivo, então devemos inverter seu
+sinal ao modificar a velocidade, efetivamente trocando `velocidade_de_pulo` por `-pulo`.
+
+Finalmente, temos que limitar a posição y do passarinho para que ele não ultrapasse o chão. A soma da altura da arte
+do chão com a do passarinho dá 29 pixels, o que significa que ele deve estar pelo menos a 29 pixels de distância da 
+parte inferior da tela. Em outras palavras, a posição máxima em y deve ser `altura_tela - 29`. Podemos limitar isto
+utilizando um condicional. Algo como *se posição maior que altura máxima, então posição recebe altura máxima*.
+
+Juntando tudo isso, ficamos com o seguinte código para atualizar o passarinho: 
+
+```python
 def atualizar_flappy():
     global velocidade, flappy_x, flappy_y
 
     pulando = pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP)
+    
+    # Atualiza a velocidade
     velocidade += gravidade
+
+    # Verifica se está pulando antes de atualizar a posição
     if pulando:
         velocidade = -pulo
+        
+    # Atualiza a posição
     flappy_y += velocidade
+    
+    # Limita altura
+    if flappy_y > altura_tela - 29:
+        flappy_y = altura_tela - 29
+```
+
+Muito bom! Agora nosso personagem cai e também consegue pular! Evite somente copiar e colar este código. Você consegue escrever
+a mesma lógica de um jeito diferente? Usando menos linhas ou trocando a ordem de alguns comandos? Existe alguma troca que altera
+o funcionamento do código? Faça experimentos para entender bem o que está acontecendo. Se o experimento der errado, ctrl+z é 
+sempre seu amigo :)
 
 
+## Vivo ou morto?
+
+No Flappy Bird, o passarinho começa vivo e consegue voar enquanto não tiver tocado em nenhum cano ou no chão. O módulo
+auxiliar flappy define uma variável chamada `morto` que controla se o passarinho está morto ou não. É lógico que ele
+só deve ser capaz de pular se `morto = False`. 
+
+Por enquanto não precisamos preocupar em determinar quando trocar `morto` de `False` para `True`, porque a implementação
+padrão já faz isto para gente. Vamos apenas assumir que recebemos sempre o valor correto e vamos atualizar o passarinho de
+acordo com isto. Existem duas mudanças que podemos fazer no nosso código: primeiramente, a de previnir pulos quando o
+passarinho estiver no estado morto. Depois, fazê-lo andar junto com o cenário quando estiver caído no chão para que os
+canos não continuem passando por ele.
+
+A primeira parte é a mais fácil: basta trocar a condição `if pulando: ...` para `if pulando and not morto: ...`. No Python,
+podemos fazer expressões lógicas de maneira muito parecida com o que elas seriam em inglês. A segunda condição lê-se como
+***se** estiver pulando **e** **não** estiver morto, então atualize a velocidade*. 
+
+A parte de deslocar o passarinho junto com o cenário vai exigir um condicional extra. Neste caso, vamos controlar o valor
+da posição x e afastar 1 pixel por frame para esquerda caso o passarinho estiver morto. Esta velocidade de 1 pixel por
+frame não foi escolhida à toa: é mesma velocidade com que o cenário se desloca no jogo. Algo como:
+
+```python
+if morto:
+    flappy_x = flappy_x - 1
+```
+
+Tente fazer estas alterações por conta própria e veja o que funciona. Se travar, dê uma olhadinha na implementação 
+abaixo ou use ela apenas para conferir se as suas alterações estão boas. Em programação, não existe uma única 
+resposta correta. Se seu código estiver diferente, mas funcionando bem, então parabéns! Significa que você está 
+encontrando seu próprio caminho e próprio estilo na programação :)
+
+```python
 def atualizar_flappy():
     global velocidade, flappy_x, flappy_y
 
     pulando = pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP)
+    
+    # Atualiza a velocidade
     velocidade += gravidade
-    if pulando and not morto:
-        velocidade = -pulo
-    flappy_y += velocidade
 
-    # Limita velocidade e impõe deslocamento quando jogador morrer
-    flappy_y = min(flappy_y, altura_tela - 29)
+    # Verifica se está pulando antes de atualizar a posição
+    if pulando:
+        velocidade = -pulo
+        
+    # Atualiza a posição
+    flappy_y += velocidade
+    
+    # Limita altura
+    if flappy_y > altura_tela - 29:
+        flappy_y = altura_tela - 29
+
+    # Desloca-se com o cenário, caso esteja morto
     if morto:
         flappy_x -= 1
 ```
@@ -582,6 +777,19 @@ def atualizar_colisoes():
         
         if colide_x and colide_y:
             morto = True
+```
+
+
+Assim como antes, vamos começar pela função mais fácil, neste caso a função `atualizar_score`. 
+```python
+score = 0
+
+def atualizar_score():
+    global score
+
+    for (x, y) in canos:
+        if flappy_x == x:
+            score += 1
 ```
 
 

@@ -52,4 +52,9 @@ def atualizar_canos():
         canos[i] = (x - 1, y)
 
 
+def atualizar_flappy():
+    velocidade = velocidade + gravidade
+    flappy_y = flappy_y + velocidade
+
+
 flappy.comecar()
