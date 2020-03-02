@@ -931,15 +931,67 @@ restaurar as variáveis de jogo para os valores padrão.
 
 ## Pyxel run!
 
-- Função principal do Pyxel e rotinas de inicialização do pyxel
+Vamos substituir a última parte do código auxiliar e apagar de vez o módulo `flappy.py`! Então o primeiro
+passo é criar coragem e apagar este arquivo e as linhas que dependem dele: `import flappy` logo no início 
+e `flappy.comecar()` logo no final. Faça isso e execute o jogo para confirmar que ele para de funcionar.
+Na verdade, se você executar o jogo depois destas alterações, não acontecerá nada porque o Pyxel não será
+inicializado.
+
+Começamos trocando a última linha `flappy.comecar()` por uma sequência de comandos. O primeiro deles é
+o de inicializar as variáveis de jogo, que podemos fazer executando `reiniciar()`. Em seguida, precisamos
+configurar a Pyxel com as configurações adequadas para o nosso jogo. Existem duas funções importantes
+nesta etapa: `pyxel.init` e `pyxel.load`.
+
+A função `pyxel.init(largura, altura, nome)` configura a tela de jogo para a largura e altura especificadas
+em pixels. O nome da janela aparece como um título na barra superior da janela. Podemos especificá-lo 
+colocando qualquer texto entre aspas. Finalmente, podemos modificar a taxa de atualização do jogo controlando
+o parâmetro opcional `fps=valor`. Neste último caso, não basta apenas colocar um número como argumento 
+adicional para a função init, mas é necessário especificar explicitamente o nome deste argumento. A sintaxe
+para isto é 
+
+```python
+pyxel.init(largura_tela, altura_tela, "Flappy Bird", fps=35)
+```
+
+Já a função `pyxel.load(arquivo)` carrega um arquivo de imagens a partir do seu nome. Nós estamos utilizando 
+o arquivo `data.pyres` que foi fornecido pelo tutorial. Não podemos simplesmente escrever o nome do arquivo como
+argumento da função porque esta função espera um valor do tipo texto. Para representar um texto, temos que 
+escrever o nome do arquivo entre aspas:
+
+```python
+pyxel.load("data.pyxres")
+```
+
+Finalmente, a última linha do seu código deve ser a função `pyxel.run(atualizar, desenhar)` que realmente
+inicia o jogo. Esta função recebe dois parâmetros, que são funções. A primeira delas deve ser uma função
+que atualiza o estado do jogo a cada frame, a nossa função `atualizar` definida anteriormente. A segunda
+função é responsável por desenhar o estado do jogo na tela e corresponde à nossa função `desenhar`. 
+
+O Pyxel utiliza estas duas funções para implementar o loop de jogo. A cada frame ele executa `atualizar()`
+e depois antes de desenhar o resultado na tela, `desenhar()`. Entre estas execuções, o Pyxel faz uma série
+de tarefas comuns a vários jogos, mas trabalhosas de implementar caso a caso. Por exemplo, ele verifica
+as entradas do usuário, tenta manter uma taxa de atualização constante, verifica se a janela foi 
+redimensionada, etc. 
+
+Juntando tudo, as últimas linhas do seu código que substituem a linha `flappy.comecar()` devem ficar mais ou menos
+como abaixo.
 
 ```python
 # Inicializar o jogo
 reiniciar()
-pyxel.init(width=largura_tela, height=altura_tela, caption="Flappy Bird", fps=35)
-pyxel.load('data.pyxres')
+pyxel.init(largura_tela, altura_tela, "Flappy Bird", fps=35)
+pyxel.load("data.pyxres")
 pyxel.run(atualizar, desenhar)
 ```
+
+Execute o jogo, agora 100% feito por você 
+
+
+
+
+
+
+
 
 
 OBSERVAÇÕES IMPORTANTES:
