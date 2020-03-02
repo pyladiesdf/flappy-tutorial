@@ -831,37 +831,6 @@ terminarmos, poderemos descartar completamente o módulo auxiliar retirando as l
 `flappy.comecar()`. Basicamente o que falta é criar a nossa própria versão da função `flappy.comecar`.
 
 
-## Atualizando o loop de jogo
-
-- função de atualização completa: atualizar()
-- controle do menu e atalhos para sair e reiniciar o jogo
-
-```python
-ativo = False
-
-def atualizar():
-    atualizar_jogo()
-
-def atualizar():
-    global ativo
-
-    # Sai com Q ou ESC
-    if pyxel.btnp(pyxel.KEY_Q):
-        pyxel.quit()
-
-    # Reinicia com R
-    elif ativo and pyxel.btnp(pyxel.KEY_R):
-        reiniciar()
-
-    # Roda o jogo
-    elif ativo:
-        atualizar_jogo()
-
-    # Ativa com espaço ou seta para cima
-    elif pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP):
-        ativo = True
-```
-
 ## Reiniciando o jogo
 
 Criamos, até agora, várias variáveis e funções para controlar cada aspecto do jogo. É uma boa idéia (se é que você já não 
@@ -929,10 +898,111 @@ Agora que temos a função reiniciar definida, basta executá-la sempre que quis
 restaurar as variáveis de jogo para os valores padrão.
 
 
+## Atualizando o loop de jogo
+
+Programas com interface gráfica como jogos, editores de texto, navegadores, etc, tipicamente possuem um 
+loop principal da aplicação. Esta é uma espécie de laço for infinito que funciona mais ou menos da 
+seguinte maneira:
+
+```python
+# Visão esquemática do loop principal de um programa
+for i in range(infinito):
+    verifica_interações_com_usuário()
+    atualiza_estado_do_programa()
+    atualiza_as_saídas_para_o_usuário()
+    espera_alguns_milissegundos_para_o_próximo_frame()
+```
+
+A parte de atualizar o programa no Pyxel consiste em basicamente realizar duas operações: atualizar o 
+estado do jogo e desenhar o resultado na tela. Como todo o resto é bastante previsível e não muda muito
+de um jogo para o outro, o Pyxel pede apenas que nós forneçamos duas funções que realizam cada uma
+destas operações para que ele as execute no loop principal.
+
+Nós já temos funções que fazem isto e foram implementadas nas etapas anteriores do tutorial: a função 
+`atualizar_jogo` e a `desenhar`. A função `desenhar`, do jeito que está, encontra-se perfeita. Já a
+primeira função implementa a lógica de atualização apenas enquanto o jogo está ativo, mas ela
+não gerencia os estados intermediários quando o jogador ainda não iniciou o jogo ou quando ele
+deseja reiniciá-lo.
+
+Vamos então implementar a função `atualizar` que chama `atualizar_jogo` quando o jogo estiver
+ativo, mas gerencia as outras interações adicionais como reiniciar e sair do jogo. Vamos começar
+acrescentando estas duas funcionalidades:
+
+```python
+def atualizar():
+    # Sai com Q ou ESC
+    if pyxel.btnp(pyxel.KEY_Q):
+        pyxel.quit()
+
+    # Reinicia com R
+    elif pyxel.btnp(pyxel.KEY_R):
+        reiniciar()
+
+    # Caso contrário, chama a versão padrão de atualizar_jogo()
+    else:
+        atualizar_jogo()
+```
+
+Note como a estrutura da nossa execução condicional é diferente aqui. Temos o comando **if <condição>**,
+seguido do **elif <condição>** e finalmente um **else**. O significado disto é simples: sempre que tivermos
+um bloco de if/elifs/else, o Python executará apenas a primeira condição que for verdadeira e, caso nenhuma
+seja, ele executará o bloco **else**. 
+
+A diferença entre **if** e **elif** é um pouco confusa. Eles funcionam de forma semelhante, mas cada bloco
+condicional começa sempre com um único **if** e todas as outras alternativas devem ser escritas como **elif**'s. 
+Elif é a contração em inglês de **else if**, que em português se traduziria como *ou então se*. 
+
+Para ficar mais claro, escrevemos a lógica da função acima em português
+
+```
+se pressionou Q ou ESC:
+    sai do jogo.
+ou então se pressionou R:
+    reinicia variáveis.
+caso contrário:
+    atualiza o jogo.
+``` 
+
+Só tem um pequeno problema com esta nova implementação: quando executamos o jogo, ele começa imediatamente, sem
+dar um fôlego para o jogador se concentrar, ler as instruções e preparar a sua mão no teclado. Temos que criar
+uma nova variável de estado que diz se o jogo está ativo ou não. Só executamos `atualizar_jogo` agora se o 
+jogo estiver ativo. Caso contrário, esperamos o jogador pressionar uma tecla de pulo para sinalizar que já 
+podemos começar.
+
+```python
+ativo = False
+
+def atualizar():
+    global ativo
+
+    # Sai com Q ou ESC
+    if pyxel.btnp(pyxel.KEY_Q):
+        pyxel.quit()
+
+    # Reinicia com R
+    elif pyxel.btnp(pyxel.KEY_R):
+        reiniciar()
+
+    # Roda o jogo
+    elif ativo:
+        atualizar_jogo()
+
+    # Ativa com espaço ou seta para cima
+    elif pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP):
+        ativo = True
+
+    # O bloco else é opcional. Não precisamos dele aqui!
+```
+
+Agora nossa função de atualizar cuida de todos os pequenos detalhes da inicialização. Estamos quase
+no ponto de implementar o jogo inteiro do zero e entender como um jogo baseado no Pyxel funciona. Espero
+que você já esteja elocubrando com as próprias idéias de jogos e projetos para o futuro :) 
+
+
 ## Pyxel run!
 
-Vamos substituir a última parte do código auxiliar e apagar de vez o módulo `flappy.py`! Então o primeiro
-passo é criar coragem e apagar este arquivo e as linhas que dependem dele: `import flappy` logo no início 
+Vamos substituir a última parte do código auxiliar e apagar de vez o módulo `flappy.py` do HD! O primeiro
+passo é criar coragem e apagar as linhas que dependem dele: `import flappy` logo no início 
 e `flappy.comecar()` logo no final. Faça isso e execute o jogo para confirmar que ele para de funcionar.
 Na verdade, se você executar o jogo depois destas alterações, não acontecerá nada porque o Pyxel não será
 inicializado.
