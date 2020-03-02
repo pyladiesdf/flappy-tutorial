@@ -723,20 +723,26 @@ def atualizar_flappy():
         flappy_x -= 1
 ```
 
+Ufa! Esta parte foi difícil, mas valeu a pena!
+
+
+## Canos
+
+Vamos passar para a próxima parte do nosso tutorial que é a de animar o cenário, em especial os canos.
+Aqui 
+
 - atualizar_canos(): listas (inserção e seleção por índice) randrange()
 
 ```python
 from random import randrange
 
-espaco = 80
-canos = [
-    (0 * espaco + largura_tela, randrange(-100, 0, 10)),
-    (1 * espaco + largura_tela, randrange(-100, 0, 10)),
-    (2 * espaco + largura_tela, randrange(-100, 0, 10)),
-    (3 * espaco + largura_tela, randrange(-100, 0, 10)),
-]
+distancia_canos = 80
+cano1 = 0 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+cano2 = 1 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+cano3 = 2 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+cano4 = 3 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+canos = [cano1, cano2, cano3, cano4]
 ```
-
 
 ```python
 def atualizar_canos():
@@ -754,6 +760,8 @@ def atualizar_canos():
             y = randrange(-100, 0, 10)
         canos[i] = (x - 1, y)
 ```
+
+## Colisões
 
 - atualiza_colisoes(): colisão com os extremos da tela e com os canos
 
@@ -780,21 +788,50 @@ def atualizar_colisoes():
 ```
 
 
-Assim como antes, vamos começar pela função mais fácil, neste caso a função `atualizar_score`. 
+## Score
+
+Vamos finalmente implementar a última função da lógica do jogo, `atualizar_score`. Aqui nossa tarefa é relativamente
+simples: temos que contar quantos canos já passaram pelo Flappy Bird. Para isto, basta ver a posição x de cada cano
+e verificar se ela coincide com a posição do passarinho. Se elas coincidirem, sabemos que o passarinho acabou de 
+passar por um cano e, se ele não estiver morto, isto significa que o score deve aumentar por um.
+
+Lembre-se de declarar o valor inicial `score = 0` junto com as outras variáveis do jogo e em seguida crie
+a função `atualizar_score`. A parte mais difícil aqui é percorrer a lista de canos. Vimos que cada cano
+é representado apenas por um par (x, y) com a posição x do cano e a altura da sua abertura. Podemos
+percorrer esta lista de valores usando o comando `for (x, y) in canos: ...`, onde o Python vai automaticamente
+atribuir o primeiro valor do par à variável x e o segundo à variável y. 
+
+Novamente, tente fazer as modificações por conta própria, mas se travar em algum ponto, mostramos uma
+implementação possível da função `atualizar_score`.
+
 ```python
 score = 0
 
 def atualizar_score():
     global score
 
+    # Percorre as coordenadas x e y de cada cano
     for (x, y) in canos:
-        if flappy_x == x:
-            score += 1
+
+        # Verifica se a posição do cano coincide com a do passarinho e se ele
+        # não está morto
+        if flappy_x == x and not morto:
+            score = score + 1
 ```
+
+Terminamos aqui a parte de atualizar a lógica do jogo e já podemos passar para a última parte do
+tutorial.
 
 
 # Finalizando
 
+Agora estamos quase lá! Já fizemos todas as funções de desenhar e atualizar a lógica do jogo. Agora vamos
+passar para a parte final que é a de configurar e inicializar o jogo usando as funções do Pyxel. Quando 
+terminarmos, poderemos descartar completamente o módulo auxiliar retirando as linhas `import flappy` e 
+`flappy.comecar()`. Basicamente o que falta é criar a nossa própria versão da função `flappy.comecar`.
+
+
+## Atualizando o loop de jogo
 
 - função de atualização completa: atualizar()
 - controle do menu e atalhos para sair e reiniciar o jogo
@@ -825,27 +862,74 @@ def atualizar():
         ativo = True
 ```
 
-- Reiniciar as variáveis
+## Reiniciando o jogo
+
+Criamos, até agora, várias variáveis e funções para controlar cada aspecto do jogo. É uma boa idéia (se é que você já não 
+está fazendo isto), organizar o código de forma que as linhas que declaram variáveis globais aparecam no início, logo abaixo
+dos imports, e as funções venham em seguida, onde completamos o código colocando `flappy.comecar()` na última linha.
+
+Vamos agora colocar todas as declarações de variáveis num mesmo lugar e mover todas estas declarações para dentro de
+uma função. O objetivo aqui é que a gente consiga reiniciar facilmente o jogo para o estado inicial já que toda lógica
+de inicialização fica concentrada em uma função que pode ser chamada várias vezes.
+
+Começamos recolhendo as variáveis mais importantes. Deve ser uma lista parecida com esta:
+
+```python
+# Estado de jogo
+ativo = False
+morto = False
+score = 0
+
+# Passarinho
+flappy_x = largura_tela // 3
+flappy_y = altura_tela // 2
+velocidade = 0
+
+# Cria canos
+distancia_canos = 80
+cano1 = 0 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+cano2 = 1 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+cano3 = 2 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+cano4 = 3 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+canos = [cano1, cano2, cano3, cano4]
+``` 
+
+Vamos agora mover todas estas variáveis para uma função chamada `reiniciar` para que seja fácil
+restaurar estes valores sempre que quisermos reiniciar o jogo. Para isto, basta alinhar todas estas
+linhas um pouco mais a direita e colocar estas variáveis no corpo da função `reiniciar`. Lembre-se
+que devemos fazer a declaração global de todas variáveis que serão utilizadas em outras partes do
+código.
+
+Tente fazer por conta própria, mas se não estiver funcionando, veja abaixo como fizemos:
 
 ```python
 def reiniciar():
-    global ativo, morto, flappy_x, flappy_y, velocidade, canos, score
+    global ativo, morto, flappy_x, flappy_y, velocidade, score, canos, distancia_canos
 
+    # Estado de jogo
     ativo = False
     morto = False
+    score = 0
+    
+    # Passarinho
     flappy_x = largura_tela // 3
     flappy_y = altura_tela // 2
     velocidade = 0
-    score = 0
     
-    espaco = 80
-    canos = [
-        (0 * espaco + largura_tela, randrange(-100, 0, 10)),
-        (1 * espaco + largura_tela, randrange(-100, 0, 10)),
-        (2 * espaco + largura_tela, randrange(-100, 0, 10)),
-        (3 * espaco + largura_tela, randrange(-100, 0, 10)),
-    ]
+    # Cria canos
+    distancia_canos = 80
+    cano1 = 0 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+    cano2 = 1 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+    cano3 = 2 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+    cano4 = 3 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+    canos = [cano1, cano2, cano3, cano4]
 ```
+
+Agora que temos a função reiniciar definida, basta executá-la sempre que quisermos
+restaurar as variáveis de jogo para os valores padrão.
+
+
+## Pyxel run!
 
 - Função principal do Pyxel e rotinas de inicialização do pyxel
 
