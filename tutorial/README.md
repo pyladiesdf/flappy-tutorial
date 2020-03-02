@@ -29,22 +29,21 @@ e fazer todo tipo de coisa estranha. Esperamos que, ao terminar o tutorial, toda
 necessário para começar um novo projeto do zero e a se desafiar. Será que você consegue fazer um jogo
 como o Pong do zero? Quais regras do Flappy Bird você alteraria? Quais seriam os novos efeitos visuais? Você 
 tem uma idéia de jogo que ninguém fez? E que tal um web site? Um aplicativo de celular? Um algoritmo de 
-aprendizado de máquina? Enfim, o objetivo é abrir a caixa de Pandora, o resto é com vocês!
+aprendizado de máquina? Enfim, o objetivo é abrir a caixa de Pandora, o resto é com você!
 
 
 ## Ambiente de programação
 
-Programação é uma mistura de arte com técnica. Pense como um artista ou artesão: criatividade é muito
-importante, mas a técnica é necessária para usar nossos instrumentos corretamente e obter o efeito desejado
-para nossos projetos.
+Programação é uma mistura de criatividade com técnica. Pense como um artista ou artesão: criatividade é muito
+importante, mas a técnica é necessária para usar os instrumentos corretamente e obter o efeito desejado.
 
 O instrumento básico de um programador é o editor de código. É onde escrevemos e lemos o código fonte dos 
-programas e podemos interagir com os resultados rodando o programa, fazendo testes, controlando as versões, etc.
+programas e podemos interagir com os resultados rodando o programa, controlando as versões, etc.
 Cada linguagem de programação exige algumas ferramentas adicionais. No caso do Python, precisamos de
 um interpretador de Python instalado na máquina. Este é um programa que lê programas Python e executa
 as instruções codificadas. Por fim, dependendo do projeto, precisamos de instalar alguns módulos
 ou programas adicionais. No nosso caso, vamos instalar o Pyxel, que é uma espécie de extensão do Python (em
-linguagem de programador, "biblioteca") que permite a criação de joguinhos vintage, estilo 8-bit. (Alguém 
+linguagem de programador, uma "biblioteca") que permite a criação de joguinhos retrô, estilo 8-bit. (Alguém 
 aqui já jogou Atari, ou isso é velho demais?) 
 
 Vamos à lista de recursos que devemos preparar antes de começar:
@@ -93,14 +92,14 @@ flappy.comecar()
 ```
 
 A primeira linha diz para o Python importar o módulo auxiliar flappy, que irá nos ajudar ao longo
-deste tutorial. Já a segunda linha, `flappy.comecar()` está falando para o Python executar a função
+deste tutorial. Já a segunda linha, `flappy.comecar()` manda o Python executar a função
 `comecar` definida dentro deste módulo. Em programação, uma função é uma espécie de maquininha: quando pedimos
 para executá-la, o computador realiza uma série de instruções e no final pode retornar um resultado ou 
 realizar um conjunto de ações. Neste caso, a função `comecar` simplesmente executa o jogo.
 
-A primeira parte `flappy.comecar` representa o nome completo da função dentro do nosso programa. Algo como se
-fosse `sobrenome.nome`, já que todas funções que começam com `flappy.<alguma coisa>` fazem parte do conjunto
-de funções do módulo flappy. Já os parênteses `()` no final do nome da função dizem para o Python 
+A primeira parte deste comando, `flappy.comecar` representa o nome completo da função dentro do programa. Algo como
+`sobrenome.nome` da função, já que todas funções que começam com o mesmo prefixo `flappy.` fazem parte do mesmo 
+módulo flappy. Já os parênteses `()` no final do nome da função dizem para o Python 
 que queremos executá-la sem passar nenhum parâmetro adicional (os parâmetros adicionais, se existissem,
 ficariam entre os parênteses).
 
@@ -110,7 +109,8 @@ Claro que não! Um programa de computador tipicamente funciona em camadas. Criam
 executam operações simples, depois juntamos estas funções para criar operações um pouco mais complexas,
 que juntamos em outras funções ainda mais elaboradas e assim por diante. No caso do nosso jogo, a `flappy.comecar` 
 esconde uma enorme complexidade: esta função executa outras funções que, entre outras coisas, desenham o
-estado do jogo na tela e atualizam a posição dos elementos. A função de desenhar pode chamar outras funções responsáveis por operações mais simples
+estado do jogo na tela, atualizam a posição dos elementos, verificam colisões, etc. A função de desenhar pode 
+chamar outras funções responsáveis por operações mais simples
 como, por exemplo, desenhar somente o passarinho, ou desenhar os canos. Estas, por sua vez, podem chamar funções
 ainda mais fundamentais que manipulam pixels específicos na tela e interagem com o sistema 
 operacional, placa de vídeo e outros detalhes de baixo nível. 
@@ -118,7 +118,8 @@ operacional, placa de vídeo e outros detalhes de baixo nível.
 Nós não vamos descer o buraco até o nível mais 
 fundamental dos bits: se puxarmos o fio de qualquer programa de computador trivial, iríamos nos deparar com um
 conjunto imenso de milhões de linhas de código feitas por milhares de programadoras e programadores do
-mundo inteiro ao longo de décadas. É muita coisa para qualquer um acompanhar! Mas vamos descer o suficiente para
+mundo inteiro ao longo de décadas e que lidam com detalhes altamente técnicos do funcionamento de computadores. 
+É muita coisa para qualquer um acompanhar! Mas vamos descer o suficiente para
 que as novas habilidades sejam úteis: que você consiga criar novos jogos, pensar em novos projetos e personalizar
 o Flappy Bird para ele funcionar exatamente do jeito que você deseja! 
 
@@ -170,16 +171,16 @@ exponenciação, resto da divisão, entre outras.
 # Tutorial, Parte 2: Desenhando na tela
 
 Ao calibrar os valores das variáveis, podemos controlar apenas alguns aspectos básicos do nosso jogo.
-Agora é hora de abrir nosso brinquedo, ver o que tem dentro e mexer nas engrenagens. Vamos começar com a
-primeira função importante, que é desenhar os elementos do jogo na tela: o céu, nuvens, o flappy, 
+Agora é hora de abrir o brinquedo, ver o que tem dentro e mexer nas engrenagens. Vamos começar com a
+primeira função importante, que é desenhar os elementos do jogo na tela: o céu, nuvens, o passarinho, 
 os canos, etc. 
 
 Para fazermos isto, é necessário aprender como se define funções. Com isso, vamos trocar
 a função responsável por pintar a tela pela nossa própria versão personalizada. Vimos que para chamar uma 
 função, basta escrever o nome da mesma e abrir e fechar um parênteses no final (como em `flappy.comecar()`).
 
-O módulo flappy entende que se você criar uma função chamada `desenhar`, ele irá utilizá-la ao invés de usar o
-método padrão. Podemos testar essa idéia definindo a variável `desenhar = None` no nosso código. O valor
+O módulo flappy entende que se você criar uma função chamada `desenhar`, ele irá utilizá-la ao invés de usar a versão
+padrão desta função. Podemos testar essa idéia definindo a variável `desenhar = None` no nosso código. O valor
 especial `None` (que "nulo/nada" em português) representa situações onde queremos anunciar que uma determinada variável
 ainda não possui um valor bem definido, ou que está em um estado inválido ou inconsistente. No nosso caso, 
 se falarmos que a função desenhar é nula, estamos pedindo para o módulo flappy não fazer nada quando esta função
@@ -209,15 +210,19 @@ Note como a definição da função desenhar começa com um `def <nome-da-funç�
 um sinal de dois-pontos (`:`). Esta é a estrutura básica que usaremos para definir qualquer função em Python. 
 Em seguida, aparece uma série de instruções alinhadas um pouco mais à direita. Estas instruções são o que chamamos
 de **corpo da função** e representam a parte principal da definição. Uma função nada mais é que um jeito de
-dar nome e reaproveitar um conjunto de instruções específico. No nosso caso, estamos mostrando
+reaproveitar e dar um nome a um conjunto de instruções. No nosso caso, estamos mostrando
 para o Pyxel quais instruções devem ser executadas a cada frame para desenhar as imagens na tela enquanto o jogo
 estiver rodando.
 
-Um outro detalhe importante que devemos levar em conta é o alinhamento destas instruções. Alinhamento (ou 
+Um outro detalhe importante que devemos levar em conta é o alinhamento destas instruções no código. Alinhamento (ou 
 "indentação", no jargão de programadores) é como o Python entende quais intruções estão associadas a uma função
 ou bloco de código e quais instruções seriam executadas diretamente no módulo. Portanto, tome **muito** cuidado
 para deixar o alinhamento perfeito, caso contrário o programa pode executar instruções diferentes daquelas que 
-você está imaginando.
+você está imaginando. A recomendação é que começamos com a linha `def <nome-da-função>():` e o bloco de instruções
+abaixo esteja alinhado com quatro espaços a direita. Confira que o editor de código permite que a gente
+digite apenas uma única vez a tecla *tab* no lugar dos quatro espaços e que ele mantêm o alinhamento (ou nível
+de indentação) de uma linha para outra. Estas pequenas coisinhas tornam nossa vida muito mais fácil quando usamos
+um editor especializado em código em comparação com um editor de texto genérico como o Word ou o Notepad. 
 
 
 ## Comentários
@@ -255,8 +260,8 @@ recursos que expliquem melhor o que está acontecendo.
 
 ## Desenhando o fundo
 
-Habilite todas as instruções da função desenhar e vamos começar a abrir cada pedacinho para ver o que tem
-dentro. A função mais simples de todas, e a que escolhemos para começar, é a `desenhar_fundo()`. Vamos criar
+Habilite todas as instruções da função desenhar que, aos poucos, vamos ver o que tem dentro de cada pedacinho. 
+A função mais simples de todas, e a que escolhemos para começar, é a `desenhar_fundo()`. Vamos criar
 a nossa própria versão, mas antes dê uma olhada na implementação padrão:
 
 ```python
@@ -285,7 +290,8 @@ são identificadas pelos números de 0 a 15. A correspondência entre números e
 ![Paleta de cores](../imgs/color-palette.png)
 
 Agora que você sabe o que está acontecendo, mude o número para trocar a cor para outro valor. Quem sabe ficar com
-um céu vermelho ou roxo!
+um céu vermelho ou roxo?
+
 
 ### Opcional: efeito estroboscópico
 
@@ -299,7 +305,7 @@ def desenhar_fundo():
     pyxel.cls(pyxel.frame_count)
 ```
 
-teremos o jogo na tela por uma fração de segundo e depois aparecerá uma mensagem de erro falando que não existe
+veremos o jogo na tela por uma fração de segundo e depois aparecerá uma mensagem de erro falando que não existe
 uma cor com o valor 16. Isto porque `pyxel.frame_count` irá atingir valores grandes com o tempo já que a taxa de
 atualização é próxima de 30 frames a cada segundo.
 
@@ -330,7 +336,7 @@ Pintar o fundo inteiro de uma única cor é simples. Como fazemos para desenhar 
 pixels escolhidos a dedo por uma artista de pixel art? Vamos explorar estas questões olhando o que tem dentro da
 função `desenhar_flappy`.
 
-Começamos com um objetivo mais modesto que desenhar pixel art: vamos representar o passarinho do Flappy Birdo
+Começamos com um objetivo mais modesto que desenhar pixel art: vamos representar o passarinho do Flappy Bird
 simplesmente como um retângulo. Veja o código abaixo:
 
 ```python
@@ -348,8 +354,8 @@ que possui vários parâmetros, especificamos cada valor separando-os por vírgu
 depende da sua posição na lista de argumentos. Por exemplo, em `pyxel.rect` o primeiro argumento sempre diz respeito
 à posição x onde o retângulo começa, o segundo define a posição do retângulo e assim por diante.
 
-Você também pode ter percebido que as variáveis `flappy_x` e `flappy_y` não foram definidas no código. Na verdade
-omití-las porque estas variáveis foram definidas pelo módulo flappy e ao omití-las estamos simplesmente utilizando 
+Você também pode ter percebido que as variáveis `flappy_x` e `flappy_y` não foram definidas no código. Na verdade,
+podemos omití-las porque estas variáveis foram definidas pelo módulo flappy e ao omití-las estamos simplesmente utilizando 
 os seus valores padrão. Usar variáveis não definidas normalmente seria um erro e quando você estiver criando um 
 código Python do zero é importante tomar cuidado com isto.
 
@@ -723,7 +729,8 @@ def atualizar_flappy():
         flappy_x -= 1
 ```
 
-Ufa! Esta parte foi difícil, mas valeu a pena!
+Ufa! Esta parte foi difícil, mas valeu a pena! Agora entendemos como o passarinho se move e obedece 
+à Lei da Gravidade. 
 
 
 ## Canos
