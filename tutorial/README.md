@@ -552,14 +552,58 @@ Usando este truque, com quantas linhas você consegue criar esta função?
 
 
 ## Nuvens com paralaxe (opcional)
-- desenhar nuvem com paralaxe (avançado: mostra o código e pula)
+
+Esta parte é um pouco mais avançada e não acrescenta nenhuma funcionalidade importante no jogo. Vamos apenas desenhar as
+nuvens no fundo do cenário. Cada nuvem se desloca uma fração de pixel para a esquerda por frame. Esta proporção pixel é
+importante para dar um efeito de profundidade. Se as nuvens se deslocassem na mesma velocidade do cenário (1 pixel por frame),
+elas dariam a impressão de estarem fixas ao cenário e, portanto, em um mesmo plano na tela. Se as nuvens se deslocarem mais
+lentamente, teremos a impressão que elas estariam em um plano mais distante que os canos na tela e, por isto, teriam uma 
+velocidade aparente menor.
+
+Podemos controlar o deslocamento em x usando a variável `pyxel.frame_count`. Devemos obter um valor negativo e, em valor
+absoluto, menor que a quantidade de frames para que o deslocamento das nuvens no fundo fique mais lento que os 
+canos em primeiro plano. Basta usar uma regra parecida com esta:
+
+```python
+x = -pyxel.frame_count / 2
+```
+
+Queremos também que as nuvens se desloquem para a esquerda, mas que reapareçam do lado direito da tela quando tiverem
+cruzado a tela completamente. Assim, queremos fazer o deslocamento em múltiplos de `largura_maxima = largura_tela + largura_nuvem`:
+cada vez que uma nuvem percorrer este intervalo, ela deve cruzar de volta para o lado direito da tela. 
+
+Podemos garantir que a imagem dá esta volta depois de percorrer a `largura_maxima` é realizar a operação de resto da divisão,
+ou seja, `x % largura_maxima`. Este valor ainda não é ideal porque a nuvem irá desaparecer e reaparecer no fim da tela assim
+que a coordenada x ficar negativa. Isto é ruim, porque se tivermos algo como `x = -1`, a maior parte da imagem ainda estará 
+na tela e este "teletransporte" ficará visível para o jogador. Vamos usar portanto `x % largura_maxima - largura_nuvem` 
+como base de cálculo. Como cada nuvem deve aparecer em um local diferente da tela, acrescentamos um deslocamento em x
+diferente para cada uma das nuvens. 
+
+O código final ficaria parecido com este. Tente modificar alguns parâmetros para entender o que está acontencendo e
+procure o desenho das nuvens no Pyxeledit, quem sabe fazendo algumas alterações.
 
 ```python
 def desenhar_nuvens():
-    offset = -pyxel.frame_count // 2
-    pyxel.blt(offset % (largura_tela + 32) - 32, altura_tela // 2, 2, 0, 16, 32, 32, 12)
-    pyxel.blt((offset + 96) % (largura_tela + 32) - 32, altura_tela // 4, 2, 0, 48, 32, 32, 12)
-    pyxel.blt(offset % (largura_tela + 32) - 64, int(altura_tela / 1.5), 2, 0, 80, 32, 32, 12)
+    # Deslocamento base em x
+    x = -pyxel.frame_count / 2
+
+    # Largura da nuvem e tamanho do intervalo a ser percorrido em cada ciclo
+    largura_nuvem = 32
+    altura_nuvem = 32
+    largura_maxima = largura_tela + largura_nuvem 
+    
+    # Posições de cada nuvem
+    x1 = (x + largura_tela * 0.25) % largura_maxima - largura_nuvem
+    y1 = altura_tela / 2
+    x2 = (x + largura_tela * 0.50) % largura_maxima - largura_nuvem
+    y2 = altura_tela / 4
+    x3 = (x + largura_tela * 0.75) % largura_maxima - largura_nuvem
+    y3 = altura_tela / 1.5
+    
+    # Desenha as três nuvens        
+    pyxel.blt(x1, y1, 2, 0, 16, largura_nuvem, altura_nuvem, 12)
+    pyxel.blt(x2, y2, 2, 0, 48, largura_nuvem, altura_nuvem, 12)
+    pyxel.blt(x3, y3, 2, 0, 80, largura_nuvem, altura_nuvem, 12)
 ```
 
 
