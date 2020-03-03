@@ -399,12 +399,58 @@ conversões. Para encontrar um ponto que esteja 10 píxeis a esquerda da tela e 
 coordenadas `x = 10` e `y = altura_tela - 20`. 
 
 
-## Pyxeledit
+## Pyxeleditor
 
-Vimos como desenhar retângulos e 
+Pyxel nos ajuda a criar joguinhos retrô baseados em *pixel art*. Por enquanto, vimos como desenhar coisas simples:
+como pintar a tela de uma única cor e desenhar retângulos. Poderíamos criar nossas artes em código, programando 
+as cores de cada pixel manualmente, e isto era mais ou menos a abordagem usada para criar os primeiros jogos 
+eletrônicos. Considerando que mesmo a tela de computadores antigos tinha dezenas de milhares de píxeis, podemos
+ver facilmente que isto seria **muito** trabalhoso.
 
-@TODO
-- apresentar o pyxeledit no caminho
+Vamos usar uma abordagem alternativa e executar o Pyxeleditor, que é uma espécie de Photoshop retrô que vem junto
+com o Pyxel para editar *pixel art*. O arquivo de imagens padrão para o tutorial, [data.pyxres](data.pyxres), já vem 
+com o desenho do Flappy Bird, canos, chão e nuvens. Você pode modificá-los depois, mas não queremos exigir um 
+grande talento artístico e domínio completo sobre os píxeis para terminar este tutorial e portanto já deixamos
+a arte pronta.
+
+Pyxeledit é aberto a partir da linha de comando. Abra novamente o terminal (no menu `Terminal > Novo Terminal`)
+e digite `pyxeleditor data.pyxres`. Deve abrir uma tela como esta
+
+![Pyxeledit](../imgs/pyxeleditor.png)
+
+Aqui temos um editor simples que permite modificar as imagens disponíveis no jogo pixel a pixel. Você pode brincar
+um pouco aqui, mudar a cor do passarinho, desenhar algum adereço, etc, mas podemos simplesmente utilizar as imagens
+como estão.
+
+Observe que no canto inferior direito da tela temos um contator escrito "Image - 0 +". Isto permite escolher qual
+imagem vamos editar. O Pyxel aceita apenas 3 imagens distintas, ainda que em cada imagem podemos fazer diversos
+desenhos diferentes. Cada imagem possui um máximo de 256 por 256 pixels e pode ser editada em blocos menores de
+16 por 16. Veja que ao passar o cursor em um ponto da imagem, o editor mostra as coordenadas do pixel no
+canto superior direito. Isto é muito útil quando precisamos selecionar quais partes da imagem serão mostradas em
+cada parte do jogo.
+
+Veja que a primeira imagem (Image 0) possui 3 variantes do passarinho. Preste bastante atenção: cada variante possui
+uma posição ligeiramente diferente para a asa. Assim, se alternarmos entre as variantes, podemos obter a ilusão de
+movimento.
+ 
+Finalmente, para desenhar uma destas imagens na tela precisamos de recolher algumas informações:
+
+* **Posição x e y da imagem na tela do jogo.** Esta posição corresponde à posição que o pixel
+  superior esquerdo da imagem terá na tela de jogo. 
+* **O número da imagem (0, 1, ou 2).** Escolhemos quais das 3 imagens do Pyxeledit será utilizada.
+* **Posição u e v da imagem no Pyxeleditor.** Corresponde ao ponto onde o pedaço da imagem que estamos copiando 
+  começa no Pyxeleditor. Se a imagem estiver no canto superior esquerdo, este valor seria (0, 0). Caso 
+  contrário, precisamos verificar as coordenadas no Pyxeleditor e utilizá-las no código Python para
+  carregar estas imagens
+* **Largura e altura.** Determina quantos píxeis serão utilizados na direção horizontal e vertical
+  a partir do pixel de início no Pyxeleditor.
+* **Cor de máscara.** Podemos, opcionalmente, marcar uma das cores como sendo transparente. Deste modo,
+  ao invés de desenhar os píxeis desta cor, o Pyxel irá simplesmente manter o que já estava desenhado
+  no fundo da tela.
+
+Agora voltando para o código Python, podemos usar estas informações e passar para a função `pyxel.blt` para
+desenhar uma imagem que se encontra no Pyxeleditor dentro do seu jogo. A função `blt` utiliza os parâmetros
+mencionados acima (nesta mesma ordem) e seu uso é ilustrado abaixo
 
 ```python
 def desenhar_flappy():
@@ -416,6 +462,13 @@ def desenhar_flappy():
     mascara = 0
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
 ```
+
+Note que trocamos `x` e `y` por `flappy_x` e `flappy_y` já que estas são as variáveis que guardam as posições x
+e y do passarinho. Para trocarmos a imagem, temos que alterar o valor de u e v na chamada de função.
+Podemos, por exemplo, escolher a segunda imagem do passarinho com a asa para cima, usando `v = 16`, já
+que é onde esta imagem começa na coordenada y. Altere um pouco estes valores para entender como cada um
+funciona!
+
 
 ## Animando o Flappy Bird
 
