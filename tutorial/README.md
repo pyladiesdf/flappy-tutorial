@@ -454,12 +454,21 @@ mencionados acima (nesta mesma ordem) e seu uso é ilustrado abaixo
 
 ```python
 def desenhar_flappy():
+    # Número da imagem
     img = 0
+    
+    # Posição inicial no Pyxeleditor
     u = 0
     v = 0
+    
+    # Tamanho da imagem
     largura = 17
     altura = 13
+    
+    # Cor tratada como transparente
     mascara = 0
+
+    # Chamamos a função blt para desenhar tudo isso!
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
 ```
 
@@ -488,10 +497,15 @@ o nosso código anterior para mudarmos facilmente o frame que será mostrado na 
 
 ```python
 def desenhar_flappy():
+    # Fixamos o frame 
     frame = 0
-    img = 0
+ 
+    # Posição inicial no Pyxeleditor agora depende do frame escolhido
     u = 0
     v = frame * 16
+
+    # O resto continua como antes...
+    img = 0
     largura = 17
     altura = 13
     mascara = 0
@@ -527,13 +541,24 @@ ficamos com o código:
 
 ```python
 def desenhar_flappy():
+    # Escolhemos qual dos 3 frames 0, 1 ou 2 utilizar
     frame = (pyxel.frame_count // 4) % 3
+
+    # Número da imagem
     img = 0
+    
+    # Posição inicial no Pyxeleditor
     u = 0
     v = frame * 16
+    
+    # Tamanho da imagem
     largura = 17
     altura = 13
+    
+    # Cor tratada como transparente
     mascara = 0
+
+    # Chamamos a função blt para desenhar tudo isso!
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
 ```
  
@@ -543,8 +568,8 @@ mais importante de tudo isso: o código para fazer isto aparecer é todo seu!
 
 ## Desenhando o chão
 
-O chão é um ótimo candidato para usar um retângulo. Podemos implementar nossa função de `desenhar_chao` de forma
-simplificada simplesmente desenhando um retângulo:
+O chão é basicamente um retângulo. Podemos implementar nossa função de `desenhar_chao` de forma
+simplificada simplesmente desenhando um retângulo de uma cor com cara de terra:
 
 ```python
 def desenhar_chao():
@@ -553,23 +578,24 @@ def desenhar_chao():
     pyxel.rect(0, altura_tela - altura, largura_tela, altura, cor)
 ```
 
-Apesar de funcional, esta versão do chão é um pouco desinteressante. O chão não possui texturas, não
+Apesar de funcional, esta versão do chão é bem desinteressante. O chão não possui texturas, não
 produz a ilusão de movimento e a qualidade artística deixa muito a desejar. Felizmente, existe uma
-imagem de chão pronta no arquivo de imagens que podemos usar para resolver estes problemas.
+imagem de chão pronta no arquivo de imagens que podemos usar para contornar estes problemas.
 
 O chão está definido na seção de "tilemaps" do Pyxel editor. Um tilemap é simplesmente uma imagem 
 formada pela repetição de outras imagens menores. No caso, temos uma pequena imagem de 16x16 pixels
-que desenha um chão de grama texturizado. 
+que desenha um chão de grama texturizado. Vamos repetir esta imagem várias vezes para preencher a
+tela com uma bela imagem de chão.
 
 Os tilemaps são maneiras de fazer imagens maiores dentro das limitações do Pyxel. Cada coordenada
-em um tilemap consiste em um ladrilho de 8x8 pixels. Assim, se usarmos um tilemap com altura de 2,
-isto equivaleria a 16 pixels na tela. Vamos carregar a imagem do chão a partir do primeiro tilemap 
+em um tilemap corresponde a um ladrilho de 8x8 pixels. Assim, um tilemap com altura de 2 equivaleria a 
+16 pixels usados na tela. Vamos carregar a imagem do chão a partir do primeiro tilemap 
 na nossa biblioteca de imagens.
 
 A função `pyxel.bltm(x, y, tm, i, j, largura, altura)` desenha uma imagem de largura e altura dadas
 (estas medidas são em ladrilhos 8x8, não em pixels), na posição (x, y) da tela usando os ladrilhos
 que começam nas posições i e j no tilemap. A variável `tm` é um índice de 0 a 2 que representa um
-dos 3 tilemaps disponível no Pyxel. Juntando tudo isso, temos a versão inicial da nossa função de
+dos 3 tilemaps disponíveis no Pyxel. Juntando tudo isso, temos a versão inicial da nossa função de
 desenhar o chão
 
 ```python
