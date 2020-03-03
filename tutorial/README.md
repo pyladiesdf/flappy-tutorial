@@ -28,8 +28,8 @@ No meio do caminho, podemos brincar com os parâmetros do jogo, inventar novas r
 e fazer todo tipo de coisa estranha. Esperamos que, ao terminar o tutorial, todas tenham o conhecimento
 necessário para começar um novo projeto do zero e a se desafiar. Será que você consegue fazer um jogo
 como o Pong do zero? Quais regras do Flappy Bird você alteraria? Quais seriam os novos efeitos visuais? Você 
-tem uma idéia de jogo que ninguém fez? E que tal um web site? Um aplicativo de celular? Um algoritmo de 
-aprendizado de máquina? Enfim, o objetivo é abrir a caixa de Pandora, o resto é com você!
+tem uma idéia para criar um jogo que ninguém fez? E que tal um web site? Um aplicativo de celular? Um algoritmo de 
+aprendizado de máquina? Enfim, o objetivo do tutorial é abrir a caixa de Pandora, o resto é com você!
 
 
 ## Ambiente de programação
@@ -186,7 +186,7 @@ ainda não possui um valor bem definido, ou que está em um estado inválido ou 
 se falarmos que a função desenhar é nula, estamos pedindo para o módulo flappy não fazer nada quando esta função
 for chamada. Coloque a linha `desenhar = None` antes de iniciar o jogo e você verá que a tela permanece preta! 
  
-Talvez este último experimento não tenha sido muito útil, mas no espírito de quebrar o brinquedo e depois
+Talvez este último experimento não tenha sido muito útil, mas no espírito de desmontar o brinquedo e depois
 colocar as peças de volta no lugar, vamos ver como a função `desenhar` é definida no módulo
 flappy:
 
@@ -248,6 +248,7 @@ def desenhar():
     desenhar_fundo()
     desenhar_nuvens()
     desenhar_canos()
+
     # Vamos apagar o próximo comando para ver o que acontece!
     # desenhar_chao()
     desenhar_flappy()
@@ -362,7 +363,40 @@ os seus valores padrão. Usar variáveis não definidas seria normalmente um err
 
 ## Sistema de coordenadas e cores
 
-@TODO
+Uma imagem na tela do computador ou celular é formada por uma grade de vários pontinhos coloridos. Cada um destes
+pontinhos é conhecido como um pixel (do inglês **pic**ture **el**ement, ou elemento da imagem). Quando criamos
+nossas próprias imagens a partir de código, é natural usar *pixels* (ou seriam *píxeis*?) para medir tamanhos
+e posições. É justamente isto que vamos fazer ao longo deste tutorial.
+
+A biblioteca Pyxel usa píxeis fictícios, já que o objetivo dela é emular um computador antigo com muito menos
+recursos que os computadores modernos. Enquanto um computador antigo poderia ter uma resolução típica da ordem
+de 320x240 píxeis, computadore modernos tipicamente possuem algo da ordem de 1920x1080. Se multiplicarmos 
+os dois números, vemos que o segundo é quase 30 vezes maior que o primeiro. 
+
+Além disto, um monitor moderno possui um controle muito preciso da cor de cada pixel. Você já deve ter ouvido 
+falar do padrão RGB: este é o mecanismo típico que monitores e telas de TV usam para gerar as várias cores. No RGB, 
+cada pixel é formado por um ponto de luz vermelha (**R**ed), outro verde (**G**reen) e outro azul (**B**lue). Se 
+você tiver acesso a uma lupa potente ou microscópio, é possível ver os três pontos de cor distintos muito 
+claramente. O monitor então controla a intensidade de cada uma destas três cores em cada ponto da tela para gerar
+qualquer cor distinguível pelo olho humano.
+
+Um computador moderno típico usa 256 intensidades para cada cor RGB de cada pixel, o que resulta em aproximadamente 16.8
+milhões de cores distintas! O Pyxel, por sua vez, nos limita a somente 16 cores, o que equivale ao número de cores 
+nos primeiros monitores coloridos dos primeiros computadores pessoais da IBM.
+
+Agora que sabemos que as distâncias são medidas em píxeis e as cores são representadas por números de 0 a 15, 
+vamos ver como se identifica um ponto específico na tela. A idéia básica é que podemos encontrar um ponto contando
+quantos píxeis é necessário andar na direção horizontal e quantos na direção vertical para conseguir identificá-lo.
+
+Em notação matemática usual, contaríamos quantos píxeis a partir do canto esquerdo da tela para representar a 
+coordenada horizontal (coordenada **x**) e quantos píxeis a partir da margem inferior para 
+representar a coordenada vertical (coordenada **y**). Programadores gostam de complicar as coisas e contam a
+partir do canto superior esquerdo. Isto significa que a coordenada y é invertida com relação à direção usual: `y = 0`,
+representa o canto superior da tela e, na medida que y cresce, caminhamos para baixo na tela do computador.
+
+O fato que a coordenada vertical y cresce para baixo significa que, muitas vezes, temos que fazer algumas
+conversões. Para encontrar um ponto que esteja 10 píxeis a esquerda da tela e 20 acima, teríamos que usar as 
+coordenadas `x = 10` e `y = altura_tela - 20`. 
 
 
 ## Pyxeledit
@@ -384,6 +418,8 @@ def desenhar_flappy():
 ```
 
 ## Animando o Flappy Bird
+
+@TODO
 
 ```python
 def desenhar_flappy():
@@ -1326,18 +1362,4 @@ pyxel.load("data.pyxres")
 pyxel.run(atualizar, desenhar)
 ```
 
-Execute o jogo, agora 100% feito por você 
-
-
-
-
-
-
-
-
-
-OBSERVAÇÕES IMPORTANTES:
-- Apresenta o básico de programação: variáveis, chamar e criar funções, if, for
-- Apresenta algumas estruturas de dados superficialmente (strings e listas)
-- NAO utiliza o laço while
-- Alguns conceitos moderadamente avançados (desconstrução de valores, compreensões de listas?)
+Execute o jogo, agora 100% feito por você!
