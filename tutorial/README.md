@@ -368,9 +368,9 @@ pontinhos é conhecido como um pixel (do inglês **pic**ture **el**ement, ou ele
 nossas próprias imagens a partir de código, é natural usar *pixels* (ou seriam *píxeis*?) para medir tamanhos
 e posições. É justamente isto que vamos fazer ao longo deste tutorial.
 
-A biblioteca Pyxel usa píxeis fictícios, já que o objetivo dela é emular um computador antigo com muito menos
+A biblioteca Pyxel usa pixels fictícios, já que o objetivo dela é emular um computador antigo com muito menos
 recursos que os computadores modernos. Enquanto um computador antigo poderia ter uma resolução típica da ordem
-de 320x240 píxeis, computadore modernos tipicamente possuem algo da ordem de 1920x1080. Se multiplicarmos 
+de 320x240 pixels, computadore modernos tipicamente possuem algo da ordem de 1920x1080. Se multiplicarmos 
 os dois números, vemos que o segundo é quase 30 vezes maior que o primeiro. 
 
 Além disto, um monitor moderno possui um controle muito preciso da cor de cada pixel. Você já deve ter ouvido 
@@ -384,18 +384,18 @@ Um computador moderno típico usa 256 intensidades para cada cor RGB de cada pix
 milhões de cores distintas! O Pyxel, por sua vez, nos limita a somente 16 cores, o que equivale ao número de cores 
 nos primeiros monitores coloridos dos primeiros computadores pessoais da IBM.
 
-Agora que sabemos que as distâncias são medidas em píxeis e as cores são representadas por números de 0 a 15, 
+Agora que sabemos que as distâncias são medidas em pixels e as cores são representadas por números de 0 a 15, 
 vamos ver como se identifica um ponto específico na tela. A idéia básica é que podemos encontrar um ponto contando
-quantos píxeis é necessário andar na direção horizontal e quantos na direção vertical para conseguir identificá-lo.
+quantos pixels é necessário andar na direção horizontal e quantos na direção vertical para conseguir identificá-lo.
 
-Em notação matemática usual, contaríamos quantos píxeis a partir do canto esquerdo da tela para representar a 
-coordenada horizontal (coordenada **x**) e quantos píxeis a partir da margem inferior para 
+Em notação matemática usual, contaríamos quantos pixels a partir do canto esquerdo da tela para representar a 
+coordenada horizontal (coordenada **x**) e quantos pixels a partir da margem inferior para 
 representar a coordenada vertical (coordenada **y**). Programadores gostam de complicar as coisas e contam a
 partir do canto superior esquerdo. Isto significa que a coordenada y é invertida com relação à direção usual: `y = 0`,
 representa o canto superior da tela e, na medida que y cresce, caminhamos para baixo na tela do computador.
 
 O fato que a coordenada vertical y cresce para baixo significa que, muitas vezes, temos que fazer algumas
-conversões. Para encontrar um ponto que esteja 10 píxeis a esquerda da tela e 20 acima, teríamos que usar as 
+conversões. Para encontrar um ponto que esteja 10 pixels a esquerda da tela e 20 acima, teríamos que usar as 
 coordenadas `x = 10` e `y = altura_tela - 20`. 
 
 
@@ -404,13 +404,13 @@ coordenadas `x = 10` e `y = altura_tela - 20`.
 Pyxel nos ajuda a criar joguinhos retrô baseados em *pixel art*. Por enquanto, vimos como desenhar coisas simples:
 como pintar a tela de uma única cor e desenhar retângulos. Poderíamos criar nossas artes em código, programando 
 as cores de cada pixel manualmente, e isto era mais ou menos a abordagem usada para criar os primeiros jogos 
-eletrônicos. Considerando que mesmo a tela de computadores antigos tinha dezenas de milhares de píxeis, podemos
+eletrônicos. Considerando que mesmo a tela de computadores antigos tinha dezenas de milhares de pixels, podemos
 ver facilmente que isto seria **muito** trabalhoso.
 
 Vamos usar uma abordagem alternativa e executar o Pyxeleditor, que é uma espécie de Photoshop retrô que vem junto
 com o Pyxel para editar *pixel art*. O arquivo de imagens padrão para o tutorial, [data.pyxres](data.pyxres), já vem 
 com o desenho do Flappy Bird, canos, chão e nuvens. Você pode modificá-los depois, mas não queremos exigir um 
-grande talento artístico e domínio completo sobre os píxeis para terminar este tutorial e portanto já deixamos
+grande talento artístico e domínio completo sobre os pixels para terminar este tutorial e portanto já deixamos
 a arte pronta.
 
 Pyxeledit é aberto a partir da linha de comando. Abra novamente o terminal (no menu `Terminal > Novo Terminal`)
@@ -442,10 +442,10 @@ Finalmente, para desenhar uma destas imagens na tela precisamos de recolher algu
   começa no Pyxeleditor. Se a imagem estiver no canto superior esquerdo, este valor seria (0, 0). Caso 
   contrário, precisamos verificar as coordenadas no Pyxeleditor e utilizá-las no código Python para
   carregar estas imagens
-* **Largura e altura.** Determina quantos píxeis serão utilizados na direção horizontal e vertical
+* **Largura e altura.** Determina quantos pixels serão utilizados na direção horizontal e vertical
   a partir do pixel de início no Pyxeleditor.
 * **Cor de máscara.** Podemos, opcionalmente, marcar uma das cores como sendo transparente. Deste modo,
-  ao invés de desenhar os píxeis desta cor, o Pyxel irá simplesmente manter o que já estava desenhado
+  ao invés de desenhar os pixels desta cor, o Pyxel irá simplesmente manter o que já estava desenhado
   no fundo da tela.
 
 Agora voltando para o código Python, podemos usar estas informações e passar para a função `pyxel.blt` para
@@ -827,15 +827,15 @@ na altura e largura. Estes valores estão explicados no código abaixo:
 
 ```python
 def desenhar_canos():
-    id = 1        # índice da imagem (0 a 3)
+    img = 1       # índice da imagem (0 a 3)
     u = 0         # posição x no banco de imagens
     v = 0         # posição y no banco de imagens
     largura = 25  # largura em pixels
     altura = 150  # altura em pixels
     cor = 0       # cor considerada transparente ao desenhar a imagem (opcional)
     for x, y in canos:
-        pyxel.blt(x, y, id, u, v, largura, altura, cor)
-        pyxel.blt(x, y + abertura_cano, id, u, v, largura, -altura, cor)
+        pyxel.blt(x, y, img, u, v, largura, altura, cor)
+        pyxel.blt(x, y + abertura_cano, img, u, v, largura, -altura, cor)
 ``` 
 
 Uma observação importante aqui: an segunda chamada a `pyxel.blt` usamos uma altura negativa. Isto simplesmente
@@ -1169,41 +1169,183 @@ Ufa! Esta parte foi difícil, mas valeu a pena! Agora entendemos como o passarin
 
 ## Canos
 
-Vamos passar para a próxima parte do nosso tutorial que é a de animar o cenário, em especial os canos.
-Aqui 
+Vamos passar para a próxima parte do nosso tutorial que é a de animar o cenário, em particular os canos.
+Vamos alterar a posição de cada cano 1 pixel para a esquerda para dar a impressão que o passarinho está
+andando para a direita. 
 
-- atualizar_canos(): listas (inserção e seleção por índice) randrange()
+A função responsável por mover os canos é a `atualizar_canos`. Aqui vamos relembrar um pouco a lógica da 
+função responsável por desenhá-los, a `desenhar_canos`. A parte mais importante era o laço **for** que 
+percorria as coordenadas x e y de cada cano desenhando a imagem de acordo com estes valores.
 
 ```python
-from random import randrange
+for x, y in canos:
+    pyxel.blt(x, y, img, u, v, largura, altura, cor)
+    pyxel.blt(x, y + abertura_cano, img, u, v, largura, -altura, cor)
+```
+
+Vamos usar uma lógica semelhante, mas agora temos que não só ler, mas também reescrever a
+posição de cada cano. É necessário, portanto, saber não só as coordenada x e y, mas também qual
+é a posição do cano na lista de canos. Existem vários métodos de fazer isto, vamos simplesmente
+criar uma nova variável `i` que guarda a posição atual na lista. Esta variável começa em zero
+e aumenta em 1 a cada vez que os comandos do for são executados.
+
+Usamos a posição i na lista para atualizar o valor do cano, deslocando um pixel para esquerda.
+
+```python
+i =  0
+for x, y in canos:
+    cano[i] = x - 1, y
+    i = i + 1
+```
+
+Preste atenção na linha `cano[i] = (x - 1, y)`. Tem muita coisa acontencendo aqui! Lembra-se que 
+`lista[i]` obtem o par na posição `i` da lista? De forma semelhante `lista[i] = valor` salva o 
+valor do lado direito na posição `i` da lista. No nosso caso, o valor do lado direito do sinal de igual é um par
+de variáveis: subtraímos 1 de x e mantemos y igual para representar o deslocamento de 1 pixel para
+a esquerda. 
+
+Agora que sabemos mais ou menos como atualizar a posição dos canos, precisamos cobrir outra parte importante
+do código que é a inicialização da variável `canos`. Já vimos que cada cano é representado por um par de
+valores representando as coordenadas x e y do cano. 
+
+Quando o jogo começa, o primeiro cano fica oculto fora da tela (mas pronto para entrar, assim que o jogador
+apertar para pular). Não conseguimos ver, mas o cano também tem um tamanho vertical bem maior que a tela e, 
+normalmente teria um pedaço sobrando tanto em cima quanto em baixo. 
+
+O primeiro cano, portanto, poderia ser algo como
+
+```python
+cano1 = largura_tela, -50
+```
+
+Aqui igualamos a coordenada x à largura da tela para especificar um cano que está oculto imediatamente ao
+lado direito da tela e irá aparecer imediatamente quando o cenário começar a andar. Atribuímos um valor
+arbitrário -50 à coordenada y para lembrar que existem 50 pixels sobrando para cima da tela. 
+
+Seguindo essa lógica, poderíamos agora criar 4 variáveis, uma para cada cano, com os valores das posições 
+em x e y
+
+```python
+cano1 = largura_tela, -50
+cano2 = largura_tela + 80, -20
+cano3 = largura_tela + 160, -70
+cano4 = largura_tela + 240, -90
+```
+
+Neste caso, os canos estão a uma distância horizontal de 80 pixels entre si e com valores aparentemente 
+aleatórios na coordenada y. Podemos melhorar este código de duas maneiras: a primeira é fazer a distância
+entre os canos controlável a partir de uma variável e a segunda é transformar estes valores 
+pseudo-aleatórios em valores aleatórios de verdade.
+
+O primeiro passo é trocar o número 80 pela variável `distancia_canos` (com um valor inicial de 80). Veja que
+a coordenada x de cada cano possui um padrão do tipo `largura_tela + distancia_canos * i`, onde i é a posição
+do cano 0, 1, 2 ou 3.
+
+```python
+distancia_canos = 80
+cano1 = largura_tela + distancia_canos * 0, -50
+cano2 = largura_tela + distancia_canos * 1, -20
+cano3 = largura_tela + distancia_canos * 2, -70
+cano4 = largura_tela + distancia_canos * 3, -90
+```
+
+O próximo passo é fazer a coordenada y realmente aleatória. Para isto, temos que importar a função `randint`
+do módulo `random` do Python. Esta função recebe 2 parâmetros: o menor valor e o maior e sorteia um número
+inteiro entre (e incluindo) estes valores. Sorteamos um número entre 1 e 10 e multiplicamos por 10 para ficar
+num intervalo entre 10 e 100. Como a coordenada y deve ser negativa (o cano começa acima do topo da tela),
+colocamos um sinal negativo antes.
+
+
+```python
+from random import randint
 
 distancia_canos = 80
-cano1 = 0 * distancia_canos + largura_tela, randrange(-100, 0, 10)
-cano2 = 1 * distancia_canos + largura_tela, randrange(-100, 0, 10)
-cano3 = 2 * distancia_canos + largura_tela, randrange(-100, 0, 10)
-cano4 = 3 * distancia_canos + largura_tela, randrange(-100, 0, 10)
+cano1 = largura_tela + distancia_canos * 0, -10 * randint(1, 10)
+cano2 = largura_tela + distancia_canos * 1, -10 * randint(1, 10)
+cano3 = largura_tela + distancia_canos * 2, -10 * randint(1, 10)
+cano4 = largura_tela + distancia_canos * 3, -10 * randint(1, 10)
+```
+
+Agora que temos os 4 canos, basta criar uma lista com os valores e salvar como `canos` para
+criar a lista de canos. Em Python, uma lista é criada colocando diversos valores separados
+por vírgulas entre colchetes.
+
+```python
 canos = [cano1, cano2, cano3, cano4]
 ```
 
+Já sabemos criar a lista de canos, então vamos voltar na função responsável por atualizar suas posições
+
 ```python
 def atualizar_canos():
-    for i in range(4):
-        x, y = canos[i]
-        canos[i] = (x - 1, y)
+    i = 0
+    for x, y in canos:
+        canos[i] = x - 1, y
+        i = i + 1
+```
+
+Existe um problema sério com esta função: uma vez que os canos saem pelo lado esquerdo da tela, eles nunca mais 
+serão vistos! Temos que reposicionar os canos que se deslocaram muito à esquerda novamente de volta para fora da
+tela no seu lado direito. 
+
+Podemos fazer isto checando, antes de atualizar a posição x, se o cano já passou completamente para
+o lado esquerdo da tela. Isto é feito verificando se a posição x é menor que o negativo da largura do 
+cano. Consultado o código anterior, vemos que o cano tem 25 pixels de largura e, portanto se estiver a
+-25 pixels em x ou ainda mais a esquerda, ele estará totalmente encoberto na tela.
+
+Isto dá uma boa idéia de uma checagem que pode ser feita antes de salvarmos o valor na variável `canos[i]`
+  
+```python
+def atualizar_canos():
+    i = 0
+    for x, y in canos:
+        if x < -25:
+            ... # Atualiza as coordenadas x e y
+        canos[i] = x - 1, y
+        i = i + 1
+```
+
+O código para atualizar as coordenadas x e y do novo cano deve seguir a lógica: deslocamos o cano por
+4 distâncias para a direita e sorteamos um novo valor aleatório para y:
+
+```python
+if x < -25:
+    x = x + distancia_cano * 4
+    y = -10 * randint(1, 10)
+```
+
+Se você se perdeu um pouco no seu código, segue o código completo desta parte.
+
+```python
+# Coloque junto com os outros imports
+from random import randint
+
+
+# Definição de variáveis
+distancia_canos = 80
+cano1 = largura_tela + distancia_canos * 0, -10 * randint(1, 10)
+cano2 = largura_tela + distancia_canos * 1, -10 * randint(1, 10)
+cano3 = largura_tela + distancia_canos * 2, -10 * randint(1, 10)
+cano4 = largura_tela + distancia_canos * 3, -10 * randint(1, 10)
+canos = [cano1, cano2, cano3, cano4]
+
 
 def atualizar_canos():
-    espaco_x = 80 
-
-    for i in range(4):
-        x, y = canos[i]
-        if x < -80:
-            x = x + espaco_x * 4
-            y = randrange(-100, 0, 10)
-        canos[i] = (x - 1, y)
+    i = 0
+    for x, y in canos:
+        if x < -30:
+            x = x + 4 * distancia_canos * 4
+            y = -10 * randint(1, 10)
+        canos[i] = x - 1, y
+        i = i + 1
 ```
+
+Lembre-se de colocar cada pedaço em seu local correto no arquivo jogo.py: os imports ficam sempre no final, em seguida
+vem as definições de variáveis, depois as declarações de funções e, por último, a chamada de função `flappy.comecar()`
 
 ## Colisões
 
+@TODO
 - atualiza_colisoes(): colisão com os extremos da tela e com os canos
 
 ```python
@@ -1220,7 +1362,7 @@ def atualizar_colisoes():
     if flappy_y > altura_tela - 30:
         morto = True
 
-    for (x, y) in canos:
+    for x, y in canos:
         colide_x = x + 12.5 > flappy_x > x - 12.5
         colide_y = flappy_y > y + abertura_cano or flappy_y < y + 140
         
