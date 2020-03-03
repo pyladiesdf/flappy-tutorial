@@ -472,7 +472,58 @@ funciona!
 
 ## Animando o Flappy Bird
 
-@TODO
+Agora que sabemos como mostrar uma imagem na tela, vamos dar um passo além e criar uma animação! Vimos que na
+imagem 0 do Pyxeleditor temos 3 versões do passarinho que diferem entre si pela posição das asas. Se alternarmos
+entre estas três figuras, podemos criar uma ilusão de animação em que vai parecer que o passarinho está batendo
+asas. 
+
+A idéia é ficar apenas alguns poucos frames em cada uma das imagens e depois trocar por outra. Felizmente, 
+as imagens são muito parecidas e estão próximas entre si, diferindo apenas pela posição inicial em y. Temos
+a primeira imagem começando em `y = 0`, depois a seguinte em `y = 16` e a última em `y = 24`. Cada um destes casos
+pode ser escrito simplesmente como `y = 0 * 16`, `y = 1 * 16` ou `y = 2 * 16`, de forma que apenas o número
+que multiplica o 16 precisa mudar de uma imagem para a outra. 
+
+Vamos supor que este número fica salvo na variável `frame`, para apontar o número do frame. Podemos modificar
+o nosso código anterior para mudarmos facilmente o frame que será mostrado na tela:
+
+```python
+def desenhar_flappy():
+    frame = 0
+    img = 0
+    u = 0
+    v = frame * 16
+    largura = 17
+    altura = 13
+    mascara = 0
+    pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
+```
+
+Note que isto não resolve o problema da animação. Simplesmente alternamos a imagem do Flappy Bird entre
+a que ele fica com a asa levantada (`frame = 1`) e as que ele fica com a asa abaixada (`frame = 0 ou 2`).
+Para animarmos, é necessário avançar esta variável a cada frame ou a cada grupo de alguns poucos frames. 
+Podemos fazer isto facilmente igualando `frame` ao `pyxel.frame_count`, mas tomando o resto da divisão por
+3 para obter um número entre 0 e 2.
+
+Troque a linha `frame = 0` por:
+
+```python
+frame = pyxel.frame_count % 3
+```
+
+Isto funciona, mas o passarinho bate asas **muito** rápido! Um modo fácil de consertar isto é dividir
+`pyxel.frame_count` por um valor qualquer antes de calcular o resto para dimuinir a taxa de alternância
+entre as imagens. Algo como isto:
+
+```python
+frame = (pyxel.frame_count / 4) % 3
+```
+
+Este código deveria alterar a imagem a cada 4 frames, mas ao invés disto produz um bug muito estranho
+(rode para ver!). O problema aqui é que frame deve ser sempre uma variável inteira e `pyxel.frame_count / 4`
+pode resultar em valores fracionários. Consertamos isto trocando a divisão usual expressa como `a / b` pela
+divisão inteira `a // b`, que garante que a resposta final é sempre um número inteiro. Juntando tudo isso,
+ficamos com o código:
+
 
 ```python
 def desenhar_flappy():
@@ -485,6 +536,9 @@ def desenhar_flappy():
     mascara = 0
     pyxel.blt(flappy_x, flappy_y, img, u, v, largura, altura, mascara)
 ```
+ 
+Maravilha! Agora nosso passarinho aparece em toda glória do pixel art com direito a animação e tudo. E o 
+mais importante de tudo isso: o código para fazer isto aparecer é todo seu!
 
 
 ## Desenhando o chão
