@@ -53,18 +53,20 @@ Vamos à lista de recursos que devemos preparar antes de começar:
   ótimo ponto de partida: grátis, leve, simples de usar e cheio de recursos.
 - [Python 3.7+](http://python.org/): O interpretador do Python. Precisamos instalar a versão 3.7 ou superior.
 - [Pyxel](https://github.com/kitao/pyxel): Biblioteca para criar joguinhos 8-bit em Python.
-- [Módulo auxiliar flappy.py](...): Módulo auxiliar que usaremos nesse tutorial. Possui a implementação 
+- [Módulo auxiliar flappy.py](https://github.com/pyladiesdf/flappy-tutorial/blob/master/tutorial/flappy.py):
+  Módulo auxiliar que usaremos nesse tutorial. Possui a implementação 
   completa do jogo que vamos substituir pela nossa ao longo do tutorial.
-- [Arquivo de imagens data.pyres](...): Arquivo com as imagens em pixel art utilizadas no jogo. Possui o 
+- [Arquivo de imagens data.pyres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/tutorial/data.pyxres):
+  Arquivo com as imagens em pixel art utilizadas no jogo. Possui o 
   desenho de um passarinho, canos, nuvens, terreno etc. Podemos editar este arquivo pixel a pixel utilizando
   o editor de imagens que vem incluído no Pyxel. 
 
 Se você ainda não possui estes recursos instalados, siga um dos tutoriais abaixo, a depender do
 sistema operacional no seu computador:
 
-- Eu uso o [Windows]().
-- Eu uso o [Linux]().
-- Eu sou chique e uso o [MacOS]().
+- Eu uso o [Windows](https://github.com/kitao/pyxel#windows).
+- Eu uso o [Linux](https://github.com/kitao/pyxel#linux).
+- Eu sou chique e uso o [MacOS](https://github.com/kitao/pyxel#mac).
 
 ### Testando o ambiente (?)
 
@@ -158,7 +160,7 @@ flappy.comecar()
 Os números mostrados são os valores padrão de cada uma destas variáveis. Modifique estes números para 
 ver o que acontece. Você verá o tamanho da tela se alterar e a gravidade funcionando de modos estranhos. 
 As variáveis que terminam com `.0` aceitam valores quebrados como, por exemplo, `gravidade = 0.75` e até
-valores negativos.
+valores negativos. **Importante:** os valores da tela devem estar entre 0 e 256.
 
 Você também pode criar qualquer variável que quiser no programa, (ex.: `numero_preferido = 42`), mas, a 
 não ser que a variável tenha um nome reconhecido pelo módulo flappy, ela ainda não terá efeito algum.
@@ -353,7 +355,7 @@ na tela que começa no ponto de coordenadas x e y, com determinada largura e alt
 que possui a cor sólida especificada no último argumento (um número de 0 a 15, lembra?). Observe que numa função
 que possui vários parâmetros, especificamos cada valor separando-os por vírgulas. O significado para a função 
 depende da sua posição na lista de argumentos. Por exemplo, em `pyxel.rect` o primeiro argumento sempre diz respeito
-à posição x onde o retângulo começa, o segundo define a posição do retângulo e assim por diante.
+à posição x onde o retângulo começa, o segundo define a posição y do retângulo e assim por diante.
 
 Você também pode ter percebido que as variáveis `flappy_x` e `flappy_y` não foram definidas no código. Na verdade,
 podemos omití-las porque estas variáveis foram definidas pelo módulo flappy e ao omití-las estamos simplesmente utilizando 
