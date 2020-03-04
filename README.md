@@ -290,7 +290,7 @@ O Pyxel, por sua vez, simula um computador antigo daqueles que só conseguem rep
 muito limitada de cores, de pixels, de sons, etc. No caso das cores, temos apenas 16 possibilidades, que 
 são identificadas pelos números de 0 a 15. A correspondência entre números e cores é dada pela imagem abaixo:
 
-![Paleta de cores](../imgs/color-palette.png)
+![Paleta de cores](imgs/color-palette.png)
 
 Agora que você sabe o que está acontecendo, mude o número para trocar a cor para outro valor. Quem sabe ficar com
 um céu vermelho ou roxo?
@@ -418,7 +418,7 @@ a arte pronta.
 Pyxeledit é aberto a partir da linha de comando. Abra novamente o terminal (no menu `Terminal > Novo Terminal`)
 e digite `pyxeleditor data.pyxres`. Deve abrir uma tela como esta
 
-![Pyxeledit](../imgs/pyxeleditor.png)
+![Pyxeledit](imgs/pyxeleditor.png)
 
 Aqui temos um editor simples que permite modificar as imagens disponíveis no jogo pixel a pixel. Você pode brincar
 um pouco aqui, mudar a cor do passarinho, desenhar algum adereço, etc, mas podemos simplesmente utilizar as imagens

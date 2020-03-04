@@ -4,7 +4,7 @@ import pyxel
 
 #
 # Constantes
-# do cano
+#
 LARGURA = 255
 ALTURA = 255
 ABERTURA = 200

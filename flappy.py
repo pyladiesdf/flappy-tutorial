@@ -192,7 +192,7 @@ def desenhar_nuvens():
 def desenhar_canos():
     for (x, y) in _.canos:
         pyxel.blt(x, y, 1, 0, 0, 25, 150, 0)
-        pyxel.blt(x, y + _.abertura_cano, 1, 0, 0, -25, -150, 0)
+        pyxel.blt(x, y + _.abertura_cano, 1, 0, 0, 25, -150, 0)
 
 
 # Chão: desenhamos duas texturas separadas pela largura da tela que
