@@ -720,24 +720,93 @@ Troque por uma mensagem que signifique algo mais importante para você e vamos p
 
 ## Se, então, senão
 
-@TODO
+Agora que sabemos como desenhar textos na tela do jogo, vamos escolher um conjunto de mensagens 
+mais apropriado para a situação do jogador. Temos que lidar com basicamente 3 situações diferentes:
+
+1. **Jogador morreu.** Mensagem diz para apertar R para reiniciar.
+2. **Jogo está rodando.** Mostramos o placar.
+3. **Jogo ainda não começou.** Mensagem diz para pular para começar.
+
+Este tipo de estrutura lógica é chamado em programação de execução condicional. Temos uma lógica do
+tipo *"se acontecer A, faça B, mas se acontecer C, faça D"*. Em Python, descrevemos esta estrutura
+usando o comando if/elif/else. Este é um dos conceitos mais importantes de programação e por isso 
+vamos voltar no comando **if** com mais detalhes posteriormente neste tutorial.
+
+A estrutura básica de um bloco condicional é dada por
+
+```python
+if condicao A:
+    comando A
+elif condicao B:
+    comando B
+else:
+    comando C
+```
+
+Neste bloco, o computador primeiro testa a condição A, que pode ser qualquer expressão que resulte
+em um valor de verdadeiro ou falso, e caso esta condição seja verdadeira, ele executa somente o 
+comando A. Apenas no caso em que a primeira condição for falsa, ele segue com o teste e avalia a condição
+B. Caso ela seja verdadeira, ele executa o comando B e se for falsa, executa o comando C. 
+
+Lembre-se que em um bloco de if/elif/else, somente um dos blocos de comando será executado. O Python sempre
+escolhe o bloco associado à primeira condição verdadeira, mas caso nenhuma condição seja satisfeita, ele
+executa o bloco **else**.
+
+Vamos usar esta estrutura para definir o texto da mensagem que vai aparecer na tela de acordo com
+o estado do jogo. A nossa lista de situações pode ser traduzida para as variáveis de programação
+de forma mais ou menos simples:
+
+1. **Jogador morreu.** A variável `morto` possui um valor verdadeiro.
+2. **Jogo está rodando.** A variável `ativo` possui um valor verdadeiro.
+3. **Jogo ainda não começou.** Corresponde à condição else no nosso condicional.
+
+As variáveis `morto` e `ativo` começam com um valor `False` (falso, em inglês) e depois podem mudar
+de valor dependendo de como o usuário interagir com o jogo. Se, por exemplo, o jogador bater em um
+cano, o estado de `morto` muda de `False` para `True`. Nós não vamos nos preocupar agora em
+controlar estas variáveis, mas apenas em mostrar a mensagem correta de acordo com o valor
+que elas assumirem ao longo do jogo.
+
+O código final da nossa função `desenhar_instrucoes` após utilizar o comando **if** fica:
 
 ```python
 def desenhar_instrucoes():
     cor = 7
 
-    if not ativo:
-        msg = "APERTE ESPACO OU SETA PARA CIMA PARA COMECAR"
-    elif morto:
+    if morto:
         msg = "Aperte R para reiniciar"
-    else:
+    elif ativo:
         msg = str(score)
+    else:
+        msg = "Espaço ou seta para cima para começar"
     
     largura_texto = pyxel.FONT_WIDTH * len(msg)
     x = largura_tela / 2 - largura_texto / 2
     y = altura_tela / 3
     pyxel.text(x, y, msg, cor)
 ```
+
+A primeira e a última condições são simples de entender: estamos simplesmente atribuindo um 
+valor de texto para a variável `msg`. Já a condição do meio possui o comando `str(score)`, que
+merece uma explicação. A variável `score` guarda o placar atual do jogo. Começa sempre no valor
+zero e aumenta em 1 a cada cano que o passarinho atravessar. 
+
+Score é uma variável numérica e não podemos simplesmente atribuí-la à mensagem porque `pyxel.text`
+espera um texto e não um número no terceiro argumento onde passamos a mensagem. Precisamos, portanto,
+converter o número para texto e é justamente isto que a função `str` faz: `str(x)` retorna uma 
+representação de x como texto, qualquer que seja o valor de x.
+
+O nome `str` para converter valores para texto pode parecer um pouco misterioso. Porque não algo como
+`text(x)`?  O nome `str` é uma abreviação de `string`, que em inglês significa cadeia/corrente. É um
+jargão comum em computação chamarmos um texto de uma "cadeia" de caracteres. Pode parecer um pouco 
+estranho pensar deste jeito, já que raramente pensamos em um texto como uma sequência aleatória de
+caracteres. Lembre-se que o computador não entende nada do que escrevemos. Assim, se você fosse um 
+computador, o texto completo deste tutorial, as obras completas de Machado de Assis, a música do Michel
+Teló cantanda em russo ou o texto de um gato que subiu no teclado teriam exatamente o mesmo 
+significado: um bando de letras na memória. 
+
+As variáveis de texto normalmente são criadas colocando o conteúdo do texto entre aspas. No entanto,
+se você quiser converter qualquer tipo de variável `x` para texto, basta executar a função `str(x)`
+que o Python retornará uma representação razoável para o valor de `x`.
 
 
 ## Desenhando os canos
