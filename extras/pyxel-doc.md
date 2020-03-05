@@ -4,7 +4,7 @@
 
 **Pyxel** é uma engine retro de games para Python.
 
-Thanks to its simple specifications inspired by retro gaming consoles, such as only 16 colors can be displayed and only 4 sounds can be played back at the same time, you can feel free to enjoy making pixel art style games.
+Graças a suas simples especificações inspiradas em games retro, como jogos com apenas 16 cores e apenas 4 sons tocados ao mesmo tempo, você pode see sentir livre para se divertir fazendo jogos com estilo de pixel arte.
 
 <a href="https://github.com/kitao/pyxel/blob/master/pyxel/examples/01_hello_pyxel.py" target="_blank">
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/examples/screenshots/01_hello_pyxel.gif" width="48%">
