@@ -56,10 +56,10 @@ Vamos à lista de recursos que devemos preparar antes de começar:
   se você não conhece nenhum editor de código, o Visual Studio Code (ou VSCode, para os íntimos), é um 
   ótimo ponto de partida: grátis, leve, simples de usar e cheio de recursos.
 - [Pyxel](https://github.com/kitao/pyxel): Biblioteca para criar joguinhos 8-bit em Python.
-- [Módulo auxiliar flappy.py](https://github.com/pyladiesdf/flappy-tutorial/blob/master/flappy.py):
+- [Módulo auxiliar flappy.py](https://raw.githubusercontent.com/pyladiesdf/flappy-tutorial/master/flappy.py):
   Módulo auxiliar que usaremos nesse tutorial. Possui a implementação 
   completa do jogo que vamos substituir pela nossa ao longo do tutorial.
-- [Arquivo de imagens data.pyres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/data.pyxres):
+- [Arquivo de imagens data.pyxres](https://raw.githubusercontent.com/pyladiesdf/flappy-tutorial/master/data.pyxres):
   Arquivo com as imagens em pixel art utilizadas no jogo. Possui o 
   desenho de um passarinho, canos, nuvens, terreno etc. Podemos editar este arquivo pixel a pixel utilizando
   o editor de imagens que vem incluído no Pyxel. 
@@ -78,8 +78,8 @@ onde vamos guardar nosso projeto e abrir o Visual Studio Code nesta pasta. Nosso
 precisamos criar um arquivo contendo o código fonte e copiar alguns arquivos auxiliares.
 
 O primeiro passo é ir para a pasta do projeto e copiar os arquivos 
-[flappy.py](https://github.com/pyladiesdf/flappy-tutorial/blob/master/flappy.py) e 
-[data.pyxres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/data.pyxres) para a pasta do projeto. 
+[flappy.py](https://raw.githubusercontent.com/pyladiesdf/flappy-tutorial/master/flappy.py) e 
+[data.pyxres](https://raw.githubusercontent.com/pyladiesdf/flappy-tutorial/master/data.pyxres) para a pasta do projeto. 
 Ao lado destes dois arquivos, crie um arquivo vazio chamado `jogo.py` usando a função 
 `Arquivo > Novo Arquivo` (ou Ctrl+N) no VSCode. Vamos abrir este arquivo e começar a trabalhar.
 
@@ -416,7 +416,7 @@ eletrônicos. Considerando que mesmo a tela de computadores antigos tinha dezena
 ver facilmente que isto seria **muito** trabalhoso.
 
 Vamos usar uma abordagem alternativa e executar o Pyxeleditor, que é uma espécie de Photoshop retrô que vem junto
-com o Pyxel para editar *pixel art*. O arquivo de imagens padrão para o tutorial, [data.pyxres](data.pyxres), já vem 
+com o Pyxel para editar *pixel art*. O arquivo de imagens padrão para o tutorial, [data.pyxres](https://raw.githubusercontent.com/pyladiesdf/flappy-tutorial/master/data.pyxres), já vem 
 com o desenho do Flappy Bird, canos, chão e nuvens. Você pode modificá-los depois, mas não queremos exigir um 
 grande talento artístico e domínio completo sobre os pixels para terminar este tutorial e portanto já deixamos
 a arte quase pronta.
