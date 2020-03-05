@@ -1,5 +1,5 @@
 import sys as _sys
-from random import randrange as _randrange
+from random import randrange as _randrange, randint as _randint
 
 import pyxel
 
@@ -96,7 +96,12 @@ def reiniciar():
     _.flappy_x = _.largura_tela // 3
     _.flappy_y = _.altura_tela // 2
     _.velocidade = 0
-    _.canos = [((i * 80) + _.largura_tela, _randrange(-100, 0, 10)) for i in range(4)]
+    distancia_canos = 80
+    cano1 = _.largura_tela + distancia_canos * 0, -10 * _randint(1, 8)
+    cano2 = _.largura_tela + distancia_canos * 1, -10 * _randint(1, 8)
+    cano3 = _.largura_tela + distancia_canos * 2, -10 * _randint(1, 8)
+    cano4 = _.largura_tela + distancia_canos * 3, -10 * _randint(1, 8)
+    _.canos = [cano1, cano2, cano3, cano4]
     _.score = 0
 
 
@@ -146,8 +151,8 @@ def atualizar_colisoes():
         _.morto = True
 
     for i, (x, y) in enumerate(_.canos):
-        colide_x = x + 12.5 > _.flappy_x > x - 12.5
-        colide_y = _.flappy_y > y + _.abertura_cano or _.flappy_y < y + 140
+        colide_x = _.flappy_x + 17 > x and _.flappy_x < x + 25
+        colide_y = _.flappy_y < y + 135 or _.flappy_y + 13 > y + _.abertura_cano
         if colide_x and colide_y:
             _.morto = True
 
@@ -191,8 +196,8 @@ def desenhar_nuvens():
 # em x e a altura do cano
 def desenhar_canos():
     for (x, y) in _.canos:
-        pyxel.blt(x, y, 1, 0, 0, 25, 150, 0)
-        pyxel.blt(x, y + _.abertura_cano, 1, 0, 0, 25, -150, 0)
+        pyxel.blt(x, y, 1, 0, 0, 25, 135, 0)
+        pyxel.blt(x, y + _.abertura_cano, 1, 0, 0, 25, -135, 0)
 
 
 # Chão: desenhamos duas texturas separadas pela largura da tela que

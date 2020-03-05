@@ -902,7 +902,7 @@ def desenhar_canos():
     u = 0         # posição x no banco de imagens
     v = 0         # posição y no banco de imagens
     largura = 25  # largura em pixels
-    altura = 150  # altura em pixels
+    altura = 135  # altura em pixels
     cor = 0       # cor considerada transparente ao desenhar a imagem (opcional)
     for x, y in canos:
         pyxel.blt(x, y, img, u, v, largura, altura, cor)
@@ -1331,10 +1331,10 @@ colocamos um sinal negativo antes.
 from random import randint
 
 distancia_canos = 80
-cano1 = largura_tela + distancia_canos * 0, -10 * randint(1, 10)
-cano2 = largura_tela + distancia_canos * 1, -10 * randint(1, 10)
-cano3 = largura_tela + distancia_canos * 2, -10 * randint(1, 10)
-cano4 = largura_tela + distancia_canos * 3, -10 * randint(1, 10)
+cano1 = largura_tela + distancia_canos * 0, -10 * randint(1, 8)
+cano2 = largura_tela + distancia_canos * 1, -10 * randint(1, 8)
+cano3 = largura_tela + distancia_canos * 2, -10 * randint(1, 8)
+cano4 = largura_tela + distancia_canos * 3, -10 * randint(1, 8)
 ```
 
 Agora que temos os 4 canos, basta criar uma lista com os valores e salvar como `canos` para
@@ -1414,28 +1414,79 @@ def atualizar_canos():
 Lembre-se de colocar cada pedaço em seu local correto no arquivo jogo.py: os imports ficam sempre no final, em seguida
 vem as definições de variáveis, depois as declarações de funções e, por último, a chamada de função `flappy.comecar()`
 
+
 ## Colisões
 
-@TODO
-- atualiza_colisoes(): colisão com os extremos da tela e com os canos
+As colisões do passarinho com os canos e com o chão determinam quando o jogo acaba e qual o placar. O caso mais
+simples de implementar é a colisão com o chão: basta ver se a coordenada y da base do passarinho é maior que a 
+altura do chão. 
+
+Temos que tomar um pouco de cuidado com alguns detalhes. A variável flappy_y guarda a coordenada do topo do 
+passarinho. A base, portanto, é `flappy_y + 13`, já que o desenho do passarinho possui 13 pixels de altura.
+De forma análoga, a coordenada y da base da tela fica em `altura_tela`, mas quando descontamos a altura do
+chão, ou seja 16 pixels, a comparação final fica `flappy_y + 13 > altura_tela - 16`.
+
+Colocando tudo isso em código, ficamos com a seguinte função que verifica colisões:
 
 ```python
 def atualizar_colisoes():
     global morto
 
-    if flappy_y > altura_tela - 30:
+    if flappy_y + 13 > altura_tela - 16:
         morto = True
+```
 
+Esta é apenas a primeira parte: testar as colisões com o chão. Precisamos ainda verificar se houve alguma 
+colisão com os canos. Isso é mais difícil, mas essencial. Ficaria muito fácil jogar o Flappy Bird se 
+o passarinho puder atravessar os canos!
 
+Lembrando que cada cano é representado por um par de coordenadas x e y, devemos começar nosso código
+com um laço:
+
+```python
+for x, y in canos:
+    testa a colisão
+```
+
+Uma boa estratégia para verificar se houve colisão é testar se a coordenada x do passarinho
+superpõe a coordenada x do cano e se, além disso, houver colisão em y. Para fazermos o primeiro
+teste, é preciso lembrar que o cano possui 25 pixels de largura e o passarinho 17. Deste modo,
+se `flappy_x + 17 > x`, significa que o lado direito do passarinho ultrapassou o lado esquerdo 
+do cano. Mas para existir superposição em x, também é necessário que o lado esquerdo do passarinho
+esteja à esquerda do lado direito do cano. Estas duas condições precisam ocorrer simultaneamente,
+caso contrário o passarinho pode estar simplesmente totalmente do lado esquerdo ou direito 
+do cano.
+
+Podemos salvar se houve colisão em x em uma variável. Falamos para o Python que queremos que
+as duas condições sejam satisfeitas simultaneamente unindo-as pelo operador **and**:
+
+```python
+colide_x = flappy_x + 17 > x and flappy_x < x + 25
+``` 
+
+Já para a colisão em y, temos que lembrar da altura do cano (150 pixels) e do passarinho (13 pixels).
+Sabemos que ele colidiria com o cano superior se `flappy_y` for menor que a coordenada da parte de
+baixo do cano superior (`y + 150`). De forma similar, testamos a colisão com o cano inferior
+verificando se `flappy_y + 13` é maior que `y + abertura_cano`. A variável `abertura_cano` controla
+a posição do cano inferior, que começa em `y + abertura_cano` e termina em `y + abertura_cano + 150`.
+Neste caso, se qualquer uma das duas condições for satisfeita, existe colisão em y.
+
+```python
+colide_y = flappy_y < y + 135 or flappy_y + 13 > y + abertura_cano
+```
+
+Juntamos tudo, verificando ao final se tanto colide_x quanto colide_y são verdadeiras: 
+
+```python
 def atualizar_colisoes():
     global morto
 
-    if flappy_y > altura_tela - 30:
+    if flappy_y + 13 > altura_tela - 16:
         morto = True
 
     for x, y in canos:
-        colide_x = x + 12.5 > flappy_x > x - 12.5
-        colide_y = flappy_y > y + abertura_cano or flappy_y < y + 140
+        colide_x = flappy_x + 17 > x and flappy_x < x + 25
+        colide_y = flappy_y < y + 135 or flappy_y + 13 > y + abertura_cano
         
         if colide_x and colide_y:
             morto = True
