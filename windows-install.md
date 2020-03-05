@@ -57,4 +57,4 @@ Depois, você deve encontrar a pasta zip, clicar com o botão direito e selecion
 
 # Mão na massa
 
-Agora que já instalamosos recursos necessário, podemos voltar ao nosso [tutorial](https://github.com/pyladiesdf/flappy-tutorial#tutorial-parte-1-iniciando-o-jogo) :)
+Agora que já instalamos os recursos necessário, podemos voltar ao nosso [tutorial](https://github.com/pyladiesdf/flappy-tutorial#tutorial-parte-1-iniciando-o-jogo) :)
