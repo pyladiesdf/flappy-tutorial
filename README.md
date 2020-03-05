@@ -53,10 +53,10 @@ Vamos à lista de recursos que devemos preparar antes de começar:
   ótimo ponto de partida: grátis, leve, simples de usar e cheio de recursos.
 - [Python 3.7+](http://python.org/): O interpretador do Python. Precisamos instalar a versão 3.7 ou superior.
 - [Pyxel](https://github.com/kitao/pyxel): Biblioteca para criar joguinhos 8-bit em Python.
-- [Módulo auxiliar flappy.py](https://github.com/pyladiesdf/flappy-tutorial/blob/master/tutorial/flappy.py):
+- [Módulo auxiliar flappy.py](https://github.com/pyladiesdf/flappy-tutorial/blob/master/flappy.py):
   Módulo auxiliar que usaremos nesse tutorial. Possui a implementação 
   completa do jogo que vamos substituir pela nossa ao longo do tutorial.
-- [Arquivo de imagens data.pyres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/tutorial/data.pyxres):
+- [Arquivo de imagens data.pyxres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/data.pyxres):
   Arquivo com as imagens em pixel art utilizadas no jogo. Possui o 
   desenho de um passarinho, canos, nuvens, terreno etc. Podemos editar este arquivo pixel a pixel utilizando
   o editor de imagens que vem incluído no Pyxel. 
@@ -64,7 +64,7 @@ Vamos à lista de recursos que devemos preparar antes de começar:
 Se você ainda não possui estes recursos instalados, siga um dos tutoriais abaixo, a depender do
 sistema operacional no seu computador:
 
-- Eu uso o [Windows](https://github.com/kitao/pyxel#windows).
+- Eu uso o [Windows](https://github.com/pyladiesdf/flappy-tutorial/blob/master/windows-install.md).
 - Eu uso o [Linux](https://github.com/kitao/pyxel#linux).
 - Eu sou chique e uso o [MacOS](https://github.com/kitao/pyxel#mac).
 
