@@ -30,7 +30,7 @@ Graças as suas simples especificações inspiradas em games retro, como jogos c
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/editor/screenshots/sound_music_editor.gif" width="48%">
 </a>
 
-As especificações do console de jogos e APIs para Pyxel são uma referencia ao [PICO-8](https://www.lexaloffle.com/pico-8.php) e ao [TIC-80](https://tic.computer/).
+As especificações do console de jogos e APIs para Pyxel são uma referencia aos incríveis [PICO-8](https://www.lexaloffle.com/pico-8.php) e [TIC-80](https://tic.computer/).
 
 Pyxel é uma open source e de graça para usar. Vamos começar a fazer um jogo retro com Pyxel!
 
@@ -110,7 +110,7 @@ pip3 install .
 
 ### Instale os exemplos
 
-Deposi de instalar o Pyxel, os exemplos do Pyxel serão copiados para o atual diretório com o seguinte comando:
+Depois de instalar o Pyxel, os exemplos do Pyxel serão copiados para o atual diretório com o seguinte comando:
 
 ```sh
 install_pyxel_examples
@@ -188,9 +188,9 @@ class App:
 App()
 ```
 
-It is also possible to write simple code using `show` and `flip` functions to draw simple graphics and animations.
+Também é possivel escrever um codigo simples usando as funções `show` e `flip` para desenhar gráficos simples e animações.
 
-The `show` function displays the screen and waits until the `ESC` key is pressed.
+A função `show` exibe a tela e espera até que a tecla `ESC` seja pressionada.
 
 ```python
 import pyxel
@@ -201,7 +201,7 @@ pyxel.circb(60, 60, 40, 7)
 pyxel.show()
 ```
 
-The `flip` function updates the screen once.
+A função `flip` atualiza a tela uma vez.
 
 ```python
 import pyxel
@@ -214,125 +214,124 @@ while True:
     pyxel.flip()
 ```
 
-### Special Controls
-
-The following special controls can be performed while a Pyxel application is running:
+### Controles especiais
+Os seguintes controles especiais podem ser usados enquanto uma aplicação Pyxel está funcionando.
 
 - `Esc`<br>
-Quit the application
+Sai do aplicativo
 - `Alt(Option)+1`<br>
-Save the screenshot to the desktop
+Salva a screenshot na área de trabalho
 - `Alt(Option)+2`<br>
-Reset the recording start time of the screen capture video
+Reseta a hora início da gravação do vídeo de captura de tela 
 - `Alt(Option)+3`<br>
-Save the screen capture video (gif) to the desktop (up to 30 seconds)
+Salva o vídeo de captura de tela (gif) na área de trabalho (até 30 segundos) 
 - `Alt(Option)+0`<br>
-Toggle the performance monitor (fps, update time, and draw time)
+Ativa/Desativa o monitor de desempenho (fps, tempo de atualização, e tempo de desenho)
 - `Alt(Option)+Enter`<br>
-Toggle full screen
+Ativa/Desativa a tela cheia
 
-### How to Create a Resource
+### Como criar um recurso
 
-The attached Pyxel Editor can create images and sounds used in a Pyxel application.
+O Pyxel Editor anexado pode criar imagens e sons usados em uma aplicação Pyxel.
 
-Pyxel Editor starts with the following command:
+O Pyxel Editor é aberto com o seguinte comando:
 
 ```sh
 pyxeleditor [pyxel_resource_file]
 ```
 
-If the specified Pyxel resource file (.pyxres) exists, the file is loaded, and if it does not exist, a new file is created with the specified name.
-If the resource file is omitted, the name is `my_resource.pyxres`.
+Caso o arquivo de recurso Pyxel especificado (.pyxres) exista, o arquivo será carregado, e se ele não existe, um novo arquivo será criado com o nome especificado.
+Se o nome do arquivo de recurso não for especificado, o nome será `my_resource.pyxres`.  
 
-After starting Pyxel Editor, the file can be switched by dragging and dropping another resource file. If the resource file is dragged and dropped while holding down ``Ctrl``(``Cmd``) key, only the resource type (image/tilemap/sound/music) that is currently being edited will be loaded. This operation enables to combine multiple resource file into one.
+Depois de iniciar o Pyxel Editor, o arquivo pode ser trocado apenas arrastando e soltando outro arquivo de recurso. Caso o arquivo de recurso for arrastado e solto enquanto a tecla ``Ctrl``(``Cmd``) esteja sendo pressionada, apenas o tipo de recurso (image/tilemap/sound/music) que está atualmente sendo editado será carregado. Essa operação permite combinar diferentes arquivos de recurso em um só.
 
-The created resource file can be loaded with the `load` function.
+O arquivo de recurso criado pode ser carregado com a função `load`.
 
-Pyxel Editor has the following edit modes.
+O Pyxel Editor tem os seguintes modos de edição.
 
-**Image Editor:**
+**Editor de imagem:**
 
-The mode to edit the image banks.
+O modo para editar os bancos de imagem.
 
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/editor/screenshots/image_editor.gif">
 
-By dragging and dropping a png file onto the Image Editor screen, the image can be loaded into the currently selected image bank.
+Apenas arrastando e soltando o arquivo png na tela do editor de imagem, a imagem será carregada no atual banco de imagens selecionado.
 
-**Tilemap Editor:**
+**Editor de tilemap:**
 
-The mode to edit tilemaps in which images of the image banks are arranged in a tile pattern.
+O modo para editar tilempas onde as imagens do banco de imagens são organizadas em um padrão de ladrilhos.
 
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/editor/screenshots/tilemap_editor.gif">
 
-**Sound Editor:**
+**Editor de som:**
 
-The mode to edit sounds.
+O modo para editar sons.
 
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/editor/screenshots/sound_editor.gif">
 
-**Music Editor:**
+**Editor de musica:**
 
-The mode to edit musics in which the sounds are arranged in order of playback.
+O modo para editar musicas onde os sons são organizados na ordem de reprodução.
 
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/editor/screenshots/music_editor.gif">
 
-### Other resource creation methods
+### Outros métodos de criação de recursos
 
-Pyxel images and tilemaps can also be created in the following way:
+Imagens Pyxel e tilemaps também podem ser criados da seguinte maneira:
 
-- Create an image from a list of strings with `Image.set` or `Tilemap.set` function
-- Load a png file in Pyxel palette with `Image.load` function
+- Crie uma imagem da lista de strings com a função `Image.set` ou `Tilemap.set`.
+- Carregue o arquivo png na paleta Pyxel com a função `Image.load`.
 
-Pyxel sounds can also be created in the following way:
+Sons Pyxel podem também serem criados da seguinte forma:
 
-- Create a sound from strings with `Sound.set` or `Music.set` function
+- Crie um som das strings com a função `Sound.set` ou `Music.set`.
 
-Please refer to the API reference for usage of these functions.
+Consulte a referência da API para usar essas funções.
 
-### How to Create a Stand-Alone Executable
+### Como criar um executável independente
 
-By using the attached Pyxel Packager, a stand-alone executable that will work even in environments where Python is not installed can be created.
+Usando o empacotador Pyxel predefinido, o executável independente vai funcionar mesmo em ambientes onde o Python não esta instaldo pode ser criado.
 
-To create a stand-alone executable, specify the Python file to be used to launch the application with the `pyxelpackager` command as follows:
+Para criar um executável independente, especifique o arquivo Python a ser usado para iniciar a aplicação com o comando `pyxelpackager`:
 
 ```sh
 pyxelpackager python_file
 ```
 
-When the process is complete, a stand-alone executable is created in the `dist` folder.
+Quando o processo estiver completo, o executável independente sera criado na pasta `dist`.
 
-If resources such as .pyxres and .png files are also necessary, put them under the `assets` folder and they will be included.
+Caso recursos tais como arquivos .pyxres e .png também forem necessários, coloque-os na pasta `assets` e eles serão incluidos.
 
-It is also possible to specify an icon with the ``-i icon_file`` option.
+Também é possível especificar um ícone com a opção ``-i icon_file``.
 
-## API Reference
+## Referência API
 
-### System
+### Sistema
 
 - `width`, `height`<br>
-The width and height of the screen
+A largura e a altura da tela
 
 - `frame_count`<br>
-The number of the elapsed frames
+O número de frames decorridos
 
 - `init(width, height, [caption], [scale], [palette], [fps], [border_width], [border_color], [quit_key])`<br>
-Initialize the Pyxel application with screen size (`width`, `height`). The maximum width and height of the screen is 256<br>
-It is also possible to specify the window title with `caption`, the display magnification with `scale`, the palette color with `palette`, the frame rate with `fps`, the margin width and color outside the screen with `border_width` and `border_color`, and the key to quit the application with `quit_key`. `palette` is specified as a list of 16 elements of 24 bit color, `border_color` as 24 bit color.<br>
-e.g. `pyxel.init(160, 120, caption="Pyxel with PICO-8 palette", palette=[0x000000, 0x1D2B53, 0x7E2553, 0x008751, 0xAB5236, 0x5F574F, 0xC2C3C7, 0xFFF1E8, 0xFF004D, 0xFFA300, 0xFFEC27, 0x00E436, 0x29ADFF, 0x83769C, 0xFF77A8, 0xFFCCAA], quit_key=pyxel.KEY_NONE)`
+Inicia a aplicação Pyxel com o tamanho da tela (`width`, `height`). O máximo de largura e altura da tela é 256<br>
+Também é  possível especificar o título da janela com `caption`, a ampliação da tela com `scale`, a cor da paleta com `palette`, a taxa de quadros com `fps`, a largura da margem e a cor fora da tela com `color_width` e `border_color`, e a tecla para sair da aplicação com `quit_key`. `palette` é especificada como uma lista de 16 elementos de cores de 24 bits, `border_color` como uma cor de 24 bits. <br>
+e. g. `pyxel.init(160, 120, caption="Pyxel with PICO-8 palette", palette=[0x000000, 0x1D2B53, 0x7E2553, 0x008751, 0xAB5236, 0x5F574F, 0xC2C3C7, 0xFFF1E8, 0xFF004D, 0xFFA300, 0xFFEC27, 0x00E436, 0x29ADFF, 0x83769C, 0xFF77A8, 0xFFCCAA], quit_key=pyxel.KEY_NONE)`
 
 - `run(update, draw)`<br>
-Start the Pyxel application and call `update` function for frame update and `draw` function for drawing
+Inicia o aplicativo Pyxcel e chama a função `update` para atualização de frame e a função `draw` para desenhar
 
 - `quit()`<br>
-Quit the Pyxel application at the end of the current frame
+Sai do aplicativo Pyxel no final do frame atual
 
 - `flip()`<br>
-Force drawing the screen (do not use in normal applications)
+Force drawing the screen (não use em aplicações normais)
 
 - `show()`<br>
-Draw the screen and wait forever (do not use in normal applications)
+Desenha a tela e espera para sempre (não use em aplicações normais)
 
-### Resource
+### Recurso
 
 - `save(filename)`<br>
 Save the resource file (.pyxres) to the directory of the execution script
