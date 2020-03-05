@@ -4,7 +4,7 @@
 
 **Pyxel** é uma engine retro de games para Python.
 
-Graças a suas simples especificações inspiradas em games retro, como jogos com apenas 16 cores e apenas 4 sons tocados ao mesmo tempo, você pode see sentir livre para se divertir fazendo jogos com estilo de pixel arte.
+Graças as suas simples especificações inspiradas em games retro, como jogos com apenas 16 cores e 4 sons tocados ao mesmo tempo, você pode se sentir livre para se divertir fazendo jogos com estilo de pixel arte.
 
 <a href="https://github.com/kitao/pyxel/blob/master/pyxel/examples/01_hello_pyxel.py" target="_blank">
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/examples/screenshots/01_hello_pyxel.gif" width="48%">
@@ -30,33 +30,33 @@ Graças a suas simples especificações inspiradas em games retro, como jogos co
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/editor/screenshots/sound_music_editor.gif" width="48%">
 </a>
 
-The specifications of the gaming console and APIs for Pyxel are referring to awesome [PICO-8](https://www.lexaloffle.com/pico-8.php) and [TIC-80](https://tic.computer/).
+As especificações do console de jogos e APIs para Pyxel são uma referencia ao [PICO-8](https://www.lexaloffle.com/pico-8.php) e ao [TIC-80](https://tic.computer/).
 
-Pyxel is open source and free to use. Let's start making a retro game with Pyxel!
+Pyxel é uma open source e de graça para usar. Vamos começar a fazer um jogo retro com Pyxel!
 
-## Specifications
+## Especificações
 
-- Run on Windows, Mac, and Linux
-- Code writing with Python3
-- Fixed 16 color palette
-- 256x256 sized 3 image banks
-- 256x256 sized 8 tilemaps
-- 4 channels with 64 definable sounds
-- 8 musics which can combine arbitrary sounds
-- Keyboard, mouse, and gamepad inputs
-- Image and sound editor
+- Roda no Windows, Mac, and Linux
+- Programado em Python3
+- Paleta de 16 cores predefinidas 
+- 3 bancos de imagem de tamanho 256x256
+- 8 Tilemaps de tamanho 256x256
+- 4 canais com 64 sons definíveis
+- 8 musicas que podem combinar sons arbitrários
+- Entradas para teclado, mouse e controle
+- Editor de imagem e som
 
-### Color Palette
+### Paleta de Cores
 
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/examples/screenshots/05_color_palette.png">
 <br><br>
 <img src="https://raw.githubusercontent.com/kitao/pyxel/master/pyxel/examples/assets/pyxel_palette.png">
 
-## How to Install
+## Como Instalar
 
 ### Windows
 
-After installing [Python3](https://www.python.org/) (version 3.7 or higher), the following `pip` command installs Pyxel:
+Depois de instalar o [Python3](https://www.python.org/) (versão 3.7 ou superior), o seguinte comando `pip` instala o Pyxel:
 
 ```sh
 pip install -U pyxel
@@ -64,15 +64,15 @@ pip install -U pyxel
 
 ### Mac
 
-After installing [Python3](https://www.python.org/) (version 3.7 or higher) and [SDL2](https://www.libsdl.org/), install Pyxel with `pip` command.
+Depois de instalar o [Python3](https://www.python.org/) (versão 3.7 ou superior) e o [SDL2](https://www.libsdl.org/), intale o Pyxel com o comando `pip`.
 
-If [Homebrew](https://brew.sh/) package manager is ready, the following command installs all the necessary packages:
+Caso o gerenciador de pacotes [Homebrew](https://brew.sh/) estiver pronto, o seguinte comando instala todos os pacotes necessários:
 
 ```sh
 brew install python3 sdl2 sdl2_image
 ```
 
-After restarting the terminal,
+Depois de reiniciar o terminal,
 
 ```sh
 pip3 install -U pyxel
@@ -80,7 +80,7 @@ pip3 install -U pyxel
 
 ### Linux
 
-Install [Python3](https://www.python.org/) (version 3.7 or higher) and the required packages in a way appropriate for each distribution.
+Instale o [Python3](https://www.python.org/) (versão 3.7 ou superior) e os pacotes requeridos de uma maneira apropriada para cada distribuição.
 
 **Ubuntu:**
 
@@ -89,17 +89,17 @@ sudo apt install python3 python3-pip libsdl2-dev libsdl2-image-dev
 sudo -H pip3 install -U pyxel
 ```
 
-### Other environment
+### Outros ambientes
 
-To install Pyxel in an environment other than the above (32-bit Linux, Raspberry PI, etc.), follow the steps below for building:
+Para instalar o Pyxel em outro ambiente diferente dos acima (32-bit Linux, Rapberry PI, e etc.), siga os passos abaixo:
 
-#### Install necessary tools and packages
+#### Instale as ferramentes e pacotes necessários
 
-- C++ build toolchain (should include gcc and make command)
-- libsdl2-dev and libsdl2-image-dev
-- [Python3](https://www.python.org/) (version 3.7 or highter) and pip command
+- C++ build toolchain (deve incluir gcc e o comando make )
+- libsdl2-dev e libsdl2-image-dev
+- [Python3](https://www.python.org/) (versão 3.7 ou superior) e o comando pip
 
-#### Execute the following command in any folder
+#### Execute o seguinte comando em qualquer pasta
 
 ```sh
 git clone https://github.com/kitao/pyxel.git
@@ -108,26 +108,26 @@ make -C pyxel/core clean all
 pip3 install .
 ```
 
-### Install examples
+### Instale os exemplos
 
-After installing Pyxel, the examples of Pyxel will be copied to the current directory with the following command:
+Deposi de instalar o Pyxel, os exemplos do Pyxel serão copiados para o atual diretório com o seguinte comando:
 
 ```sh
 install_pyxel_examples
 ```
 
-The examples to be copied are as follows:
+Os exemplos copiados são:
 
-- [01_hello_pyxel.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/01_hello_pyxel.py) - Simplest application
-- [02_jump_game.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/02_jump_game.py) - Jump game with Pyxel resource file
-- [03_draw_api.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/03_draw_api.py) - Demonstration of drawing API
-- [04_sound_api.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/04_sound_api.py) - Demonstration of sound API
-- [05_color_palette.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/05_color_palette.py) - Color palette list
-- [06_click_game.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/06_click_game.py) - Mouse click game
-- [07_snake.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/07_snake.py) - Snake game with BGM
-- [08_triangle_api.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/08_triangle_api.py) - Demonstration of triangle drawing API
+- [01_hello_pyxel.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/01_hello_pyxel.py) - Aplicação simples
+- [02_jump_game.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/02_jump_game.py) - Jogo de plataforma com o arquivo de recurso do Pyxel
+- [03_draw_api.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/03_draw_api.py) - Demonstração da API de desenho
+- [04_sound_api.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/04_sound_api.py) - Demonstração da API de som
+- [05_color_palette.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/05_color_palette.py) - Lista de cores da paleta
+- [06_click_game.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/06_click_game.py) - Jogo de mouse clicke
+- [07_snake.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/07_snake.py) - Jogo da cobrinha com BGM
+- [08_triangle_api.py](https://github.com/kitao/pyxel/blob/master/pyxel/examples/08_triangle_api.py) - Demonstração da API de desenho de triangulos
 
-The examples can be executed like normal Python code:
+Os exemplos podem ser executados como codigos normais do Python:
 
 **Windows:**
 
@@ -143,11 +143,11 @@ cd pyxel_examples
 python3 01_hello_pyxel.py
 ```
 
-## How to Use
+## Como usar
 
-### Create a Pyxel Application
+### Crie uma aplicação Pyxel
 
-After importing the Pyxel module in your python code, specify the window size with `init` function first, then starts the Pyxel application with `run` function.
+Depois de importar o módulo Pyxel no seu códico Python, especifique o temanho da janela com a função `init` primeiro, depois inicie a aplicação Pyxdel com a função `run`.
 
 ```python
 import pyxel
