@@ -2,61 +2,64 @@ Arquivo com o esqueleto do tutorial
 
 # Hello World!
 
-- Porque programar, porque jogos, motivadores, parabéns por começar, etc.
+Bem-vinda ao Tutorial do Flappy Bird das Pyladies! Estamos felizes em vê-la aqui :) Este tutorial é uma
+pequena viagem pelo mundo da programação. Vamos entender um pouco como os programas que governam nossos
+computadores funcionam usando um método muito direto: criando nosso primeiro programa de computador!
+
+Como todas as coisas desconhecidas, isto vai ser uma aventura - mas não se preocupe! Já que você teve 
+coragem para estar aqui, você vai ficar bem :)
 
 ## Flappy Bird
 
 Neste tutorial, vamos criar um joguinho estilo Flappy Bird e aprender o suficiente de programação 
 para que você tenha independência para modificar o jogo e consiga criar outros joguinhos
 diferentes do zero. A notícia boa é que com apenas alguns poucos conceitos, podemos
-criar uma infinidade de novos jogos, programas, websites etc. Assim, aprender estes blocos básicos
+criar uma infinidade de novos jogos, programas de computador, websites etc. Conhecer os blocos básicos
 da programação nos leva bem longe. É lógico que nem sempre é fácil: programação é
 um desafio constante e mesmo programadores e programadoras experientes de vez em quando
-encontram dificuldades inesperadas, ou pegam caminhos complicados, becos sem saída, abordagens
+encontram dificuldades inesperadas, ou pegam becos sem saída, abordagens
 mal planejadas, etc. Esses obstáculos fazem parte da diversão e são como um quebra-cabeça: 
 se for muito fácil e previsível, logo perdemos o interesse.
 
 Nosso tutorial segue um caminho um pouco diferente de outros tutoriais de programação. Isso porque
-**não** vamos criar nosso Flappy Bird de bloco em bloco, começando das funções básicas até finalmente
-culminar em um jogo completo. A abordagem é quase inversa: começamos com um módulo auxiliar que possui
-uma versão completa do jogo e vamos abrindo, desmontando, entendendo aos poucos o que está 
-acontencendo em cada pedaço e gradualmente podemos substituir as peças que estavam lá por 
-peças novas que nós mesmas criamos. No fim do tutorial, sobrará apenas o nosso código e este módulo
-auxiliar poderá ser descartado.
+**não** vamos montar nosso Flappy Bird da base até o topo. A abordagem é inversa: começamos com um 
+módulo que possui uma versão completa do jogo e vamos abrir, desmontar, entender e, aos poucos, 
+substituir cada pedaço por código que nós mesmas criamos. No fim do tutorial, sobrará apenas o 
+nosso código e este módulo auxiliar poderá ser descartado.
 
-No meio do caminho, podemos brincar com os parâmetros do jogo, inventar novas regras, mudar as cores
+No meio do caminho, vamos brincar com os parâmetros do jogo, inventar novas regras, mudar as cores
 e fazer todo tipo de coisa estranha. Esperamos que, ao terminar o tutorial, todas tenham o conhecimento
 necessário para começar um novo projeto do zero e a se desafiar. Será que você consegue fazer um jogo
-como o Pong do zero? Quais regras do Flappy Bird você alteraria? Quais seriam os novos efeitos visuais? Você 
-tem uma idéia para criar um jogo que ninguém fez? E que tal um web site? Um aplicativo de celular? Um algoritmo de 
-aprendizado de máquina? Enfim, o objetivo do tutorial é abrir a caixa de Pandora, o resto é com você!
+como o [Pong](https://pt.wikipedia.org/wiki/Pong) do zero? Quais regras do Flappy Bird você alteraria? 
+Pensa em outros efeitos visuais? Você tem uma idéia para criar um jogo que ninguém fez? E que tal um web site? 
+Um aplicativo de celular? Um algoritmo de aprendizado de máquina? Enfim, o objetivo do tutorial é abrir 
+a caixa de Pandora, o resto é com você!
 
 
 ## Ambiente de programação
 
-Programação é uma mistura de criatividade com técnica. Pense como um artista ou artesão: criatividade é muito
-importante, mas a técnica é necessária para usar os instrumentos corretamente e obter o efeito desejado.
+Programação é uma mistura de criatividade com técnica. Pense como faz um artista ou artesão: criatividade é muito
+importante, mas a técnica é necessária para usar os instrumentos corretamente e obter o efeito desejado. 
 
-O instrumento básico de um programador é o editor de código. É onde escrevemos e lemos o código fonte dos 
-programas e podemos interagir com os resultados rodando o programa, controlando as versões, etc.
-Cada linguagem de programação exige algumas ferramentas adicionais. No caso do Python, precisamos de
-um interpretador de Python instalado na máquina. Este é um programa que lê programas Python e executa
-as instruções codificadas. Por fim, dependendo do projeto, precisamos de instalar alguns módulos
+O instrumento básico de um programador é o editor de código. É onde escrevemos e lemos o código dos 
+nossos programas. Cada linguagem de programação exige algumas ferramentas adicionais. No caso do Python, 
+precisamos de um interpretador de Python instalado na máquina. Este é um programa que lê código Python 
+e executa as instruções encontradas. Por fim, dependendo do projeto, precisamos de instalar alguns módulos
 ou programas adicionais. No nosso caso, vamos instalar o Pyxel, que é uma espécie de extensão do Python (em
 linguagem de programador, uma "biblioteca") que permite a criação de joguinhos retrô, estilo 8-bit. (Alguém 
 aqui já jogou Atari, ou isso é velho demais?) 
 
 Vamos à lista de recursos que devemos preparar antes de começar:
 
+- [Python 3.7+](http://python.org/): O interpretador do Python. Precisamos instalar a versão 3.7 ou superior.
 - [Visual Studio Code](https://code.visualstudio.com/): O editor de código. É uma escolha pessoal, mas 
   se você não conhece nenhum editor de código, o Visual Studio Code (ou VSCode, para os íntimos), é um 
   ótimo ponto de partida: grátis, leve, simples de usar e cheio de recursos.
-- [Python 3.7+](http://python.org/): O interpretador do Python. Precisamos instalar a versão 3.7 ou superior.
 - [Pyxel](https://github.com/kitao/pyxel): Biblioteca para criar joguinhos 8-bit em Python.
 - [Módulo auxiliar flappy.py](https://github.com/pyladiesdf/flappy-tutorial/blob/master/flappy.py):
   Módulo auxiliar que usaremos nesse tutorial. Possui a implementação 
   completa do jogo que vamos substituir pela nossa ao longo do tutorial.
-- [Arquivo de imagens data.pyxres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/data.pyxres):
+- [Arquivo de imagens data.pyres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/data.pyxres):
   Arquivo com as imagens em pixel art utilizadas no jogo. Possui o 
   desenho de um passarinho, canos, nuvens, terreno etc. Podemos editar este arquivo pixel a pixel utilizando
   o editor de imagens que vem incluído no Pyxel. 
@@ -64,13 +67,9 @@ Vamos à lista de recursos que devemos preparar antes de começar:
 Se você ainda não possui estes recursos instalados, siga um dos tutoriais abaixo, a depender do
 sistema operacional no seu computador:
 
-- Eu uso o [Windows](https://github.com/pyladiesdf/flappy-tutorial/blob/master/windows-install.md).
+- Eu uso o [Windows](https://github.com/kitao/pyxel#windows).
 - Eu uso o [Linux](https://github.com/kitao/pyxel#linux).
 - Eu sou chique e uso o [MacOS](https://github.com/kitao/pyxel#mac).
-
-### Testando o ambiente (?)
-
-@TODO: talvez as instruções de testar devam ficar no final de cada sub-tutorial. 
 
 # Tutorial, Parte 1: Iniciando o jogo 
 
@@ -78,10 +77,11 @@ Agora que temos tudo preparado, vamos começar com o nosso tutorial. O primeiro 
 onde vamos guardar nosso projeto e abrir o Visual Studio Code nesta pasta. Nosso projeto começa vazio e 
 precisamos criar um arquivo contendo o código fonte e copiar alguns arquivos auxiliares.
 
-O primeiro passo é ir para a pasta do projeto e copiar os arquivos [flappy.py] e 
-[data.pyres] para a pasta do projeto. Ao lado destes dois arquivos, crie um arquivo vazio
-chamado `jogo.py` usando a função `Arquivo > Novo Arquivo` (ou Ctrl+N) no VSCode. Vamos
-abrir este arquivo e começar a trabalhar.
+O primeiro passo é ir para a pasta do projeto e copiar os arquivos 
+[flappy.py](https://github.com/pyladiesdf/flappy-tutorial/blob/master/flappy.py) e 
+[data.pyxres](https://github.com/pyladiesdf/flappy-tutorial/blob/master/data.pyxres) para a pasta do projeto. 
+Ao lado destes dois arquivos, crie um arquivo vazio chamado `jogo.py` usando a função 
+`Arquivo > Novo Arquivo` (ou Ctrl+N) no VSCode. Vamos abrir este arquivo e começar a trabalhar.
 
 ## Executando o jogo
 
@@ -96,14 +96,13 @@ flappy.comecar()
 A primeira linha diz para o Python importar o módulo auxiliar flappy, que irá nos ajudar ao longo
 deste tutorial. Já a segunda linha, `flappy.comecar()` manda o Python executar a função
 `comecar` definida dentro deste módulo. Em programação, uma função é uma espécie de maquininha: quando pedimos
-para executá-la, o computador realiza uma série de instruções e no final pode retornar um resultado ou 
+para executá-la, o computador realiza uma série de instruções ao final pode retornar um resultado ou 
 realizar um conjunto de ações. Neste caso, a função `comecar` simplesmente executa o jogo.
 
 A primeira parte deste comando, `flappy.comecar` representa o nome completo da função dentro do programa. Algo como
-`sobrenome.nome` da função, já que todas funções que começam com o mesmo prefixo `flappy.` fazem parte do mesmo 
-módulo flappy. Já os parênteses `()` no final do nome da função dizem para o Python 
-que queremos executá-la sem passar nenhum parâmetro adicional (os parâmetros adicionais, se existissem,
-ficariam entre os parênteses).
+`sobrenome.nome` da função, já que todas funções que começam com o mesmo prefixo `flappy` fazem parte do mesmo 
+módulo. Já os parênteses após o nome da função dizem para o Python que queremos executá-la sem passar nenhum 
+parâmetro adicional (os parâmetros adicionais, se existissem, ficariam entre os parênteses).
 
 Com estas duas linhas, criamos o jogo completo. Simples, né? 
 
@@ -120,8 +119,8 @@ operacional, placa de vídeo e outros detalhes de baixo nível.
 Nós não vamos descer o buraco até o nível mais 
 fundamental dos bits: se puxarmos o fio de qualquer programa de computador trivial, iríamos nos deparar com um
 conjunto imenso de milhões de linhas de código feitas por milhares de programadoras e programadores do
-mundo inteiro ao longo de décadas e que lidam com detalhes altamente técnicos do funcionamento de computadores. 
-É muita coisa para qualquer um acompanhar! Mas vamos descer o suficiente para
+mundo inteiro ao longo de décadas e que lidam com detalhes altamente técnicos do funcionamento da memória,
+processador e outros dispositivos. É muita coisa para qualquer um acompanhar! Mas vamos descer o suficiente para
 que as novas habilidades sejam úteis: que você consiga criar novos jogos, pensar em novos projetos e personalizar
 o Flappy Bird para ele funcionar exatamente do jeito que você deseja! 
 
@@ -129,7 +128,7 @@ Podemos executar o nosso programa `jogo.py` diretamente no VSCode. Basta abrir u
 no menu `Terminal > Novo Terminal` (ou Ctrl+Shift+') e digitar a seguinte instrução: `python jogo.py`. Você deve
 ver uma janela parecida com esta:
 
-@TODO: screenshot
+![Captura de tela](imgs/flappy-bird.png)
 
 Aproveita a chance e tenta quebrar o seu recorde do Flappy Bird ;-)
 
@@ -137,12 +136,12 @@ Aproveita a chance e tenta quebrar o seu recorde do Flappy Bird ;-)
 ## Variáveis
 
 A função `flappy.comecar` analisa seu código procurando por várias dicas de personalização. Podemos
-redefinir funções para controlar elementos específicos do jogo (por exemplo, como desenhamos o passarinho).
-O jeito mais simples de interagir, no entanto, é modificar algumas variáveis de configuração.
+redefinir funções para controlar aspectos específicos do jogo (por exemplo, como desenhamos o passarinho),
+mas o jeito mais simples de interagir é modificando variáveis de configuração.
 
 Em Python, podemos criar uma variável simplesmente usando a notação `<nome-da-variável> = <valor>`. Assim,
-podemos escrever algumas variáveis entre as linhas `import flappy` e `flappy.comecar()` e, caso seja uma variável
-reconhecida, ela irá alterar a execução do jogo.
+é possível escrever variáveis entre as linhas `import flappy` e `flappy.comecar()` e, caso o nome da variável
+seja reconhecido pelo módulo flappy, seu valor irá influenciar a execução do jogo.
 
 Modifique o arquivo `jogo.py` para ficar mais ou menos como abaixo:
 
@@ -159,25 +158,29 @@ flappy.comecar()
 
 Os números mostrados são os valores padrão de cada uma destas variáveis. Modifique estes números para 
 ver o que acontece. Você verá o tamanho da tela se alterar e a gravidade funcionando de modos estranhos. 
-As variáveis que terminam com `.0` aceitam valores quebrados como, por exemplo, `gravidade = 0.75` e até
-valores negativos. **Importante:** os valores da tela devem estar entre 0 e 256.
+As variáveis que terminam com `.0` aceitam valores quebrados 
+como, por exemplo, `gravidade = 0.75` e até valores negativos. **Importante:** os valores da tela 
+devem estar entre 0 e 255.
 
-Você também pode criar qualquer variável que quiser no programa, (ex.: `numero_preferido = 42`), mas, a 
+Você também pode criar a variável que quiser no programa, (ex.: `numero_preferido = 42`), mas, a 
 não ser que a variável tenha um nome reconhecido pelo módulo flappy, ela ainda não terá efeito algum.
+Existem algumas pequenas limitações a respeito do nome. Nomes válidos de variáveis podem conter letras,
+números e o "underscore" `_`. Um nome também não pode começar com um número ou conter espaços ou 
+hífens em qualquer posição.
 
 **Dica:** o lado direito de uma definição de variável pode ser uma expressão matemática como, por exemplo,
 `pulo = 16 / 2`. O Python reconhece as 4 operações fundamentais e outras operações um pouco mais avançadas como
-exponenciação, resto da divisão, entre outras. 
+exponenciação, resto da divisão, entre outras.
 
 
 # Tutorial, Parte 2: Desenhando na tela
 
-Ao calibrar os valores das variáveis, podemos controlar apenas alguns aspectos básicos do nosso jogo.
+Ao calibrar os valores das variáveis, podemos controlar apenas alguns aspectos básicos do jogo.
 Agora é hora de abrir o brinquedo, ver o que tem dentro e mexer nas engrenagens. Vamos começar com a
 primeira função importante, que é desenhar os elementos do jogo na tela: o céu, nuvens, o passarinho, 
 os canos, etc. 
 
-Para fazermos isto, é necessário aprender como se define funções. Com isso, vamos trocar
+Para fazermos isto, é necessário aprender como se cria novas funções. Com isso, vamos trocar
 a função responsável por pintar a tela pela nossa própria versão personalizada. Vimos que para chamar uma 
 função, basta escrever o nome da mesma e abrir e fechar um parênteses no final (como em `flappy.comecar()`).
 
@@ -220,16 +223,17 @@ Um outro detalhe importante que devemos levar em conta é o alinhamento destas i
 "indentação", no jargão de programadores) é como o Python entende quais intruções estão associadas a uma função
 ou bloco de código e quais instruções seriam executadas diretamente no módulo. Portanto, tome **muito** cuidado
 para deixar o alinhamento perfeito, caso contrário o programa pode executar instruções diferentes daquelas que 
-você está imaginando. A recomendação é que começamos com a linha `def <nome-da-função>():` e o bloco de instruções
-abaixo esteja alinhado com quatro espaços a direita. Confira que o editor de código permite que a gente
-digite apenas uma única vez a tecla *tab* no lugar dos quatro espaços e que ele mantêm o alinhamento (ou nível
-de indentação) de uma linha para outra. Estas pequenas coisinhas tornam nossa vida muito mais fácil quando usamos
-um editor especializado em código em comparação com um editor de texto genérico como o Word ou o Notepad. 
+você está imaginando. A recomendação é que após a linha `def <nome-da-função>():`, o bloco de instruções
+abaixo fique alinhado com quatro espaços a direita. O editor de código facilita nossa vida e troca uma única tecla 
+*tab* por quatro espaços no código. Ele mantêm o alinhamento (ou nível de indentação) de uma linha para outra, de
+forma que não precisamos indentar manualmente todas as linhas. Estas pequenas coisinhas tornam nossa vida muito 
+mais fácil quando usamos um editor especializado em código em comparação com um editor de texto genérico 
+como o Word ou o Notepad. 
 
 
 ## Comentários
 
-Comece copiando o código da função desenhar para o seu próprio código. Lembre-se que ele deve ficar **antes**
+Comece copiando o código da função desenhar para o seu próprio arquivo `jogo.py`. Lembre-se que ele deve ficar **antes**
 da instrução final `flappy.comecar()`, senão a nossa versão da função não terá sido definida quando o jogo 
 começar e ele utilizará a implementação padrão.
 
@@ -240,8 +244,8 @@ passarinho na tela, o que deixa muito mais difícil de jogar!
 
 Você já deve ter visto que apagar as linhas não é muito prático se quisermos depois escrevê-las de volta. Um método
 muito mais eficiente é utilizar comentários de código. Um comentário é simplesmente uma linha que é ignorada pelo
-Python e é muito útil para desligar um pedaço de código ou escrever qualquer observação em Português puro, ao 
-invés de Python. Trata-se, portanto, de uma parte do código lida apenas por humanos e que o computador ignora.
+Python e é muito útil para desligar um pedaço de código ou escrever qualquer observação em Português puro. 
+Trata-se, portanto, de uma parte do código lida apenas por humanos e que o computador ignora.
 
 Em Python, os comentários são as linhas que começam com um `#`, como no exemplo
 
@@ -263,9 +267,9 @@ recursos que expliquem melhor o que está acontecendo.
 
 ## Desenhando o fundo
 
-Habilite todas as instruções da função desenhar que, aos poucos, vamos ver o que tem dentro de cada pedacinho. 
-A função mais simples de todas, e a que escolhemos para começar, é a `desenhar_fundo()`. Vamos criar
-a nossa própria versão, mas antes dê uma olhada na implementação padrão:
+Habilite todas as instruções da função desenhar. A função mais simples de todas, e a que escolhemos para 
+começar a refazer, é a `desenhar_fundo()`. Vamos criar a nossa própria versão, mas antes dê uma olhada 
+na implementação padrão:
 
 ```python
 import pyxel
@@ -309,8 +313,8 @@ def desenhar_fundo():
 ```
 
 veremos o jogo na tela por uma fração de segundo e depois aparecerá uma mensagem de erro falando que não existe
-uma cor com o valor 16. Isto porque `pyxel.frame_count` irá atingir valores grandes com o tempo já que a taxa de
-atualização é próxima de 30 frames a cada segundo.
+uma cor com o valor 16. Rapidamente `pyxel.frame_count` atinge valores altos já que a taxa de atualização é cerca
+de 30 frames a cada segundo.
 
 Podemos consertar este problema usando alguma operação matemática que limita o número para um valor no intervalo
 de 0 a 15. Uma maneira simples de fazer isto é usar o resto da divisão por 16. O resto é sempre um número entre 
@@ -323,10 +327,10 @@ def desenhar_fundo():
     pyxel.cls(pyxel.frame_count % 16)
 ```
 
-Muito bom! Agora a não ser que você queira que os jogadores tenham dor de cabeça ou um ataque epiléptico, é 
-melhor escolher um valor fixo para a cor do fundo ;-)
+Muito bom! Agora a não ser que alguém gostaria que os jogadores tenham dor de cabeça ou um ataque epiléptico. Talvez
+seja melhor voltar para um valor fixo para a cor do fundo ;-)
 
-**Dica:** Se você não se lembra o que é o resto, um pequeno lembrete. Quando fazemos a divisão de dois números
+**Dica:** Se você não se lembra o que é o resto, vamos refrescar a memória. Quando fazemos a divisão de dois números
 inteiros, muitas vezes o resultado não é exato. O resto é justamente o quanto sobra com relação à divisão exata.
 Por exemplo, 42 dividido por 16 vai dar duas vezes 16 sobrando 10. Daí dizemos que a divisão inteira de 42 por 16 
 é igual à 2 com o resto 10. Em Python, `42 / 2` realiza a divisão fracionária (com o resultado 2.625), `42 // 16` retorna a
@@ -351,11 +355,11 @@ def desenhar_flappy():
 ```
 
 A parte importante aqui é a função `pyxel.rect(x, y, largura, altura, cor)`. Esta função desenha um retângulo
-na tela que começa no ponto de coordenadas x e y, com determinada largura e altura (também medida em pixels) e
+na tela que começa no ponto de coordenadas x e y, com determinada largura e altura (também medidas em pixels) e
 que possui a cor sólida especificada no último argumento (um número de 0 a 15, lembra?). Observe que numa função
 que possui vários parâmetros, especificamos cada valor separando-os por vírgulas. O significado para a função 
 depende da sua posição na lista de argumentos. Por exemplo, em `pyxel.rect` o primeiro argumento sempre diz respeito
-à posição x onde o retângulo começa, o segundo define a posição y do retângulo e assim por diante.
+à posição x onde o retângulo começa, o segundo define a posição y do retângulo e depois largura, altura e cor.
 
 Você também pode ter percebido que as variáveis `flappy_x` e `flappy_y` não foram definidas no código. Na verdade,
 podemos omití-las porque estas variáveis foram definidas pelo módulo flappy e ao omití-las estamos simplesmente utilizando 
@@ -371,8 +375,8 @@ nossas próprias imagens a partir de código, é natural usar *pixels* (ou seria
 e posições. É justamente isto que vamos fazer ao longo deste tutorial.
 
 A biblioteca Pyxel usa pixels fictícios, já que o objetivo dela é emular um computador antigo com muito menos
-recursos que os computadores modernos. Enquanto um computador antigo poderia ter uma resolução típica da ordem
-de 320x240 pixels, computadore modernos tipicamente possuem algo da ordem de 1920x1080. Se multiplicarmos 
+recursos que os computadores modernos. Enquanto um computador antigo poderia ter uma resolução da ordem
+de 320x240 pixels, computadores modernos tipicamente possuem algo próximo de 1920x1080. Se multiplicarmos 
 os dois números, vemos que o segundo é quase 30 vezes maior que o primeiro. 
 
 Além disto, um monitor moderno possui um controle muito preciso da cor de cada pixel. Você já deve ter ouvido 
@@ -382,19 +386,21 @@ você tiver acesso a uma lupa potente ou microscópio, é possível ver os três
 claramente. O monitor então controla a intensidade de cada uma destas três cores em cada ponto da tela para gerar
 qualquer cor distinguível pelo olho humano.
 
-Um computador moderno típico usa 256 intensidades para cada cor RGB de cada pixel, o que resulta em aproximadamente 16.8
-milhões de cores distintas! O Pyxel, por sua vez, nos limita a somente 16 cores, o que equivale ao número de cores 
+Um computador moderno típico usa 256 intensidades de cada cor RGB em cada pixel, o que resulta em aproximadamente 16.8
+milhões de cores distintas por pixel! O Pyxel, por sua vez, nos limita a somente 16 cores, o que equivale ao número de cores 
 nos primeiros monitores coloridos dos primeiros computadores pessoais da IBM.
 
 Agora que sabemos que as distâncias são medidas em pixels e as cores são representadas por números de 0 a 15, 
 vamos ver como se identifica um ponto específico na tela. A idéia básica é que podemos encontrar um ponto contando
-quantos pixels é necessário andar na direção horizontal e quantos na direção vertical para conseguir identificá-lo.
+quantos pixels é necessário andar na direção horizontal e quantos na direção vertical para conseguir encontrar o 
+ponto no qual estamos interessados.
 
-Em notação matemática usual, contaríamos quantos pixels a partir do canto esquerdo da tela para representar a 
-coordenada horizontal (coordenada **x**) e quantos pixels a partir da margem inferior para 
-representar a coordenada vertical (coordenada **y**). Programadores gostam de complicar as coisas e contam a
+Em notação matemática usual, usaríamos o número de pixels a partir do canto esquerdo da tela como  
+coordenada horizontal (coordenada **x**) e o número de pixels a partir da margem inferior para 
+representar a coordenada vertical (coordenada **y**). Assim, x cresce para a direita e y para cima. 
+Programadores gostam de complicar as coisas e contam a
 partir do canto superior esquerdo. Isto significa que a coordenada y é invertida com relação à direção usual: `y = 0`,
-representa o canto superior da tela e, na medida que y cresce, caminhamos para baixo na tela do computador.
+representa o canto superior da tela e, na medida que y cresce, caminhamos para baixo na tela do computador e não para cima.
 
 O fato que a coordenada vertical y cresce para baixo significa que, muitas vezes, temos que fazer algumas
 conversões. Para encontrar um ponto que esteja 10 pixels a esquerda da tela e 20 acima, teríamos que usar as 
@@ -405,7 +411,7 @@ coordenadas `x = 10` e `y = altura_tela - 20`.
 
 Pyxel nos ajuda a criar joguinhos retrô baseados em *pixel art*. Por enquanto, vimos como desenhar coisas simples:
 como pintar a tela de uma única cor e desenhar retângulos. Poderíamos criar nossas artes em código, programando 
-as cores de cada pixel manualmente, e isto era mais ou menos a abordagem usada para criar os primeiros jogos 
+as cores de cada pixel manualmente e isto era mais ou menos a abordagem usada para criar os primeiros jogos 
 eletrônicos. Considerando que mesmo a tela de computadores antigos tinha dezenas de milhares de pixels, podemos
 ver facilmente que isto seria **muito** trabalhoso.
 
@@ -413,7 +419,7 @@ Vamos usar uma abordagem alternativa e executar o Pyxeleditor, que é uma espéc
 com o Pyxel para editar *pixel art*. O arquivo de imagens padrão para o tutorial, [data.pyxres](data.pyxres), já vem 
 com o desenho do Flappy Bird, canos, chão e nuvens. Você pode modificá-los depois, mas não queremos exigir um 
 grande talento artístico e domínio completo sobre os pixels para terminar este tutorial e portanto já deixamos
-a arte pronta.
+a arte quase pronta.
 
 Pyxeledit é aberto a partir da linha de comando. Abra novamente o terminal (no menu `Terminal > Novo Terminal`)
 e digite `pyxeleditor data.pyxres`. Deve abrir uma tela como esta
@@ -435,13 +441,13 @@ Veja que a primeira imagem (Image 0) possui 3 variantes do passarinho. Preste ba
 uma posição ligeiramente diferente para a asa. Assim, se alternarmos entre as variantes, podemos obter a ilusão de
 movimento.
  
-Finalmente, para desenhar uma destas imagens na tela precisamos de recolher algumas informações:
+Finalmente, para desenhar uma destas imagens na tela precisamos recolher algumas informações:
 
 * **Posição x e y da imagem na tela do jogo.** Esta posição corresponde à posição que o pixel
   superior esquerdo da imagem terá na tela de jogo. 
 * **O número da imagem (0, 1, ou 2).** Escolhemos quais das 3 imagens do Pyxeledit será utilizada.
-* **Posição u e v da imagem no Pyxeleditor.** Corresponde ao ponto onde o pedaço da imagem que estamos copiando 
-  começa no Pyxeleditor. Se a imagem estiver no canto superior esquerdo, este valor seria (0, 0). Caso 
+* **Posição u e v do pedaço da imagem que queremos no Pyxeleditor.** Corresponde ao ponto onde o pedaço da 
+  imagem que estamos copiando começa no Pyxeleditor. Se a imagem estiver no canto superior esquerdo, este valor seria (0, 0). Caso 
   contrário, precisamos verificar as coordenadas no Pyxeleditor e utilizá-las no código Python para
   carregar estas imagens
 * **Largura e altura.** Determina quantos pixels serão utilizados na direção horizontal e vertical
@@ -475,8 +481,8 @@ def desenhar_flappy():
 ```
 
 Note que trocamos `x` e `y` por `flappy_x` e `flappy_y` já que estas são as variáveis que guardam as posições x
-e y do passarinho. Para trocarmos a imagem, temos que alterar o valor de u e v na chamada de função.
-Podemos, por exemplo, escolher a segunda imagem do passarinho com a asa para cima, usando `v = 16`, já
+e y do passarinho. Para trocarmos a imagem, precisamos alterar o valor de u e v na chamada de função. Por exemplo, 
+para usar a segunda imagem do passarinho com a asa para cima, faríamos `v = 16`, já
 que é onde esta imagem começa na coordenada y. Altere um pouco estes valores para entender como cada um
 funciona!
 
@@ -495,7 +501,7 @@ pode ser escrito simplesmente como `y = 0 * 16`, `y = 1 * 16` ou `y = 2 * 16`, d
 que multiplica o 16 precisa mudar de uma imagem para a outra. 
 
 Vamos supor que este número fica salvo na variável `frame`, para apontar o número do frame. Podemos modificar
-o nosso código anterior para mudarmos facilmente o frame que será mostrado na tela:
+o código anterior para trocar o frame que será mostrado na tela:
 
 ```python
 def desenhar_flappy():
@@ -526,15 +532,15 @@ Troque a linha `frame = 0` por:
 frame = pyxel.frame_count % 3
 ```
 
-Isto funciona, mas o passarinho bate asas **muito** rápido! Um modo fácil de consertar isto é dividir
+Isto funciona, mas o passarinho bate asas **muito** rápido! Um modo fácil de acalmar este ritmo frenético é dividir
 `pyxel.frame_count` por um valor qualquer antes de calcular o resto para dimuinir a taxa de alternância
-entre as imagens. Algo como isto:
+entre as imagens. Algo como:
 
 ```python
 frame = (pyxel.frame_count / 4) % 3
 ```
 
-Este código deveria alterar a imagem a cada 4 frames, mas ao invés disto produz um bug muito estranho
+Este código deveria alterar a imagem a cada 4 frames, mas ao invés disto produz um bug de visualização muito estranho
 (rode para ver!). O problema aqui é que frame deve ser sempre uma variável inteira e `pyxel.frame_count / 4`
 pode resultar em valores fracionários. Consertamos isto trocando a divisão usual expressa como `a / b` pela
 divisão inteira `a // b`, que garante que a resposta final é sempre um número inteiro. Juntando tudo isso,
@@ -655,13 +661,14 @@ def desenhar_chao():
 
 Parabéns! Agora sabemos utilizar tilemaps. Um uso mais comum para tilemaps é criar fases de um jogo de plataforma
 como Mário ou Sonic. Neste caso, podemos definir as imagens básicas como chão, itens, entre outros e usar o
-tilemap para desenhar a fase, fazendo a disposição dos blocos que formam o chão, dos blocos que possuem itens, etc.
+tilemap para desenhar a fase, fazendo um mapa com a configuração dos blocos que formam o chão, dos blocos que 
+possuem itens, etc.
 
 
 ## Escrevendo instruções na tela
 
 A última parte do nosso código de desenhar o jogo na tela consiste em mostrar mensagens de texto na tela de jogo.
-A função que faz isto no Pyxel chama-se `pyxel.text` e recebe com argumentos as coordenadas x e y da posição 
+A função que faz isto no Pyxel chama-se `pyxel.text` e recebe como argumentos as coordenadas x e y da posição 
 do texto, a mensagem de texto propriamente dita e a cor do mesmo.
 
 A função `desenhar_instrucoes` determina que mensagem será mostrada para o jogador. Inicialmente, devemos
@@ -716,12 +723,15 @@ def desenhar_instrucoes():
 ```
 
 Troque por uma mensagem que signifique algo mais importante para você e vamos para a próxima etapa!
+Lembre-se apenas que um texto salvo em uma variável deve ficar sempre entre aspas. As aspas *não*
+fazem parte do texto propriamente dito, mas apenas dizem para o Python onde o texto começa e onde
+ele termina.
 
 
 ## Se, então, senão
 
 Agora que sabemos como desenhar textos na tela do jogo, vamos escolher um conjunto de mensagens 
-mais apropriado para a situação do jogador. Temos que lidar com basicamente 3 situações diferentes:
+mais apropriado para a situação. Temos que lidar com basicamente 3 casos diferentes:
 
 1. **Jogador morreu.** Mensagem diz para apertar R para reiniciar.
 2. **Jogo está rodando.** Mostramos o placar.
@@ -745,12 +755,12 @@ else:
 
 Neste bloco, o computador primeiro testa a condição A, que pode ser qualquer expressão que resulte
 em um valor de verdadeiro ou falso, e caso esta condição seja verdadeira, ele executa somente o 
-comando A. Apenas no caso em que a primeira condição for falsa, ele segue com o teste e avalia a condição
-B. Caso ela seja verdadeira, ele executa o comando B e se for falsa, executa o comando C. 
+comando A. Apenas no caso em que a primeira condição for falsa, ele seguiria com o teste para avaliar a condição
+B. Caso ela seja verdadeira, o computador executaria o comando B e se fosse falsa, o comando C. 
 
 Lembre-se que em um bloco de if/elif/else, somente um dos blocos de comando será executado. O Python sempre
 escolhe o bloco associado à primeira condição verdadeira, mas caso nenhuma condição seja satisfeita, ele
-executa o bloco **else**.
+executaria o bloco **else**.
 
 Vamos usar esta estrutura para definir o texto da mensagem que vai aparecer na tela de acordo com
 o estado do jogo. A nossa lista de situações pode ser traduzida para as variáveis de programação
@@ -785,7 +795,7 @@ def desenhar_instrucoes():
     pyxel.text(x, y, msg, cor)
 ```
 
-A primeira e a última condições são simples de entender: estamos simplesmente atribuindo um 
+O primeiro e o último ramos são simples de entender: estamos simplesmente atribuindo um 
 valor de texto para a variável `msg`. Já a condição do meio possui o comando `str(score)`, que
 merece uma explicação. A variável `score` guarda o placar atual do jogo. Começa sempre no valor
 zero e aumenta em 1 a cada cano que o passarinho atravessar. 
@@ -800,7 +810,7 @@ O nome `str` para converter valores para texto pode parecer um pouco misterioso.
 jargão comum em computação chamarmos um texto de uma "cadeia" de caracteres. Pode parecer um pouco 
 estranho pensar deste jeito, já que raramente pensamos em um texto como uma sequência aleatória de
 caracteres. Lembre-se que o computador não entende nada do que escrevemos. Assim, se você fosse um 
-computador, o texto completo deste tutorial, as obras completas de Machado de Assis, a música do Michel
+computador, o texto deste tutorial, um conto de Machado de Assis, a música do Michel
 Teló cantanda em russo ou o texto de um gato que subiu no teclado teriam exatamente o mesmo 
 significado: um bando de letras na memória. 
 
@@ -813,25 +823,24 @@ que o Python retornará uma representação razoável para o valor de `x`.
 
 O Flappy Bird mostra uma lista aparentemente infinita de canos andando para esquerda junto com o cenário. Esta
 lista infinita, na verdade, é uma mentira! Na realidade, são apenas 4 canos que andam para esquerda e são
-reciclados na medida que saem pelo lado esquerdo da tela. Cada cano também é representado apenas por 2 valores:
+reciclados na medida que saem pelo lado da tela. Cada cano também é representado apenas por 2 valores:
 a coordenada x com a posição horizontal e a coordenada y que determina a altura dos canos para verificar 
 as colisões.
 
-A lista de canos está salva na variável também chamada `canos`. Esta é uma variável do tipo lista, que contêm
-varios valores diferentes dentro dela. Existem várias operações que podemos fazer em listas, mas vamos aprender
+A lista de canos está salva na variável `canos`. Esta é uma variável do tipo lista, que contêm
+vários valores diferentes dentro dela. Existem muitas operações que podemos fazer em listas, mas vamos aprender
 apenas algumas das mais básicas. 
 
 A primeira delas é a de ler um elemento da lista: listas são indexadas a partir do zero. Assim, o primeiro
 elemento é representado por `canos[0]`, o segundo por `canos[1]` e assim por diante. Note que usamos os
 colchetes para especificar a posição na lista. Para extrair as coordenadas x e y de um dos canos basta fazer:
-
+ 
 ```python
 x, y = canos[0]
 ```
 
-Aqui podemos trocar o índice de 0 para qualquer valor até 3 para escolher o cano adequado. Podemos
+Aqui podemos trocar o índice de 0 para qualquer valor até 3 e escolher o cano adequado. Podemos
 desenhar um cano inicialmente como um retângulo. Vamos nos preocupar só com o primeiro deles, por enquanto.
-Um cano é bem representado por um retângulo:
 
 ```python
 abertura_cano = 200
@@ -1035,7 +1044,8 @@ velocidade = velocidade + gravidade
 flappy_y = flappy_y + velocidade
 ```
 
-Neste código, temos que ler o sinal de `=` não como representando uma igualdade, mas sim como 
+Este código ficará dentro da função `atualizar_flappy`, então não copie para o seu arquivo ainda. Lembre-se
+que em programação lemos o sinal `=` não como representando uma igualdade, mas sim como 
 *"velocidade **recebe** velocidade mais gravidade"*. Isto significa que, ao executar esta linha o Python
 calcularia o valor do lado direito (somando velocidade com a gravidade) e depois atualizaria a variável 
 do lado esquerdo com o novo valor. O fato do mesmo nome aparecer dos dois lados da equação é um pouco
@@ -1054,20 +1064,19 @@ def atualizar_flappy():
 
 O problema aqui é bastante sutil e tem a ver com o que os programadores chamam de escopo de variáveis. Sempre que
 criamos uma variável dentro de uma função o Python entende que esta variável só fica definida durante a execução
-da função. Isto acontece mesmo quando existe outra variável com o mesmo nome definida anteriormente fora da 
-função.
+da função. Isto acontece mesmo quando existe outra variável com o mesmo nome definida anteriormente.
 
-O primeiro tipo de variáveis (criadas dentro de uma função) são chamadas de **variáveis locais**. Recebem este nome
-porque elas ficam disponíveis de forma localizada à função. Uma função **não** pode modificar as variáveis locais 
+O primeiro tipo de variável (criadas dentro de uma função) é chamada de **variável local**. Recebem este nome
+porque ficam disponíveis de forma localizada à função. Uma função **não** pode modificar as variáveis locais 
 de outra e se duas funções usarem o mesmo nome para variáveis diferentes não acontece nada problemático na 
 execução do programa. 
 
 Por outro lado, as variáveis definidas fora de funções são as que chamamos de 
 **variáveis globais**. Elas estão disponíveis globalmente para todas as funções, que compartilham os
-mesmos valores de suas variáveis globais. Para evitar que as funções alterem sem querer o valor de variáveis
-globais, o Python exige que a gente declare explicitamente uma variável como global quando vamos modificá-la 
-de dentro de uma função. Isto é só uma proteção para evitar que um código modifique uma variável que
-todos acessam de forma não-intencional. 
+mesmos valores de suas variáveis globais. Para evitar que as funções alterem o valor de variáveis
+globais sem querer, o Python exige que nós declaremos explicitamente uma variável como global quando 
+vamos modificá-la de dentro de uma função. Isto é só uma proteção para evitar que um código modifique uma 
+variável que todos acessam de forma não-intencional. 
 
 Dito isto, vamos modificar a nossa função de atualização para declarar flappy_x, flappy_y e velocidade
 como globais (ou seja, se nós modificarmos estas variáveis dentro de uma função, ela será modificada 
@@ -1085,18 +1094,18 @@ A instrução `global <nomes-de-variáveis>` especifica quais variáveis devem s
 como globais no corpo da função. Lembre-se que se a variável não for alterada dentro da função (ou seja, se 
 estivermos utilizando-a somente para leitura, não é necessário fazer a declaração global.
 
-**Observação para nerds:** quem lembra das aulas de física pode pensar que as fórmulas estão erradas. Isto porque tomamos alguns
+**Observação para nerds:** quem se lembra bem das aulas de física pode perceber que as fórmulas estão erradas. Isto porque tomamos alguns
 atalhos. Em física, a velocidade incrementa com a aceleração *multiplicada pelo intervalo de tempo* (e de forma análoga
 para a posição), o que faz com que a fórmula correta seja `velocidade = velocidade + gravidade * dt`  e `flappy_y = flappy_y + velocidade * dt`.
-Significa que estamos assumindo que o intervalo de tempo `dt = 1`. Isto não é correto se estivermos medindo tempo em
-segundos, mas funciona se estivermos medindo em frames. Neste caso, dt é realmente igual a um, a posição é medida em 
-pixels, a velocidade em pixels por frame e aceleração por pixels por frames ao quadrado!   
+No caso, estamos assumindo que o intervalo de tempo `dt = 1`. Isto não é correto se estivermos medindo tempo em
+segundos, mas funciona se estivermos medindo em frames. Para nós, dt é realmente igual a um já que em jogos é comum
+medir a posição em pixels, a velocidade em pixels por frame e aceleração por pixels por frames ao quadrado!   
 
 
 ## Pulos e interação com o teclado
 
-Estamos progredindo, mas o jogo agora tornou-se impossível: começamos uma partida e o passarinho simplesmente
-cai sem nenhuma chance do jogador fazer qualquer progresso. Temos que verificar se o jogador realizou um
+Estamos progredindo, mas o jogo agora tornou-se impossível de progredir: começamos uma partida e o passarinho simplesmente
+cai sem nenhuma chance do jogador fazer qualquer ponto. Temos que verificar se o jogador realizou um
 comando de pulo e, neste caso, alterar a velocidade do nosso Flappy Bird. 
 
 Para fazer isto, é necessário articular duas verificações: primeiro, descobrir se uma determinada tecla foi 
@@ -1110,7 +1119,7 @@ variáveis presentes no módulo Pyxel. Todas variáveis que representam teclas p
 mas geralmente são o que se espera para cada uma das teclas.
 
 Podemos, assim, criar uma variável `pulando` que guarda um valor de verdadeiro ou falso dependendo se alguma tecla
-de pulo for apertada ou não:
+de pulo estiver pressionada ou não:
 
 ```python
 pulando = pyxel.btnp(pyxel.KEY_SPACE)
@@ -1173,10 +1182,11 @@ def atualizar_flappy():
         flappy_y = altura_tela - 29
 ```
 
-Muito bom! Agora nosso personagem cai e também consegue pular! Evite somente copiar e colar este código. Você consegue escrever
-a mesma lógica de um jeito diferente? Usando menos linhas ou trocando a ordem de alguns comandos? Existe alguma troca que altera
-o funcionamento do código? Faça experimentos para entender bem o que está acontecendo. Se o experimento der errado, ctrl+z é 
-sempre seu amigo :)
+Muito bom! Agora nosso personagem cai e também consegue pular! Evite somente copiar e colar este código 
+sem entender o que está acontecendo. Você consegue escrever a mesma lógica de um jeito diferente? 
+Usando menos linhas ou trocando a ordem de alguns comandos? Existe alguma troca que altera
+o funcionamento do código? Faça experimentos para entender bem o que está acontecendo. Se o experimento 
+der errado, ctrl+z é sempre seu amigo :)
 
 
 ## Vivo ou morto?
@@ -1185,7 +1195,7 @@ No Flappy Bird, o passarinho começa vivo e consegue voar enquanto não tiver to
 auxiliar flappy define uma variável chamada `morto` que controla se o passarinho está morto ou não. É lógico que ele
 só deve ser capaz de pular se `morto = False`. 
 
-Por enquanto não precisamos preocupar em determinar quando trocar `morto` de `False` para `True`, porque a implementação
+Por enquanto, não precisamos nos preocupar em determinar quando trocar `morto` de `False` para `True`, porque a implementação
 padrão já faz isto para gente. Vamos apenas assumir que recebemos sempre o valor correto e vamos atualizar o passarinho de
 acordo com isto. Existem duas mudanças que podemos fazer no nosso código: primeiramente, a de previnir pulos quando o
 passarinho estiver no estado morto. Depois, fazê-lo andar junto com o cenário quando estiver caído no chão para que os
@@ -1240,13 +1250,14 @@ Ufa! Esta parte foi difícil, mas valeu a pena! Agora entendemos como o passarin
 
 ## Canos
 
-Vamos passar para a próxima parte do nosso tutorial que é a de animar o cenário, em particular os canos.
-Vamos alterar a posição de cada cano 1 pixel para a esquerda para dar a impressão que o passarinho está
-andando para a direita. 
+Passamos agora para a próxima parte do tutorial, que é a de animar o cenário, em particular os canos.
+Vamos alterar a posição de cada cano 1 pixel para a esquerda a cada frame para dar a impressão que o 
+passarinho está andando para a direita (velocidade relativa, lembra da física?).
 
-A função responsável por mover os canos é a `atualizar_canos`. Aqui vamos relembrar um pouco a lógica da 
-função responsável por desenhá-los, a `desenhar_canos`. A parte mais importante era o laço **for** que 
-percorria as coordenadas x e y de cada cano desenhando a imagem de acordo com estes valores.
+A função responsável por mover os canos é a `atualizar_canos`. Antes vamos relembrar um pouco a lógica da 
+função responsável por desenhá-los, a `desenhar_canos`, já que tem vários aspectos semelhantes. A parte 
+mais importante de `desenhar_canos` era o laço **for** que percorria as coordenadas x e y de cada cano, 
+desenhando a imagem de acordo com estes valores. O laço era algo assim:
 
 ```python
 for x, y in canos:
@@ -1256,11 +1267,12 @@ for x, y in canos:
 
 Vamos usar uma lógica semelhante, mas agora temos que não só ler, mas também reescrever a
 posição de cada cano. É necessário, portanto, saber não só as coordenada x e y, mas também qual
-é a posição do cano na lista de canos. Existem vários métodos de fazer isto, vamos simplesmente
+é a posição do cano na lista de canos. Existem vários jeitos de fazer isto, vamos simplesmente
 criar uma nova variável `i` que guarda a posição atual na lista. Esta variável começa em zero
-e aumenta em 1 a cada vez que os comandos do for são executados.
+e aumenta em 1 a cada vez que o corpo de comandos no laço **for** é executado.
 
-Usamos a posição i na lista para atualizar o valor do cano, deslocando um pixel para esquerda.
+Usamos a posição i na lista para atualizar o valor do cano. Atualizamos mudando x por pixel para na
+direção da esquerda.
 
 ```python
 i =  0
@@ -1269,7 +1281,7 @@ for x, y in canos:
     i = i + 1
 ```
 
-Preste atenção na linha `cano[i] = (x - 1, y)`. Tem muita coisa acontencendo aqui! Lembra-se que 
+Preste atenção na linha `cano[i] = x - 1, y`. Tem muita coisa acontencendo aqui! Lembra-se que 
 `lista[i]` obtem o par na posição `i` da lista? De forma semelhante `lista[i] = valor` salva o 
 valor do lado direito na posição `i` da lista. No nosso caso, o valor do lado direito do sinal de igual é um par
 de variáveis: subtraímos 1 de x e mantemos y igual para representar o deslocamento de 1 pixel para
@@ -1277,21 +1289,22 @@ a esquerda.
 
 Agora que sabemos mais ou menos como atualizar a posição dos canos, precisamos cobrir outra parte importante
 do código que é a inicialização da variável `canos`. Já vimos que cada cano é representado por um par de
-valores representando as coordenadas x e y do cano. 
+valores com as coordenadas x e y. 
 
 Quando o jogo começa, o primeiro cano fica oculto fora da tela (mas pronto para entrar, assim que o jogador
 apertar para pular). Não conseguimos ver, mas o cano também tem um tamanho vertical bem maior que a tela e, 
 normalmente teria um pedaço sobrando tanto em cima quanto em baixo. 
 
-O primeiro cano, portanto, poderia ser algo como
+O primeiro cano, portanto, poderia ser representado por
 
 ```python
 cano1 = largura_tela, -50
 ```
 
-Aqui igualamos a coordenada x à largura da tela para especificar um cano que está oculto imediatamente ao
+Aqui igualamos a coordenada x à largura da tela para especificar um cano que está oculto do
 lado direito da tela e irá aparecer imediatamente quando o cenário começar a andar. Atribuímos um valor
-arbitrário -50 à coordenada y para lembrar que existem 50 pixels sobrando para cima da tela. 
+arbitrário -50 à coordenada y para lembrar que existem 50 pixels sobrando para cima da tela. (Por padrão,
+os canos possuem 355 pixels de altura e a tela 255, o que faria sobrar mais 50 pixels para baixo.) 
 
 Seguindo essa lógica, poderíamos agora criar 4 variáveis, uma para cada cano, com os valores das posições 
 em x e y
@@ -1322,8 +1335,8 @@ cano4 = largura_tela + distancia_canos * 3, -90
 
 O próximo passo é fazer a coordenada y realmente aleatória. Para isto, temos que importar a função `randint`
 do módulo `random` do Python. Esta função recebe 2 parâmetros: o menor valor e o maior e sorteia um número
-inteiro entre (e incluindo) estes valores. Sorteamos um número entre 1 e 10 e multiplicamos por 10 para ficar
-num intervalo entre 10 e 100. Como a coordenada y deve ser negativa (o cano começa acima do topo da tela),
+inteiro entre (e incluindo) estes valores. Sorteamos um número entre 1 e 8 e multiplicamos por 10 para ficar
+num intervalo entre 10 e 80. Como a coordenada y deve ser negativa (o cano começa acima do topo da tela),
 colocamos um sinal negativo antes.
 
 

@@ -217,7 +217,7 @@ def desenhar_flappy():
 # Desenha instruções na tela e placar
 def desenhar_instrucoes():
     if not _.ativo:
-        msg = "APERTE ESPACO OU SETA PARA CIMA PARA COMECAR"
+        msg = "Espaco ou seta para cima para comecar"
         pyxel.text(_.largura_tela // 2 - len(msg) * 2, _.altura_tela // 3, msg, 7)
     else:
         pyxel.text(_.largura_tela // 2, _.altura_tela // 3, str(_.score), 7)
