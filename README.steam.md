@@ -1,5 +1,15 @@
 Arquivo com o esqueleto do tutorial
 
+# STEAM POWER FOR GIRLS - Links e outras informações
+
+- [Instagram das Pyladies](https://www.instagram.com/pyladiesdf/): @pyladiesdf
+- [Avaliação do treinamento](https://forms.gle/LKnbbhRaxVyAEL9t9): por favor, preencham! Nos ajudará muito para melhorar esse e outros treinamentos! <3
+- [Formulário de dúvidas](https://forms.gle/zm5Uns9vAcoKpkNM9): para ser usado nos dias seguintes ao treinamento quando tentarem fazer esse tutorial reduzido ou o tutorial completo
+- [Tutorial completo](https://github.com/pyladiesdf/flappy-tutorial/blob/master/README.md): tutorial completo do treinamento
+
+Quer participar das PyLadies, receber notícias sobre nossos eventos, bater papo ou tirar dúvidas sobre qualquer coisa?? Entre no nosso grupo do Telegram! Mande o [nome do seu usuário](https://www.techtudo.com.br/dicas-e-tutoriais/noticia/2015/04/aprenda-mudar-o-nome-e-foto-do-telegram.html) por mensagem privada no nosso Instagram!
+
+
 # Hello World!
 
 Bem-vinda ao Tutorial do Flappy Bird das Pyladies! Estamos felizes em vê-la aqui :) Este tutorial é uma
