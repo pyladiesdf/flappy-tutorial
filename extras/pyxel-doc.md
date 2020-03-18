@@ -304,7 +304,7 @@ Caso recursos tais como arquivos .pyxres e .png também forem necessários, colo
 
 Também é possível especificar um ícone com a opção ``-i icon_file``.
 
-## Referência API
+## API de referência
 
 ### Sistema
 
