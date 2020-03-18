@@ -286,7 +286,7 @@ Sons do Pyxel também podem ser criados da seguinte forma:
 
 - Crie um som das strings com a função `Sound.set` ou `Music.set`.
 
-Consulte a referência da API para usar essas funções.
+Consulte a API de referência para usar essas funções.
 
 ### Como criar um executável independente
 
