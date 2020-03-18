@@ -282,7 +282,7 @@ Imagens Pyxel e tilemaps também podem ser criados da seguinte maneira:
 - Crie uma imagem da lista de strings com a função `Image.set` ou `Tilemap.set`.
 - Carregue o arquivo png na paleta Pyxel com a função `Image.load`.
 
-Sons Pyxel podem também serem criados da seguinte forma:
+Sons do Pyxel também podem ser criados da seguinte forma:
 
 - Crie um som das strings com a função `Sound.set` ou `Music.set`.
 
